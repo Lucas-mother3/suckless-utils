@@ -5,16 +5,28 @@ It's simple to compile these things.
 
 1. Install necessary tools and libraries 
 ```
-- base-devel
-- libX11(-devel)
-- libXft(-devel) 
-- libXinerama(-devel) 
-- freetype(-devel) 
-- fontconfig(-devel)
+Linux/Unix users:
+- xorg (including drivers of course)
+- base-devel (or build-essential/s)
+- libX11(-devel or -dev)
+- libXft(-devel or -dev) 
+- libXinerama(-devel or -dev) 
+- freetype(-devel or -dev) 
+- fontconfig(-devel or -dev)
 - font-awesome (for slstatus)
 - terminus-font
 - picom (for transparency)
 - feh (optional)
+
+Termux users:
+- xorg 
+- termux-X11 repo (via main Termux app)
+- proot/chroot
+- TigerVNC 
+- VNC client
+or
+- XSDL client
+- PulseAudio (if you like audio support)
 ````
 2. Clone this repository 
 3. Change directory to what suckless software do you want to use
