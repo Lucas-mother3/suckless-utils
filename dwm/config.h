@@ -8,17 +8,18 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "terminus-font:size=14:font-awesome:size=14" };
 static const char dmenufont[]       = "terminus-font:size=14:font-awesome:size=14";
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
+static const char col_gray1[]       = "#204E98";
+static const char col_gray2[]       = "#204E98";
+static const char col_gray3[]       = "#ffffff";
 static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
+static const char col_cyan[]        = "#3465a2";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
@@ -37,7 +38,7 @@ static const Rule rules[] = {
 	 */
 	/* class      	     instance    title    tags mask     isfloating   CenterThisWindow?     monitor */
 	{ "st",              NULL,       NULL,    0,            0,     	     0,		           -1 },
-	{ "Gimp",            NULL,       NULL,    0,            1,           0,                    -1 },
+	{ "Gimp",            NULL,       NULL,    0,            0,           0,                    -1 },
 	{ "Firefox",         NULL,       NULL,    1 << 8,       0,           0,                    -1 },
 };
 
@@ -72,19 +73,21 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *tabtermcmd[] = { "tabbed", "-r 2", "st", "-w", "''", NULL };
-static const char *librewolfcmd[] = { "./squashfs-root/AppRun", NULL };
+static const char *firefoxcmd[] = { "firefox", NULL };
 
 #include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_s,      spawn,          {.v = dmenucmd } },
+	{ Mod4Mask,                     XK_s,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = tabtermcmd } },
-        { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = librewolfcmd } },
+        { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = firefoxcmd } },
         { MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      focusstackhid,  {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
@@ -103,6 +106,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY,                       XK_s,      show,           {0} },
+	{ MODKEY,                       XK_h,      hide,           {0} },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
         { MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
@@ -128,6 +133,7 @@ static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
