@@ -1,4 +1,4 @@
-# Suckless Utilities 
+# Suckless Utilities version 6.2
 ## About 
 These are my builds of suckless software such as dwm and st.
 It's simple to compile these things. 
@@ -33,6 +33,11 @@ or
 4. Copy `make clean install` and paste it on your terminal
 5. Insert dwm, slstatus or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
 6. Start it and done! 
+
+## How the versioning system works
+
+Suckless Uilities (the whole package and not the individual components) are versioned under the current version of the repo's dwm.
+Even if dwm 6.3 releases, if the repo still uses dwm 6.2 for compatibility reasons, the whole package will be still be Suckless Utilities 6.2.
 
 ## Special thanks 
 * [Speedie](https://spdgmr.github.io) for helping me out with this and providing me with patches 
