@@ -46,6 +46,9 @@ But, since this is a heavily patched version of everything, I wouldn't recommend
 Suckless Uilities (the whole package and not the individual components) are versioned under the current version of the repo's dwm.
 Even if dwm 6.4 releases, if the repo still uses dwm 6.3 for compatibility reasons, the whole package will be still be Suckless Utilities 6.3.
 
+## Licensing
+All programs are licensed under the MIT License, which sucks, and worse than GNU GPL, but hey, it's better than proprietary code!
+
 ## Special thanks 
 * [Speedie](https://spdgmr.github.io) for helping me out with this and providing me with patches 
 * [The suckless team](https://suckless.org) for maintaining suckless software suck less
