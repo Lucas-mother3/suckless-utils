@@ -37,7 +37,7 @@ or
 7. Start it and done! 
 
 ## Current bugs
-- Taskbar not working properly (fixed in commit [e9015f2](https://github.com/Lucas-mother3/suckless-utils/commit/e9015f2d2a09ef66f1c9e188b277c89d23635195)). Thanks, [Speedie](https://speedie.gq)!
+- ~~Taskbar not working properly~~ (fixed in commit [e9015f2](https://github.com/Lucas-mother3/suckless-utils/commit/e9015f2d2a09ef66f1c9e188b277c89d23635195)). Thanks, [Speedie](https://speedie.gq)!
 
 ## Patching even further 
 
