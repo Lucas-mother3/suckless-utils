@@ -6,8 +6,10 @@ static const unsigned int gappx     = 5;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "terminus-font:size=14:font-awesome:size=14" };
-static const char dmenufont[]       = "terminus-font:size=14:font-awesome:size=14";
+#define ICONSIZE bh   /* icon size */
+#define ICONSPACING 5 /* space between icon and title */
+static const char *fonts[]          = { "terminus-font:size=12:font-awesome:size=12" };
+static const char dmenufont[]       = "terminus-font:size=12:font-awesome:size=12";
 static const char col_gray1[]       = "#204E98";
 static const char col_gray2[]       = "#204E98";
 static const char col_gray3[]       = "#ffffff";
@@ -31,6 +33,16 @@ static const unsigned int alphas[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *alttags[] = { "<01>", "<02>", "<03>", "<04>", "<05>" };
 
+static const unsigned int ulinepad	= 5;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinestroke	= 1;	/* thickness / height of the underline */
+static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
+static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
+
+
+
+static const char ptagf[] = "[%s %s]";	/* format of a tag label */
+static const char etagf[] = "[%s]";	/* format of an empty tag */
+static const int lcaselbl = 0;		/* 1 means make tag label lowercase */	
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
