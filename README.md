@@ -36,41 +36,8 @@ or
 6. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
 7. Start it and done! 
 
-## List of patches
-### dwm
-- [actualfullscreen](https://dwm.suckless.org/patches/actualfullscreen/) by Sönke Lambert
-- [alpha](https://dwm.suckless.org/patches/alpha/) by Eon S. Jeon, et. al
-- alttags by Anonymous (If you made it, please let me know) 
-- [awesomebar](https://dwm.suckless.org/patches/awesomebar/) by ornx, improved by Yegor Bayev
-- [centretitle](https://dwm.suckless.org/patches/centretitle/) by Felix Chen
-- [centerfirstwindow](https://dwm.suckless.org/patches/center_first_window/) by ზურა დავითაშვილი, parts of the code by u/johannesthyssen on Reddit
-- [fullgaps](https://dwm.suckless.org/patches/fullgaps/) by Maciej Janicki, et. al
-- [gridmode](https://dwm.suckless.org/patches/gridmode/) by Alexandru E. Ungur, et. al
-- [steam](https://dwm.suckless.org/patches/steam/) by Stein Bakkeby
-- [taglabels + hide_vacant_tags](https://dwm.suckless.org/patches/taglabels/) by Timmy Keller
-- [underlinetags](https://dwm.suckless.org/patches/underlinetags/) by Timmy Keller
-- [winicon](https://dwm.suckless.org/patches/winicon/) by Adam Yuan
-
-### st
-
-- [alpha](https://st.suckless.org/patches/alpha/) by Eon S. Jeon (0.5 port), et. al
-- [anysize](https://st.suckless.org/patches/anysize/) by Augusto Born de Oliveira 
-- [autocomplete](https://st.suckless.org/patches/autocomplete/) by Wojciech Siewierski and Gaspar Vardanyan
-- [clipboard](https://st.suckless.org/patches/clipboard/) by Kai Hendry, et. al
-- [delkey](https://st.suckless.org/patches/delkey/) by Roberto E. Vargas Caballero, et. al
-- [newterm](https://st.suckless.org/patches/newterm/) by Matías Lang, et. al
-- [scrollback](https://st.suckless.org/patches/scrollback/) by Jochen Sprickerhof, et. al
-- [w3m](https://st.suckless.org/patches/w3m/) by Avi Halachmi (might not work with the alpha patch) 
-
-### dmenu
-
-- [alpha](https://tools.suckless.org/dmenu/patches/alpha/) by Marcin Lukow
-- [case-insensitive](https://tools.suckless.org/dmenu/patches/case-insensitive/) by Kim Torgersen
-- [grid](https://tools.suckless.org/dmenu/patches/grid/) by Miles Alan
-- [morecolor](https://tools.suckless.org/dmenu/patches/morecolor/) by Tanner Babcock
-
 ## Current bugs
-- Taskbar not working properly
+- Taskbar not working properly (fixed in commit [e9015f2](https://github.com/Lucas-mother3/suckless-utils/commit/e9015f2d2a09ef66f1c9e188b277c89d23635195)). Thanks, [Speedie](https://speedie.gq)!
 
 ## Patching even further 
 
@@ -87,7 +54,7 @@ Even if dwm 6.4 releases, if the repo still uses dwm 6.3 for compatibility reaso
 All programs are licensed under the MIT License, which sucks, and worse than GNU GPL, but hey, it's better than proprietary code!
 
 ## Special thanks 
-* [Speedie](https://spdgmr.github.io) for helping me out with this and providing me with patches 
+* [Speedie](https://speedie.gq) for helping me out with this and providing me with patches 
 * [The suckless team](https://suckless.org) for maintaining suckless software suck less
 
 ## Special hates
