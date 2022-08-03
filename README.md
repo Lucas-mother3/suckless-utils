@@ -1,4 +1,4 @@
-# Suckless Utilities version 6.2
+# Suckless Utilities version 6.3
 ## About 
 These are my builds of suckless software such as dwm and st.
 It's simple to compile these things. 
@@ -44,7 +44,7 @@ But, since this is a heavily patched version of everything, I wouldn't recommend
 ## How the versioning system works
 
 Suckless Uilities (the whole package and not the individual components) are versioned under the current version of the repo's dwm.
-Even if dwm 6.3 releases, if the repo still uses dwm 6.2 for compatibility reasons, the whole package will be still be Suckless Utilities 6.2.
+Even if dwm 6.4 releases, if the repo still uses dwm 6.3 for compatibility reasons, the whole package will be still be Suckless Utilities 6.3.
 
 ## Special thanks 
 * [Speedie](https://spdgmr.github.io) for helping me out with this and providing me with patches 
