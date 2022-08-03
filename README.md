@@ -15,6 +15,7 @@ Linux/Unix users:
 - fontconfig(-devel or -dev)
 - font-awesome (for slstatus)
 - terminus-font
+- imlibs2(-devel or -dev)
 - picom (for transparency)
 - feh (optional)
 
@@ -34,6 +35,9 @@ or
 5. Copy `make clean install` and paste it on your terminal
 6. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
 7. Start it and done! 
+
+## Current bugs
+- Taskbar not working properly
 
 ## Patching even further 
 
