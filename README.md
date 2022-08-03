@@ -30,9 +30,16 @@ or
 ````
 2. Clone this repository 
 3. Change directory to what suckless software do you want to use
-4. Copy `make clean install` and paste it on your terminal
-5. Insert dwm, slstatus or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
-6. Start it and done! 
+4. Remove the `config.h` file, to make sure all patches are applied correctly
+5. Copy `make clean install` and paste it on your terminal
+6. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
+7. Start it and done! 
+
+## Patching even further 
+
+Patching everything is as easy as downloading the diff file, use the `patch` command and apply changes.
+
+But, since this is a heavily patched version of everything, I wouldn't recommend patching even further unless if you know what you're doing.
 
 ## How the versioning system works
 
