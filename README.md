@@ -13,7 +13,7 @@ Linux/Unix users:
 - libXinerama(-devel or -dev) 
 - freetype(-devel or -dev) 
 - fontconfig(-devel or -dev)
-- font-awesome (for slstatus)(must be 6.x)
+- Nerd Fonts (for slstatus)
 - terminus-font
 - imlibs2(-devel or -dev)
 - picom (for transparency)
