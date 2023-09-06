@@ -95,7 +95,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 /* replace the values with ones on col_color as an workaround */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", "--dmenu", "dmenu -fn  'Hack Nerd Font' -nb '#173f4f' -nf '#ffffff' -sb  '#124f5f' -sf  '#eeeeee' -g 6 -l 6 ", "--term", "st", NULL };
+static const char *dmenucmd[] = { "j4-dmenu-desktop", "--dmenu", "dmenu -fn  'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb  '#124f5f' -sf  '#eeeeee' -g 6 -l 6 ", "--term", "st", NULL };
 static const char *dmenualt[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_color1, "-nf", col_color3, "-sb", col_color5, "-sf", col_color4, "-g", "6", "-l", "6", NULL};
 static const char *termcmd[]  = { "st", NULL };
 static const char *tabtermcmd[] = { "tabbed", "-r 2", "st", "-w", "''", NULL };
