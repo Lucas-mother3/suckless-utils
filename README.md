@@ -55,6 +55,10 @@ Even if dwm 6.4 releases, if the repo still uses dwm 6.3 for compatibility reaso
 ## Licensing
 All programs are licensed under the MIT License, which sucks, and worse than GNU GPL, but hey, it's better than proprietary code!
 
+## Screenshots
+![Screenshot of neofetch](/pics/neofetch.png)
+![Screenshot of random applications (Spotify, Space Cadet Pinball, NCSA Mosaic)](/pics/random.png)
+
 ## Special thanks 
 * [Speedie](https://speedie.gq) for helping me out with this and providing me with patches 
 * [The suckless team](https://suckless.org) for maintaining suckless software suck less
