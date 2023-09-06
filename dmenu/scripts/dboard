@@ -1,0 +1,2174 @@
+#!/bin/sh
+# dkeyboard by speedie
+# Licensed under GNU GPLv3
+ 
+EMOJILIST()
+{
+printf "🙂 Slightly smiling face
+😀 Smiling face
+😃 Smiling face with big eyes
+😄 Smiling face with smiling eyes
+😁 Beaming face with smiling eyes
+😅 Smiling face with tears	
+😆 Grinning face
+🤣 Rolling on the floor laughing
+😂 Lauging with tears
+🙃 Upside down face
+😉 Winking face
+😊 Smiling face with smiling eyes
+😇 Smiling face with halo
+😎 Smiling face with sunglasses
+🤓 Nerdy face
+🧐 Face with monocle
+🥳 Partying face
+🥰 Smiling face with hearts
+😍 Smiling face with heart eyes
+🤩 Star-struck	
+😘 Face blowing kiss
+😗 Kissing face
+☺ Smiling face
+😚 Kissing face with closed eyes
+😙 Kissng face with smiling eyes
+🥲 Smiling face with tears	
+😋 Yummy face
+😛 Face with tongue
+😜 WInking face with tongue
+🤪 Zanny face
+😝 Squinting face with tongue
+🤑 Money face with money tongue
+🤗 Hugs
+🤭 Face with hand in mouth	
+🤫 Shushing face
+🤔 Thinkin face
+😐 Neutral face
+🤐 Zipped mouth
+🤨 Face with raised eyebrow
+😑 Expressionless face	
+😶 Face with no mouth
+😏 Smirking face
+😒 Unamused face
+🙄 Face with rolling eyes
+😬 Grimacing face
+😮 💨	Grimacing face
+🤥 Lying face
+😪 Sleepy face	
+😴 Sleeping face
+😌 Relieved face
+😔 Pensive face
+🤤 Drooling face
+😷 Face with mask
+🤒 Face with thermometer
+🤕 Face with bandage
+🤢 Nauseous face
+🤮 Vomiting face
+🤧 Sneezing face
+🥵 Hot face
+🥶 Cold face
+🥴 Woozy face
+😵 Face with crossed-out face
+🤯 Face with exploding head
+😕 Confused face
+😟 Worried face
+🙁 Slightly frowning face
+☹ Frowning face
+😮 Face with open mouth
+😯 Hushed face
+😲 Astonished face
+😳 Flushed face
+🥺 Begging face
+😦 Frowning face with open mouth
+😧 Angushed face
+😨 Fearful face
+😰 Anxious face with sweat	
+😥 Sad but relieved face
+😢 Crying face
+😭 Loudly crying face
+😱 Screaming face
+😖 Confounded face	
+😣 Persevering face
+😞 Disapointed face
+😓 Downcast face with sweat
+😩 Weary face
+😫 Tired face
+🥱 Yawning face
+😤 Face with steam	
+😡 Pouting face
+😠 Angry face
+🤬 Face with symbols on mouth
+😈 Smiling face with horns	
+👿 Angry face with horns
+💀 Skull
+☠  Skull and cross-bone
+💩 Pile of poo
+🤡 Clown
+👹 Ogre
+👺 Goblin
+👻 Ghost
+👽 Alien
+👾 Alien monster
+🤖 Robot
+😺 Grinnig cat	
+😸 Grinning cat with smiling eyes
+😹 Grinning cat with tears	
+😻 Smiling cat with heart eyes	
+😼 Cat with wry smile
+😽 Kissing cat	
+🙀 Weary cat
+😿 Crying cat
+😾 Pouting cat	
+🙈 See no evil monkey
+🙉 Hear no evil monkey	
+🙊 Speak no evil monkey
+💋 Kiss
+💌 Love letter
+💘 Heart with arrow
+💝 HEart with ribbon
+💖 Sparking heart
+💗 Growing heart
+💓 Beating heart
+💞 Revolving heart	
+💕 Two hearts
+💟 Heart decoration
+❣ Heart exclamation
+💔 Broken heart
+❤️ 🔥	Heart on fire
+❤️ 🩹	Mending heart
+❤ Red heart
+🧡 Orange heart
+💛 Yellow heart
+💚 Green heart
+💙 Blue heart
+💜 Purple heart
+🤎 Brown heart
+🖤 Black heart
+🤍 White heart
+💯 Hundred(correct)
+💢 Anger
+💥 collision
+💫 Dizzy
+💦 Sweat droplets
+💨 Dashing away
+🕳 Hole
+💣 Bomb
+💬 Message baloon
+👁️ 🗨️	Eye in speech bubble
+🗨 Left speech bubble
+🗯 Anger bubble
+💭 Thought baloon
+💤 zzz
+👋 Waving hand
+🤚 Raised back of hand	
+🖐 Hands with splayed finger
+✋ Raised hand	
+🖖 Vulcan salute
+👌 Ok
+🤌 Pinched fingers	
+🤏 Pinched hand
+✌ Victory hand
+🤞 Crossed fingers	
+🤟 Love you
+🤘 Horn sign
+🤙 Call me hand
+👈 Index finger pointing left
+👉 Index finger pointing right	
+👆 Index finger pointing up
+👇 Index finger pointing down
+🖕 Middle finger
+☝ Forehand Index finger pointing up
+🫵 Index finger pointing at viewer	
+👍 Thumbs up
+👎 Thumbs down	
+✊ Raised fist	
+👊 Fist
+🤛 Left facing fist
+🤜 Right facing fist
+👏 Clapping hands
+🙌 Raised hands
+👐 OPen hands
+🤲 Palms together hands
+🤝 Handshake
+🙏 Praying hands
+✍ Writing hands
+💅 Nail polish	
+🤳 Selfie hand	
+💪 Flexed biceps
+🦾 MEchanical arm
+🦵 Leg	
+🦿 Mechanical leg
+🦶 Foot
+👂 Ear	
+🦻 Ear with earing aid	
+👃 Nose
+🧠 Brain
+👣 Footprint
+🫀 MEchanical heart
+🫁 Lungs
+🦷 Tooth
+🦴 Bone
+👀 Eyes
+👁 Eye
+👅 Nose
+👄 Mouth
+🧑 Person
+👶 Baby
+🧒 Child
+👦 Boy
+👧 Girl
+👱 Person with blonde hair
+👨 Man
+🧔 Bearded person
+🧔 ♂‍		Bearded man
+🧔 ♀‍		Bearded woman
+👨 🦰	MAn with red hair
+👨 🦱	Man with curly hair
+👨 🦳	Man with white hair
+👨 🦲	Bald man
+👩 Woman
+👩 🦰	Woman with red hair
+👩 🦱	Woman with curly hair
+👩 🦳	Woman with white hair
+👩 🦲	Bald woman
+👱 ♀‍		Woman with blode hair
+👱 ♂‍		Man with blonde hair
+🧓 Old person
+👴 Old man
+👵 Old woman
+🙍 Person frowning
+🙍 ♂‍		Man frowning
+🙍 ♀‍		Woman frowning
+🙎 Person pouting
+🙎 ♂‍		Man pouting
+🙎 ♀‍		Woman pouting
+🙅 Person gesturing no
+🙅 ♂‍		Man gesturing no
+🙅 ♀‍		Woman gesturing no
+🙆 Person stretching
+🙆 ♂‍		Man stretching
+🙆 ♀‍		Woman stretching
+💁 Person tipping hand
+💁 ♂‍		Man tipping hand
+💁 ♀‍		Woman tipping hand
+🙋 Person rainsing hand
+🙋 ♂‍		Man raising hand
+🙋 ♀‍		Woman raisning hand	
+🧏 Deaf person
+🧏 ♂‍		Deaf man
+🧏 ♀‍		Deaf woman
+🙇 Person bowing
+🙇 ♂‍		Man bowing
+🙇 ♀‍		Woman bowing
+🤦 Person facepalming
+🤦 ♂‍		Man facepalming
+🤦 ♀‍		Woman facepalming
+🤷 Person shrugging
+🤷 ♂‍		Man shrugging
+🤷 ♀‍		Woman shrugging
+🧑 ⚕‍		Health worker
+👨 ⚕‍		Man health worker
+👩 ⚕‍		Woman health worker
+🧑 🎓	Student
+👨 🎓	Man student
+🧑 🏫	Teacher
+👨 🏫	Man teacher
+👩 🏫	Woman teacher
+🧑 ⚖‍		Judge
+👨 ⚖‍		Man judge
+👩 ⚖‍		Woman judge
+🧑 🌾	Farmer
+👨 🌾	Man farmer
+👩 🌾	Woman farmer
+🧑 🍳	Cook
+👨 🍳	Man cook
+👩 🍳	Woman cook
+🧑 🔧	Mechanic
+👨 🔧	Man mechanic
+👩 🔧	Woman mechanic
+🧑 🏭	Factory worker
+👨 🏭	Man factory worker
+👩 🏭	Woman factory worker
+🧑 💼	Office worker
+👨 💼	Man office worker
+👩 💼	Woma office worker
+🧑 🔬	Scientist
+👨 🔬	Man scientist
+👩 🔬	Woman scientis
+🧑 💻	Technologist
+👨 💻	Man texhnologist
+👩 💻	Woman technologist
+🧑 🎤	Singer
+👨 🎤	Man singer
+👩 🎤	Woman singer
+🧑 🎨	Artist
+👨 🎨	Man artist
+👩 🎨	Woman artist
+🧑 ✈‍		Pilot
+👨 ✈‍		Man pilot
+👩 ✈‍		Woman pilot	
+🧑 🚀	Astronaut
+👨 🚀	Man astronaut
+👩 🚀	Woman astronaut	
+🧑 🚒	Firefighter	
+👨 🚒	Man firefighter	
+👩 🚒	Woman firefighter
+👮 Police
+👮 ♂‍		Policeman
+👮 ♀‍		Policewoman	
+🕵 Detective
+🕵️ ♂‍		Man detective
+🕵️ ♀‍		Woman detective	
+💂 Guard
+💂 ♂‍		Man guard
+💂 ♀‍		Woman guard	
+🥷 Ninja
+👷 Construction worker	
+👷 ♂‍		Man construction worker	
+👷 ♀‍		Woman construction worker
+🤴 Prince
+👸 Princess
+👳 Person wearing turban
+👳 ♂‍		Man wearing turban
+👳 ♀‍		Woman wearing turban
+👲 Person with skullcap
+🧕 Woman with headscaff
+🤵 Person in tuxedo
+🤵 ♂‍		Man in tuxedo
+🤵 ♀‍		Woman in tuxedo	
+👰 Person in veil
+👰 ♂‍		Man in veil	
+👰 ♀‍		Woman in veil
+🤰 Pregnant woman
+🤱 Breast-feeding
+🧑 🍼	Person feeding baby	
+👩 🍼	WOman feeding baby
+👨 🍼	Man feeding baby
+👼 Baby angel
+🎅 Santa claus	
+🤶 Mrs Claus
+🧑 🎄	Mx Claus
+🦸 Superhero
+🦸 ♂‍		Man superhero
+🦸 ♀‍		Woman superhero	
+🦹 Supervillain
+🦹 ♂‍		Man superhero
+🦹 ♀‍		Woman superhero	
+🧙 Mage
+🧙 ♂‍		Man mage
+🧙 ♀‍		Woman mage
+🧚 Fairy
+🧚 ♂‍		Man fairy
+🧚 ♀‍		Woman fairy	
+🧛 Vampire	
+🧛 ♂‍		Man vampire	
+🧛 ♀‍		Woman vampire
+🧜 Merperson
+🧜 ♂‍		Merman
+🧜 ♀‍		Mermaid	
+🧝 Elf	
+🧝 ♂‍		Man elf	
+🧝 ♀‍		Woman elf
+🧞 Genie
+🧞 ♂‍		Man genie
+🧞 ♀‍		Woman genie	
+🧟 Zombie
+🧟 ♂‍		Man zombie
+🧟 ♀‍		Woman zombie
+💆 Person getting massage
+💆 ♂‍		Man getting massage	
+💆 ♀‍		Woman getting massage
+💇 Person getting haircut
+💇 ♂‍		Man getting haircut	
+💇 ♀‍		Woman getting haircut
+🚶 Person walking
+🚶 ♂‍		Man walking	
+🚶 ♀‍		Woman walking
+🧍 Person standing	
+🧍 ♂‍		Man standing
+🧍 ♀‍		Woman standing
+🧎 Person kneeling	
+🧎 ♂‍		Man kneeling
+🧎 ♀‍		Woman kneeling
+🧑 🦯	PErson with walking stick
+👨 🦯	Man with walking stick
+👩 🦯	Woman with walking stick
+🧑 🦼	Person in motorized wheelchair
+👨 🦼	Man in motorized wheelchair	
+👩 🦼	Womain in motorized wheelchair
+🧑 🦽	Person in manual wheelchair	
+👨 🦽	Man in manual wheelchair
+👩 🦽	Womaan in motorized wheelchair
+🏃 Person sprinting
+🏃 ♂‍		Man sprinting
+🏃 ♀‍		Woman sprinting	
+💃 Woman dancing
+🕺 Man dancing	
+🕴 Person in suit levitating
+👯 People with bunny ears
+👯 ♂‍		Men with bunny ears	
+👯 ♀‍		Women in bunny ears	
+🧖 Person in steaming room	
+🧖 ♂‍		Man in steaming room
+🧖 ♀‍		Woman in steaming room
+🧗 Person climbing	
+🧗 ♂‍		Man climbing
+🧗 ♀‍		Woman climbing
+🤺 Person fencing
+🏇 Horse racing
+⛷ Skier
+🏂 Snowball
+🏌 Person playing golf	
+🏌️ ♂‍		Man playing golf
+🏌️ ♀‍		Woman playing golf
+🏄 Person surfing
+🏄 ♂‍		Man surfing	
+🏄 ♀‍		Woman surfing
+🚣 Person rowing boat
+🚣 ♂‍		Man rowing boat	
+🚣 ♀‍		Woman rowing boat
+🏊 Person swimming	
+🏊 ♂‍		Man swimming
+🏊 ♀‍		Woman swimming
+⛹ Person bouncing ball
+⛹️ ♂‍		Man bouncing ball
+⛹️ ♀‍		Woman bouncing ball	
+🏋 Person lifting weight
+🏋️ ♂‍		Man lifting weight
+🏋️ ♀‍		Woman lifting weight
+🚴 Person cycling
+🚴 ♂‍		Man cycling	
+🚴 ♀‍		Woman cycling
+🚵 Person mountain biking
+🚵 ♂‍		Man mountain biking	
+🚵 ♀‍		Woman mountain biking
+🤸 Person catwheeling
+🤸 ♂‍		Man catwheeling	
+🤸 ♀‍		Woman catwheeling
+🤼 People wrestling
+🤼 ♂‍		Men wrestling
+🤼 ♀‍		Women wrestling	
+🤽 Person playing water polo
+🤽 ♂‍		Man playing water polo
+🤽 ♀‍		Woman playing water polo
+🤾 Person playing handball	
+🤾 ♂‍		Man playing handball
+🤾 ♀‍		Woman playing handball
+🤹 Person juggling	
+🤹 ♂‍		Man juggling
+🤹 ♀‍		Woman juggling
+🧘 Person lotus position
+🧘 ♂‍		Man in lotus position
+🧘 ♀‍		Woman in lotus position	
+🛀 Person bathing
+🛌 Person in bed
+👪 Family
+👨 👩‍👦	Family: man, woman, and boy	
+👨 👩‍👧	Family: man, woman, and girl
+👨 👩‍👧‍👦	Family: man, woman, boy, and girl
+👨 👩‍👦‍👦	Family: man, woman, and two boys
+👨 👩‍👧‍👧	Family: man, woman, and two girls
+👨 👨‍👦	Family: two men and boy	
+👨 👨‍👧	Family: two men and girl
+👨 👨‍👧‍👦	Family: two men, girl, and boy
+👨 👨‍👦‍👦	Family: two men and two boys
+👨 👨‍👧‍👧	Family: two men and two girls
+👩 👩‍👦	Family: two women and boy
+👩 👩‍👧	Family: two women and girl
+👩 👩‍👧‍👦	Family: two women, girl, and boy
+👩 👩‍👦‍👦	Family: two women and two boys
+👩 👩‍👧‍👧	Family: two women and two girls	
+👨 👦	Family: man and boy	
+👨 👦‍👦	Family: man and two boys
+👨 👧	Family: man and girl
+👨 👧‍👦	Family: man, girl and boy
+👨 👧‍👧	Family: man and two girls
+👩 👦	Family: woman and boy
+👩 👦‍👦	Family: woman and two boys
+👩 👧	Family: woman and girl
+👩 👧‍👦	Family: woman, girl, and boy
+👩 👧‍👧	Family: woman and two girls	
+🧑 🤝‍🧑	People holding hands
+👭 Women holding hands	
+👫 Woman and man holding hands	
+👬 Men holding hands
+💏 Kiss
+👩 ❤‍💋‍👨	Woman and man kissing
+👨 ❤‍💋‍👨	Man and man kissing	
+👩 ❤‍💋‍👩	Womand and woman kissing
+💑 Couple with heart
+🗣 Person speaking	
+👤 Bust in silhouhette	
+👥 Busts in silhouette	
+🫂 People hugging
+🐵 Monkey face	
+🐒 Monkey
+🦍 Gorilla	
+🦧 Orangutan
+🐶 Dog face
+🐕 Dog	
+🦮 Guide dog
+🐕 🦺	Service dog	
+🐩 Poodle
+🐺 Wolf
+🦊 Fox	
+🦝 Racoon
+🐱 Cat face
+🐈 Cat	
+🐈 ⬛	Black cat
+🦁 Lion
+🐯 Tiger face
+🐅 Tiger
+🐆 Leopard	
+🐴 Horse face
+🐎 Horse
+🦄 Unicorn	
+🦓 Zebra
+🦌 Deer
+🦬 Bison
+🐮 Cow face
+🐄 Cow	
+🐂 Ox
+🐃 Water buffalo
+🐷 Pig face
+🐖 Pig	
+🐗 Boar
+🐽 Pig nose
+🐏 Ram	
+🐑 Ewe	
+🐐 Goat
+🐪 Camel
+🐫 Two hump camel
+🦙 Ilama
+🦒 Giraffe	
+🐘 Elephant
+🦣 Mammoth	
+🦏 Rhiniceros
+🦛 Hippopotamus
+🐭 Mouse face
+🐁 Mouse
+🐀 Rat	
+🐹 Hamster	
+🐰 Rabbit face	
+🐇 Rabbit
+🐿 Chipmunk
+🦫 Beaver
+🦔 Hedgehog
+🦇 Bat	
+🐻 Bear
+🐻 ❄️	Polar bear
+🐨 Koala
+🐼 Panda
+🦥 Sloth
+🦦 Otter
+🦨 Skunk
+🦘 Kangaroo
+🦡 Badger
+🐾 Paw prints
+🦃 Turkey
+🐔 Chicken	
+🐓 Rooster	
+🐣 Hatching
+🐤 Baby chick
+🐥 Front-facing chick
+🐦 Bird
+🐧 Penguin	
+🕊 Dove
+🦅 Eagle
+🦆 Duck
+🦢 Swan
+🦉 Owl	
+🦤 Dodo
+🪶 Feather	
+🦩 Flamingo
+🦜 Peacock	
+🐸 Frog
+🐊 Crocodile
+🐢 Turtle
+🦎 Lizard
+🐍 Snake
+🐲 Dragon face	
+🐉 Dragon
+🦕 Sauropod
+🦖 Tyranosaurus
+🐳 Spouting whale
+🐋 Whale
+🐬 Dolphin	
+🦭 Seal
+🐟 Fish
+🐠 Tropical fish
+🐡 Blowfish
+🦈 Shark
+🐙 Octopus	
+🐚 Spiral shell
+🐌 Snail
+🦋 Butterfly
+🐛 Bug	
+🐜 Ant	
+🐝 Honeybee
+🪲 Beetle
+🐞 Lady Beetle	
+🦗 Cricket	
+🪳 Cockroach
+🕷 Spider
+🕸 Spider web
+🦂 Scorpion
+🦟 Mosquito
+🪰 Fly	
+🪱 Worm
+🦠 Microbe	
+💐 Bouquet	
+🌸 Cherry blossom
+💮 White flower
+🏵 Rosette	
+🌹 Rose
+🥀 Wilted flower
+🌺 Hibiscus
+🌻 Sunflower
+🌼 Blossom	
+🌷 Tulip
+🌱 Seedling
+🪴 Potted plant
+🌲 Evergreen tree
+🌳 Deciduous plant	
+🌴 Palm tree
+🌵 Cactus
+🌾 Sheaf of rice
+🌿 Herb
+☘ Shamrock
+🍀 Four leaf clover
+🍁 Maple leaf
+🍂 Fallen leaf	
+🍃 Leaf fluttering in wind	
+🪴 Empty nest
+🪴 Nest with eggs
+🍇 Grapes
+🍈 Melon
+🍉 Water melon	
+🍊 Tangerine
+🍋 Lime
+🍌 Banana
+🍍 Pineapple
+🥭 Mango
+🍎 Red apple
+🍏 Green apple	
+🍐 Pear
+🍑 Peach
+🍒 Cherries
+🍓 Strawberries
+🫐 Blueberries	
+🥝 Kiwi fruit
+🍅 Tomato
+🫒 Olive
+🥥 Coconut	
+🥑 Avocado	
+🍆 Eggplant
+🥔 Potato
+🥕 Carrot
+🌽 Corn
+🌶 Pepper
+🫑 Bell pepper	
+🥒 Cucumber
+🥬 Leafy green	
+🥦 Broccoli
+🧄 Garlic
+🧅 Onion
+🍄 Mushroom
+🥜 Peanuts	
+🫑 Beans
+🌰 Chestnut
+🍞 Bread
+🥐 Croissant
+🥖 Baguette bread
+🫓 Flat bread
+🥨 Pretzel	
+🥯 Bagel
+🥞 Pancake	
+🧇 Waffle
+🧀 Cheese wedge
+🍖 Meat with bone
+🍗 Poultry leg	
+🥩 Cut of meat	
+🥓 Bacon
+🍔 Hamburger
+🍟 French fries
+🍕 Pizza
+🌭 Hot dog	
+🥪 Sandwich
+🌮 Taco
+🌯 Burrito	
+🫔 Tamale
+🥙 Stuffed flatbread
+🧆 Falafel	
+🥚 Egg	
+🍳 Cooking	
+🥘 Shallow pan of food	
+🍲 Pot of food	
+🫕 Fondue
+🥣 Bowl with food
+🥗 Green salad	
+🍿 Popcorn	
+🧈 Butter
+🧂 Salt
+🥫 Canned food	
+🍱 Bento box
+🍘 RIce cracker
+🍙 Rice ball
+🍚 Cooked rice	
+🍛 Curry rice
+🍜 Steaming bowl
+🍝 Spaghetti
+🍠 Roasted sweet potato
+🍢 Oden
+🍣 Sushi
+🍤 Fried shrimp
+🍥 Fish cake with swiri
+🥮 Moon cake
+🍡 Dango
+🥟 Dumpling
+🥠 Fortune cookie
+🥡 Take out box
+🦀 Crab
+🦞 Lobster	
+🦐 Shrimp
+🦑 Squid
+🦪 Oyster
+🍨 Ice cream
+🍧 Shaved ice cream
+🍦 Soft ice cream
+🍩 Doughnut
+🍪 Cookie
+🎂 Birthday cake
+🍰 Short cake
+🧁 Cup cake
+🥧 Pie	
+🍫 Chocoloate
+🍬 Candy
+🍭 Lollipop
+🍮 Custard	
+🍯 Honey pot
+🍼 Baby bottle	
+🥛 Glass of milk
+☕ Hot beverage
+🫖 Teapot
+🍵 Teacup without handle
+🍶 Sake
+🍾 Bottle with poppin cork	
+🍷 Wine glass
+🍸 Cocktail glass
+🍹 Tropical drink
+🍺 Beer mug
+🍻 Clinking beer mug
+🥂 Clinking glasses
+🥃 Tumbler glass
+🥤 Cup with strawberry	
+🧋 Bubble tea
+🧃 Beverage box
+🧉 Mate
+🧊 Ice	
+🥢 Chopsticks
+🍽 Fork and knife with plate
+🍴 Fork and knife
+🥄 Spoon
+🔪 Kitchen knife
+🧋 Jar	
+🏺 Amphora	
+🌍 Globe showing Africa and Europe	
+🌎 Globe showing Americas
+🌏 Globe showing Asia and Australia
+🌐 Globe with meridians
+🗺 World map
+🧭 Compass	
+⛰ Mountain
+🏔 Snowcap mountain
+🌋 Volcanic mountain
+🗻 Fuji mountain
+🏕 Camping	
+🏖 Beach with umbrella	
+🏜 Desert
+🏝 Desertified island
+🏞 National park
+🏟 Stadium	
+🏛 Classical building
+🏗 Building construction
+🧱 Brick
+🪨 Rock
+🪵 Wood
+🛖 Hut	
+🏘 Houses
+🏚 Derelict house
+🏠 House
+🏡 House with garden
+🏢 Office building	
+🏣 Japanese office	
+🏤 Post office	
+🏥 Hospital
+🏦 Bank
+🏨 Hotel
+🏩 Love hotel
+🏪 Convenience store
+🏫 School
+🏬 Department
+🏭 Factory	
+🏯 Japanese castle	
+🏰 Castle
+💒 Wedding house
+🗼 Tokyo tower	
+🗽 Statue of liberty
+⛪ Church
+🕌 Mosque
+🛕 Hindu temple
+🕍 Synagogue
+⛩ Shinto shrine
+🕋 Kaaba
+⛲ Fountain
+⛺ Tent
+🌁 Foggy
+🌃 Night with starrs
+🏙 Citscape
+🌅 Sunrise	
+🌄 Sunrise over mountains
+🌆 Cityscape at dusk
+🌇 Sunset
+🌉 Bridge at night	
+♨ Hot springs	
+🎠 Carousel horse
+🎡 Ferris wheel
+🎢 Roller coaster
+💈 Barber poll	
+🎪 Circus tent	
+🚂 Locomotive
+🚃 Railway car	
+🚄 High speed train
+🚅 Bullet train
+🚆 Train
+🚇 Metro
+🚈 Light rail
+🚉 Station	
+🚊 Tram
+🚝 Monorail
+🚞 Mountain railway
+🚋 Tram car
+🚌 us
+🚍 Oncoming bus
+🚎 Trolley bus	
+🚐 Minibus	
+🚑 Ambulance
+🚒 Fire engine	
+🚓 Police car
+🚔 Oncoming police car	
+🚕 Taxi
+🚖 Oncoming taxi
+🚗 Automobile
+🚘 Oncoming automobile	
+🚙 Sport utility vehicle
+🛻 Pickup truck
+🚚 Delivery truck
+🚛 Articulated lorry
+🚜 Tractor	
+🏎 Racing car
+🏍 Motorcycle
+🛵 Scooter	
+🦽 Manual wheelchair
+🦼 Motorized wheelchair
+⌛ Hourglass done
+⏳ Hourglass starting
+⌚ Watch
+⏰ Alarm
+⏱ Stopwatch
+⏲ Timer clock	
+🕰 Mantelpiece clock
+🕛 Twelve 
+🕧 Twelve-thirty
+🕐 One 
+🕜 One-thirty
+🕑 Two 
+🕝 Two-thirty
+🕒 Three 
+🕞 Three-thirty
+🕓 Four 
+🕟 Four-thirty	
+🕔 Five 
+🕠 Five-thirty	
+🕕 Six 
+🕡 Six-thirty
+🕖 Seven 
+🕢 Seven-thirty
+🕗 Eight 
+🕣 Eight-thirty
+🕘 Nine 
+🕤 Nine-thirty	
+🕙 Ten 
+🕥 Ten-thirty
+🕚 Eleven 
+🕦 Eleven-thirty
+🌑 New moon
+🌒 Waxing crescent moon
+🌓 First quarter moon
+🌔 Waxing gibbous moon	
+🌕 Full moon
+🌖 Waning gibbous moon	
+🌗 Last quarter moon
+🌘 Waning crescent moon
+🌙 Crescent moon
+🌚 New moon face
+🌛 First quarter moon face	
+🌜 Last quartermoon face
+🌡 Thermometer	
+☀ Sun	
+🌝 Full moon face
+🌞 Sun with face
+🪐 Ringed planet
+⭐ Star
+🌟 Glowing star
+🌠 Shooting star
+🌌 Milky way
+☁ Cloud
+⛅ Sun behind cloud
+⛈ Cloud with lighting and rain
+🌤 Sun behind small cloud
+🌥 Sun behind large cloud
+🌦 Sun behind rain cloud
+🌧 Cloud with rain	
+🌨 Cloud with snow	
+🌩 Cloud with lighting	
+🌪 Tornado	
+🌫 Fog	
+🌬 Wind face
+🌀 Cyclone	
+🌈 Rainbow	
+🌂 Closed umbrella	
+☂ Umbrella
+☔ Umbrella with raindrops	
+⛱ Umbrella on ground
+⚡ High voltage
+❄ Snowflake
+☃ Snowman	
+⛄ Snowman without snow
+☄ Comet
+🔥 Fire
+💧 Droplet	
+🌊 Water wave
+🎃 Jack-o-lantern
+🎄 Christmas tree
+🎆 Fireworks
+🎇 Sparkler
+🧨 Firecracker	
+✨ Sparkles
+🎈 Baloon
+🎉 Party popper
+🎊 Confetti ball
+🎋 Tanabata tree
+🎍 Pine decoration	
+🎎 Japanese dolls
+🎏 Carp streamer
+🎑 Moon viewing ceremony
+🧧 Red envelope
+🎀 Ribbon
+🎁 Wrapped gift
+🎗 Reminder ribbon	
+🎟 Admission ticket
+🎫 Ticket
+🎖 Military medal
+🏆 Trophy
+🏅 Sports medal
+🥇 Gold medal - first position	
+🥈 Silver medal - second position
+🥉 Bronze medal - third position
+⚽ Soccer ball	
+⚾ Baseball
+🥎 Softball
+🏀 BAsketball
+🏐 Volleyball
+🏈 American football
+🏉 Rugby
+🎾 Tennis
+🥏 Flying disk	
+🎳 Bowling	
+🏏 Cricket	
+🏑 Field hockey
+🏒 Ice hockey
+🥍 Lacrose	
+🏓 Ping pong
+🏸 Badminton
+🥊 Boxing glove
+🥋 Martial arts uniform
+🥅 Goal net
+⛳ Flag in a hole
+⛸ Ice skate
+🎣 Fishing poll
+🤿 Driving mask
+🎽 Running shirt
+🎿 Skis
+🛷 Sled
+🥌 Curling stone
+🎯 Bullseye
+🪀 Yo-yo
+🪁 Kite
+🎱 8 ball
+🔮 Crystal ball
+🪄 Magic wand
+🧿 Nazar amulet
+🪄 Hamsa
+🎮 Video game pad
+🕹 Joystick
+🎰 Slot machine
+🎲 Game die
+🧩 Puxxle piece
+🧸 Teddy bear
+🪅 Pinata
+🪆 Mirror
+🪆 Nesting doll
+♠ Spade suit
+♥ Heart suit
+♣ Club suit
+♟ Chess pawn
+🃏 Joker
+🀄 Mahjong red dragon
+🎴 Flower playing cards
+🎭 Performing arts	
+🖼 Framed picture
+🎨 Artist pallete
+🧵 Thread
+🪡 Sewing needle with thred
+🧶 Yarn
+🪢 Knot
+👓 Glasses	
+🕶 Sunglasses
+🥽 Googles	
+🥼 Lab coat
+🦺 Safety vest	
+👔 Necktie	
+👕 T-shirt	
+👖 Jeans
+🧣 Scarf
+🧤 Gloves
+🧥 Coat
+🧦 Socks
+👗 Dress
+👘 Kimono
+🥻 Sari
+🩱 One piece suit
+🩲 Briefs
+🩳 Shorts
+👙 Bikini
+👚 Woma
+👛 Purse
+👜 Handbag	
+👝 Clutch bag
+🛍 Shopping bags
+🎒 Backpack
+🩴 Thong sandals
+👞 Ma
+👟 Running shoe
+🥾 Hiking boot	
+🥿 Flat shoe
+👠 High-heeled shoe
+👡 Woma
+🩰 Ballet shoes
+👢 Woma
+👑 Crown
+👒 Woma
+🎩 Top hat	
+🎓 Graduation cap
+🧢 Billed cap
+🪖 Military helmet	
+⛑ Rescuew worke
+📿 PRayer beads
+💄 Lipstick
+💍 Ring
+💎 Gemstone
+🔇 Muted speaker
+🔈 Low volume speaker
+🔉 Mid volume speaker
+🔊 High volume speaker	
+📢 Loudspeaker	
+📣 Megaphone
+📯 Postal horn	
+🔔 Bell
+🔕 Bell with slash	
+🎼 Musical score
+🎵 Musical note
+🎶 Musical notes
+🎙 Studio microphone
+🎚 Level slider
+🎛 Control knobs
+🎤 Microphone
+🎧 Headphone
+📻 Radio
+🎷 Saxophone
+🪗 Accordion
+🎸 Guitar
+🎹 Musical keyboard
+🎺 Trumpet	
+🎻 Violin
+🪕 Banjo
+🥁 Drum
+🪘 Long drum
+📱 Mobile phone
+📲 MObile phone with arrow	
+☎ Telephone
+📞 Telephone receiver
+📟 Pager
+📠 Fax machine	
+🔋 Full battery
+🪫 Low battery	
+🔌 Electric plug
+💻 Laptop
+🖥 Desktop computer
+🖨 Printer	
+⌨ Keyboard
+🖱 Mouse
+🖲 Trackball
+💽 Computer disk
+💾 Floppy disk	
+💿 Optical disk
+📀 DVD	
+🧮 Abacus
+🎥 Movie camera
+🎞 Film frames	
+📽 Film Projector
+🎬 Clapper board
+📺 Television
+📷 Camera
+📸 Camera with flash
+📹 Video camera
+📼 Video cassete
+🔍 Magnifying glass tilted left
+🔎 Magnifying glass tilted right
+🕯 Candle
+💡 Light bulb
+🔦 Flashlight
+🏮 Red pepper lantern
+🪔 Diya lamp
+📔 Notebook with decorative cover
+📕 Closed notebook	
+📖 Opened notebook	
+📗 Green book
+📘 Blue book
+📙 Orange book	
+📚 Orange books
+📓 Notebook
+📒 Ledger
+📃 Page with curl
+📜 Scroll
+📄 Page facing up
+📰 Newspaper
+🗞 Rolled-up newspaper	
+📑 Bookmark tabs
+🔖 Bookmark
+🏷 Label
+💰 Money bag
+🪙 Coin
+💴 Yen banknote
+💵 Dollar banknote	
+💶 Euro banknote
+💷 Pound banknote
+💸 Money with wings
+💳 Credit card	
+🧾 Receipt	
+💹 Chart increase woth Yen	
+✉ Envelope
+📧 e-mail
+📩 Envelope with arrow	
+📤 Outbox tray	
+📥 Inbox tray
+📦 Package	
+📫 Closed mailbox with raised flag	
+📪 Closed mailbox with lowered flag
+📬 Open mailbox with raised flag
+📭 Open mailbox with lowered flag
+📮 Postbox	
+🗳 Ballot box with ballot
+✏ Pencil
+✒ Black nib
+🖋 Fountain pen
+🖊 Pen	
+🖌 Paintbrush
+🖍 Crayon
+📝 Memo
+💼 Briefcase
+📁 File folder	
+📂 Open the folder	
+🗂 Card index dividers	
+📅 Calender
+📆 Tear off calender
+📇 Card index
+📈 Increasing chart
+📉 Decreasing chart
+📊 Bar chart
+📋 Clipboard
+📌 Pushpin	
+📍 Round pushpin
+📎 Paperclip
+🖇 Linked paperclips
+📏 Straight ruler
+📐 Triangular ruler
+✂ Scissors
+🗃 Card file box
+🗄 File cabinet
+🗑 Waste basket
+🔒 Locked
+🔓 Unlocked
+🔏 Locked with pen	
+🔐 Locked with key	
+🔑 Key	
+🗝 Old key	
+🔨 Hammer
+🪓 Axe	
+⛏ Pick
+⚒ Hammer and pick	
+🛠 Hammer and wrench
+🗡 Sword
+⚔ Crossed swords
+🔫 Water gun
+🪃 Boomerang
+🏹 Bow and arrow
+🛡 Shield
+🪚 Carpentry saw
+🔧 Wrench
+🪛 Screwdriver	
+🔩 Bolt and nut
+⚙ Wheel
+🗜 Clamp
+⚖ Balance scale
+🦯 White cane
+🔗 Link
+⛓ Chains
+🪝 Hook
+🧰 Toolbox	
+🧲 Magnet
+🪜 Ladder
+⚗ Alembic	
+🧪 Test tube
+🧫 Petri dish
+🧬 DNA	
+🔬 Microscope
+🔭 Telescope
+📡 Satelite antenna
+💉 Syringe	
+🩸 A droplet of blood
+💊 Pill
+🩹 Adhesive bandage	
+🩼 Clutch
+🩺 Stethoscope	
+🩻 X-ray
+🚪 Door
+🛗 Elevator
+🪞 Mirror
+🪟 Window
+🛏 Bed	
+🛋 Couch and lamp
+🪑 Chair
+🚽 Toilet
+🪠 Plunger	
+🚿 Shower
+🛁 Bathtub	
+🪤 Mouse trap
+🪒 Razor
+🧴 Lotion bottle
+🧷 Safety pin
+🧹 Broom
+🧺 Basket
+🧻 Roll of paper
+🪣 Bucket
+🧼 Soap
+🫧 Bubbles	
+🪥 Toothbrush
+🧽 Sponge
+🧯 Fire extinguisher
+🛒 Shopping cart
+🚬 Cigarette
+⚰ Casket
+🪦 Headstone
+⚱ Funeral urn	
+🗿 Mole
+🪧 Placard	
+🪪 ID Card	
+🏧 ATM Sign
+🚮 Litter in bin
+🚰 Portable water
+♿ Wheelchair symbol
+🚹 Me
+🚺 Wome
+🚻 Restroom symbol	
+🚼 Baby symbol	
+🚾 Water closet
+🛂 Passport control
+🛂 Customs	
+🛄 Baggage claim
+🛅 Left laugage
+⚠ Warning	
+🚸 Children crossing
+⛔ No entry
+🚫 Prohibited
+🚳 No bicycles	
+🚭 No smoking
+🚯 No littering
+🚱 Non-portable water
+🚷 No pedestrians
+📵 No mobile phones
+🔞 No one under 18	
+☢ Radioactive	
+☣ Biohazard
+⬆ Up Arrow
+↗ Up-right arrow
+➡ Right arrow	
+↘ Down-right arrow
+⬇ Down arrow
+↙ Down-left arrow	
+⬅ Left arrow
+↖ Up-left arrow
+↕ Up-down arrow
+↔ Left arrow
+↩ Right arrow curving left
+↪ Left arrow curving right
+⤴ Right arrow curving up
+⤵ Right arrow curving down
+🔃 Clockwise vertical arrow
+🔄 Counterclockwise arrows button
+🔙 Back arrow
+🔚 End arrow
+🔛 On arrow
+🔜 Soon arrow
+🔝 Top arrow
+🛐 Place of worship
+⚛ Atom symbol	
+🕉 OM
+✡ Star of David
+☸ Wheel of Dharma	
+☯ Yin yang
+✝ Latin cross	
+☦ ORthodox cross
+☪ Star and cresent moon
+☮ Peace
+🕎 Menorah	
+🔯 Six-pointed star
+♈ Aries
+♉ Taurus
+♊ Gemini
+♋ Cancer
+♌ Leo	
+♍ Virgo
+♎ Libra
+♏ Scorpio	
+♐ Sagittarius	
+♑ Capricon
+♒ Acquarius
+♓ Pisces
+⛎ Ophiucus
+🔀 Shuffle tracks
+🔁 Repeat all
+🔂 Repeat one
+▶ Play
+⏸ Pause
+⏩ Fast-forward
+⏭ Next track
+⏯ Play or pause
+◀ Reverse	
+⏪ Fast-reverse
+⏮ Previous track
+🔼 Upwards	
+⏫ Fst-up
+🔽 Downwards
+⏬ Fast down
+⏹ Stop
+⏺ Record
+⏏ Eject
+🎦 Cinema
+🔅 Dim	
+🔆 Bright
+📶 Network antenna bars
+📳 Vibration mode
+📴 Mobile phone off
+♀ Female
+♂ Male
+⚧ Transgender	
+✖ Times
+➕ Plus
+➖ Minus
+➗ Divide
+🟰 Equals
+♾ Infinity
+‼ Double exclamation
+⁉ Exclamation and question mark
+❓ Red question mark
+❔ White question mark	
+❗ Red exclamation mark
+❕ White exclamation mark
+〰 Wavy dash
+💱 Currency exchange
+💲 Heavy green dollar sign	
+⚕ Medical symbol
+♻ Recycling symbol
+⚜ Fleur-de-lis
+🔱 Trident	
+📛 Name badge
+🔰 Japanese symbol for beginner
+⭕ Hollow red circle
+✅ Green box with checkmark
+☑ Blue box with checkmark	
+✔ Checkmark
+❌ Crossmark
+❎ Green crossmark	
+➰ Curly loop
+➿ Double curly loop
+〽 PArt alternation mark
+✳ Eight-spoked asterik
+✴ Eight-pointed star
+❇ Sparkle	
+© Copyright symbol
+® Registered
+™ Trademark
+*️⃣ * Keyca
+0️⃣ 0 Keycap
+1️⃣ 1 Keycap
+2️⃣ 2 Keycap
+3️⃣ 3 Keycap
+4️⃣ 4 Keycap
+5️⃣ 5 Keycap
+6️⃣ 6 Keycap
+7️⃣ 7 Keycap
+8️⃣ 8 Keycap
+9️⃣ 9 Keycap
+🔟 10 Keycap
+🔠 Input Latin uppercase
+🔡 Input Latin lowercase
+🔢 Input numbers
+🔣 Input symbols
+🔤 Input Latin letters	
+🅰 A blood type
+🆎 AB blood type
+🅱 B blood type
+🅾 O blood type
+🆑 CL button
+🆒 Cool button	
+🆓 Free button	
+ℹ Info button	
+🆔 ID button
+Ⓜ Circled M
+🆕 New button
+🆖 NG button
+🆗 OK button
+🅿 P button
+🆘 SOS button
+🆙 UP! button
+🆚 VS Button
+🈁 Japanese here button
+🈂 Japanese service charge button
+🈷 Japanese monthly amount button
+🈶 Japanese not free of charge button
+🈯 Japanese reserved button
+🉐 Japanese bargain button
+🈹 Japanese discount button
+🈚 Japanese free of charge button
+🈲 Japanese prohibited button
+🉑 Japanese acceptable button
+🈸 Japanese application button
+🈴 Japanese passing grade button	
+🈳 Japanese vacancy button
+㊗ Japanese congratulations button
+㊙ Japanese secret button
+🈺 Japanese open for business button	
+🈵 Japanese no vacancy button
+🔴 Red circle
+🟠 Orange circle
+🟡 Yellow circle
+🟢 Green circle
+🔵 Blue circle	
+🟣 Purple circle
+🟤 Brown circle
+⚫ Black circle
+⚪ White circle
+🟥 Red square
+🟧 Orange square
+🟨 Yellow square
+🟩 Green square
+🟦 Blue square	
+🟪 Purple square
+🟫 Brown square
+⬛ Black square
+⬜ White square
+🔶 Large orange diamond
+🔷 Large blue diamond
+🔸 Small orange diamond
+🔹 Small blue diamond
+🔺 Red triangle pointed up	
+🔻 Red triangle pointed down
+💠 Diamond with a dot
+🔘 Radio button
+🔳 White square button	
+🔲 Black square button	
+🏁	Chequered flag
+🚩	Triangular flag	
+🎌	Crossed flag
+🏴	Black flag
+🏳	White flag
+🏳️‍🌈	Rainbow flag
+🏳️‍⚧️	Transgender flag
+🏴‍☠️	Pirate flag	
+🇦🇨	Ascension Island flag
+🇦🇩	Andorra flag
+🇦🇪	UAE flag
+🇦🇫	Afghanistan flag
+🇦🇬	Antigua and Berbuda flag
+🇦🇮	Anguila flag
+🇦🇱	Albania flag
+🇦🇲	Armenia flag
+🇦🇴	Angola flag	
+🇦🇶	Antarctica flag	
+🇦🇷	Argentina flag
+🇦🇸	American Samoa flag	
+🇦🇹	Austria flag
+🇦🇺	Australia flag
+🇦🇼	Aruba flag
+🇦🇽	Åland Islands flag
+🇦🇿	Azerbaijan flag	
+🇧🇦	Bosnia flag	
+🇧🇧	Barbados flag
+🇧🇩	Bangladesh flag	
+🇧🇪	Belgium flag
+🇧🇫	Burkina Faso flag
+🇧🇬	Bulgaria flag
+🇧🇭	Bahrain flag
+🇧🇮	Burundi flag
+🇧🇯	Benin Republic flag	
+🇧🇱	St. Barthélemy
+🇧🇲	Bermuda flag
+🇧🇳	Brunei flag	
+🇧🇴	Bolivia flag
+🇧🇶	Caribbean Netherlands flag
+🇧🇷	Brazil flag	
+🇧🇸	Bahamas flag
+🇧🇹	Bhutan flag	
+🇧🇻	Bouvet Island flag
+🇧🇼	Botswana flag
+🇧🇾	Belarus flag
+🇧🇿	Belize flag	
+🇨🇦	Canada flag	
+🇨🇨	Cocos Islands flag
+🇨🇩	Congo DR flag
+🇨🇫	CAR (Central African Republic) flag	
+🇨🇬	Congo Brazzaville flag
+🇨🇭	Switzerland flag
+🇨🇮	Côte d’Ivoire flag
+🇨🇰	Cook Islands flag
+🇨🇱	Chile flag
+🇨🇲	Cameroun flag
+🇨🇳	China flag
+🇨🇴	Columbia flag
+🇨🇵	Clipperton Island flag
+🇨🇷	Costa Rica flag	
+🇨🇺	Cuba flag
+🇨🇻	Cape Verde Island flag
+🇨🇼	Curaçao flag
+🇨🇽	Christmas Island flag
+🇨🇾	Cyprus flag	
+🇩🇪	Germany flag
+🇩🇬	Diego Garcia flag
+🇩🇯	Djibouti flag
+🇩🇰	Denmark flag
+🇩🇲	Dominica flag
+🇩🇴	Dominican Republic flag	
+🇩🇿	Algeria flag
+🇪🇦	Ceuta
+🇪🇨	Ecuador flag
+🇪🇪	Estonia	
+🇪🇬	Egypt flag
+🇪🇭	Western Sahara flag	
+🇪🇷	Eritrea flag
+🇪🇸	Spain flag
+🇪🇹	Ethiopia flag
+🇪🇺	EU flag	
+🇫🇮	Finland flag
+🇫🇯	Fiji flag
+🇫🇰	Falkland Island flag
+🇫🇲	Micronesia flag	
+🇫🇴	Faroe Island flag
+🇫🇷	France flag	
+🇬🇦	Gabon flag
+🇬🇧	United Kingdom flag	
+🇬🇩	Grenada flag
+🇬🇪	Georgia flag
+🇬🇫	French Guiana flag
+🇬🇬	Guernsey flag
+🇬🇭	Ghana flag
+🇬🇮	Gibraltar flag
+🇬🇱	Greenland flag
+🇬🇲	Gambia flag	
+🇬🇳	Guinea flag	
+🇬🇵	Guadeloupe flag	
+🇬🇶	Equitorial Guinea flag
+🇬🇷	Greece flag	
+🇬🇸	South Georgia
+🇬🇹	Guatemala flag
+🇬🇺	Guam flag
+🇬🇼	Guinea Bissau flag
+🇬🇾	Guyana flag	
+🇭🇰	Hong Kong flag
+🇭🇲	Heard
+🇭🇳	Honduras flag
+🇭🇷	Croatia flag
+🇭🇹	Haiti flag
+🇭🇺	Hungary flag
+🇮🇨	Canary Islands flag	
+🇮🇩	Indonesia flag
+🇮🇪	Island flag	
+🇮🇱	Israel flag	
+🇮🇲	Isle of Man flag
+🇮🇳	India flag
+🇮🇴	British Indian Ocean Territory flag	
+🇮🇶	Iraq flag
+🇮🇷	Iran flag
+🇮🇸	Iceland flag
+🇮🇹	Italy flag
+🇯🇪	Jersey flag	
+🇯🇲	Jamaica flag
+🇯🇴	Jordan flag	
+🇯🇵	Japan flag
+🇰🇪	Kenya flag
+🇰🇬	Kyrgyzstan flag	
+🇰🇭	Cambodia flag
+🇰🇮	Kiribati flag
+🇰🇲	Comoros Island flag	
+🇰🇳	St. Kitts
+🇰🇵	North Korea flag
+🇰🇷	South Korea flag
+🇰🇼	Kuwait flag	
+🇰🇾	Cayman Island flag
+🇰🇿	Kazakhstan flag	
+🇱🇦	Laos flag
+🇱🇧	Lebanon flag
+🇱🇨	St. Lucia flag
+🇱🇮	Liechtenstein flag
+🇱🇰	Sri Lanka flag
+🇱🇷	Liberia flag
+🇱🇸	Lesotho flag
+🇱🇹	LIthuania flag
+🇱🇻	Latvia flag	
+🇱🇾	Libya flag
+🇲🇦	Morocco flag
+🇲🇨	Monaco flag	
+🇲🇩	Moldova flag
+🇲🇪	Montenegro flag	
+🇲🇬	Montenegro flag	
+🇲🇭	Marshall Islands flag
+🇲🇰	North Macedonia flag
+🇲🇱	Mali flag
+🇲🇲	Myanmar flag
+🇲🇳	Mongolia flag
+🇲🇴	Macao flag
+🇲🇵	Northern Mariana Islands flag
+🇲🇶	Marthinique flag
+🇲🇷	Mauritania flag	
+🇲🇸	Montserrat flag	
+🇲🇹	Malta flag
+🇲🇺	Mauritius flag
+🇲🇻	Maldives flag
+🇲🇼	Malawi flag	
+🇲🇽	Mexico flag	
+🇲🇾	Malaysia flag
+🇲🇿	Mozambique flag	
+🇳🇦	Namibia flag
+🇳🇨	New Caledonia flag
+🇳🇪	Niger flag
+🇳🇫	Norfolk Island flag	
+🇳🇬	Nigeria flag
+🇳🇮	Nicaragua flag
+🇳🇱	Netherlands flag
+🇳🇴	Norway flag	
+🇳🇵	Nepal flag
+🇳🇷	Nauru flag
+🇳🇺	Niue flag
+🇳🇿	New Zealand flag
+🇴🇲	Oman flag
+🇵🇦	Panama flag	
+🇵🇪	Peru flag
+🇵🇫	French Polynesia flag
+🇵🇬	Papua New Guinea flag
+🇵🇭	Philipines flag	
+🇵🇰	Pakistan flag
+🇵🇱	Poland flag	
+🇵🇲	St. Pierre
+🇵🇳	Pitcairn Islands flag
+🇵🇷	Puerto Rico flag
+🇵🇸	Palestinian Territories flag
+🇵🇹	Portugal flag
+🇵🇼	Palau flag
+🇵🇾	Paraguay flag
+🇶🇦	Qatar flag
+🇷🇪	Réunion flag
+🇷🇸	Serbia flag	
+🇷🇺	Russia flag	
+🇷🇼	Rwanda flag	
+🇸🇦	Saudi Arabia flag
+🇸🇧	Solomon Islands	
+🇸🇨	Seychelles flag	
+🇸🇩	Sudan flag
+🇸🇪	Sweeden flag
+🇸🇬	Singapore flag
+🇸🇭	St. Helena flag	
+🇸🇮	Slovenia flag
+🇸🇯	Svalbard
+🇸🇰	Slovakia flag
+🇸🇱	Sierra Leone flag
+🇸🇲	San Marino flag	
+🇸🇳	Senegal flag
+🇸🇴	Somalia flag
+🇸🇷	Suriname flag
+🇸🇸	South Sudan flag
+🇸🇹	São Tomé
+🇸🇻	El Salvador flag
+🇸🇽	Saint Maarten flag
+🇸🇾	Syria flag
+🇸🇿	Eswatini (Swaziland) flag
+🇹🇦	Tristan da Cunha flag
+🇹🇨	Turks
+🇹🇩	Chad flag
+🇹🇫	French Southern Territories flag
+🇹🇬	Togo flag
+🇹🇭	Thailand flag
+🇹🇯	Tajikistan flag	
+🇹🇰	Tokelau flag
+🇹🇱	Timor-Leste flag
+🇹🇲	Turkmenistan flag
+🇹🇳	Tunisia flag
+🇹🇴	Tonga flag
+🇹🇷	Turkey flag	
+🇹🇹	Trinidad and Tobago flag
+🇹🇻	Tuvalu flag	
+🇹🇼	Taiwan flag	
+🇹🇿	Tanzania flag
+🇺🇦	Ukraine flag
+🇺🇬	Uganda flag	
+🇺🇲	US Outlying Islands flag
+🇺🇳	United Nations (UN) flag
+🇺🇸	United State flag
+🇺🇾	Uruguay flag
+🇺🇿	Uzbekistan flag	
+🇻🇦	Vatical City flag
+🇻🇨	St. Vincent
+🇻🇪	Venezuela flag
+🇻🇬	British Virgin Islands flag	
+🇻🇮	U.S. Virgin Islands	
+🇻🇮	Vietnam flag
+🇻🇺	Vanuatu flag
+🇼🇫	Wallis
+🇼🇸	Samoa flag
+🇽🇰	Kosovo flag	
+🇾🇪	Yemen flag
+🇾🇹	Mayotte flag
+🇿🇦	South Africa flag
+🇿🇲	Zambia flag	
+🇿🇼	Zimbabwe flag"
+} 
+ 
+SWEDISH_FINNISH_CHARACTERS_LIST()
+{ 
+printf "å
+ä
+ö" 
+} 
+
+SPANISH_CHARACTERS_LIST()
+{
+printf "á
+é
+í
+ó
+ú
+¿
+¡
+ü
+ñ"
+}
+
+CHINESE_CHARACTERS_LIST()
+{
+printf "安 ān
+吧 ba
+八 bā
+爸 bā
+百 bǎi
+北 běi
+不 bù - bú
+大 dà - dài
+岛 dǎo
+的 de - dí - dì
+弟 dì
+地 dì - de
+东 dōng
+都 dōu - dū
+对 duì
+多 duō
+儿 ér
+二 èr
+方 fāng
+港 gǎng
+哥 gē
+个 gè - ge
+关 guān
+贵 guì
+国 guó
+过 guò
+海 hǎi
+好 hǎo - hào
+很 hěn
+会 huì - kuài
+家 jiā
+见 jiàn
+叫 jiào
+姐 jiě
+京 jīng
+九 jiǔ
+可 kě
+老 lǎo
+李 lǐ
+零 líng
+六 liù
+吗 ma - má - mǎ
+妈 mā
+么 me - yāo
+没 méi - mò
+美 měi
+妹 mèi
+们 men
+名 míng
+明 míng
+哪 nǎ
+那 nà - nèi
+南 nán
+你 nǐ
+您 nín
+朋 péng
+七 qī
+起 qǐ
+千 qiān
+去 qù
+人 rén
+认 rèn
+日 rì
+三 sān
+上 shàng
+谁 shéi - shuí
+什 shén - shí
+生 shēng
+师 shī
+十 shí
+识 shí
+是 shì
+四 sì
+他 tā
+她 tā
+台 tái
+天 tiān
+湾 wān
+万 wàn
+王 wáng
+我 wǒ
+五 wǔ
+西 xī
+息 xí
+系 xì - jì
+先 xiān
+香 xiāng
+想 xiǎng
+小 xiǎo
+谢 xiè
+姓 xìng
+休 xiū
+学 xué
+也 yě
+一 yī
+亿 yì
+英 yīng
+友 yǒu
+月 yuè
+再 zài
+张 zhāng
+这 zhè
+中 zhōng - zhòng
+字 zì"
+}
+
+BAYBAIN_CHARACTERS_LIST()
+{
+printf "ᜀ
+ᜁ
+ᜂ
+ᜃ
+ᜄ
+ᜅ
+ᜆ
+ᜇ
+ᜈ
+ᜉ
+ᜊ
+ᜋ
+ᜌ
+ᜍ
+ᜎ
+ᜏ
+ᜐ
+ᜑ
+ᜃᜒ
+ᜄᜒ
+ᜅᜒ
+ᜆᜒ
+ᜇᜒ
+ᜈᜒ
+ᜉᜒ
+ᜊᜒ
+ᜋᜒ
+ᜌᜒ
+ᜍᜒ
+ᜎᜒ
+ᜏᜒ
+ᜐᜒ
+ᜑᜒ
+ᜃᜓ
+ᜄᜓ
+ᜅᜓ
+ᜆᜓ
+ᜇᜓ
+ᜈᜓ
+ᜉᜓ
+ᜊᜓ
+ᜋᜓ
+ᜌᜓ
+ᜍᜓ
+ᜎᜓ
+ᜏᜓ
+ᜐᜓ
+ᜑᜓ
+ᜃ᜔
+ᜄ᜔
+ᜅ᜔
+ᜆ᜔
+ᜇ᜔
+ᜈ᜔
+ᜉ᜔
+ᜊ᜔
+ᜋ᜔
+ᜌ᜔
+ᜍ᜔
+ᜎ᜔
+ᜏ᜔
+ᜐ᜔
+ᜑ᜔
+᜶ᜒ
+᜶ᜓ
+᜶᜔ "
+}
+
+ARABIC_CHARACTERS_LIST()
+{
+printf "ء hamza 
+ا alef
+آ alef
+أ alef with hamza above
+إ alef with hamza below
+ى alef maksura
+ب beh
+ة teh marbuta	
+ت teh
+ث theh
+ج jeem
+ح hah
+خ khah
+د dal
+ذ thal
+ر reh
+ز zain
+س seen
+ش sheen
+ص sad
+ض dad
+ط tah
+ظ zah
+ع ain
+غ ghain
+ـ tatweel
+ف feh
+ق qaf
+ك kaf
+ل lam
+م meem
+ن noon
+ه heh
+و waw
+ؤ waw with hamza above
+ي yeh
+ئ yeh with hamza above"
+}
+
+JAPANESE_CHARACTERS_LIST()
+{
+printf "あ a
+い i
+う o
+え e
+お o
+は ha
+ひ hi
+ふ fu
+へ he
+ほ ho
+か kka
+き ki
+く ko
+け ke
+こ ko
+ま ma
+み mi
+む mu
+め me
+も mo
+さ sa
+し shi
+す su
+せ se
+そ so
+や ya
+ゆ yu
+よ yo
+た ta
+ち chi
+つ tsu
+て te
+と to
+ら ra
+り ri
+る ru
+れ re
+ろ ro
+な na
+に ni
+ぬ nu
+ね ne
+の no
+わ wa
+ゐ wi
+ん n
+ゑ we
+を wo"
+}
+
+ROMANIAN_CHARACTERS_LIST()
+{
+printf "ă
+â
+î
+ș
+ț"
+}
+
+JAPANESECOPY()
+{
+  JAPANESE_LETTER_CHOICE="$(printf "$(JAPANESE_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ' | awk '{ print $1 }')"
+  printf "$JAPANESE_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$JAPANESE_LETTER_CHOICE copied to clipboard."
+}
+
+ARABICCOPY()
+{
+  ARABIC_LETTER_CHOICE="$(printf "$(ARABIC_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ' | awk '{ print $1 }')"
+  printf "$ARABIC_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$ARABIC_LETTER_CHOICE copied to clipboard."
+}
+
+BAYBAINCOPY()
+{
+  BAYBAIN_LETTER_CHOICE="$(printf "$(BAYBAIN_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+  printf "$BAYBAIN_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$BAYBAIN_LETTER_CHOICE copied to clipboard."
+}
+
+SPANISHCOPY()
+{
+  SPANISH_LETTER_CHOICE="$(printf "$(SPANISH_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+  printf "$SPANISH_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$SPANISH_LETTER_CHOICE copied to clipboard."
+}
+
+CHINESECOPY()
+{
+  CHINESE_LETTER_CHOICE="$(printf "$(CHINESE_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+  printf "$CHINESE_LETTER_CHOICE" | awk '{ print $1 }' | xclip -selection clipboard && notify-send "$(printf "$CHINESE_LETTER_CHOICE" | awk '{ print $1 }') copied to clipboard."
+}
+
+SWEDISHFINNISHCOPY()
+{ 
+   SWEDISH_LETTER_CHOICE="$(printf "$(SWEDISH_FINNISH_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+   printf "$SWEDISH_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$SWEDISH_LETTER_CHOICE copied to clipboard."
+} 
+
+ROMANIANCOPY()
+{
+   ROMANIAN_LETTER_CHOICE="$(printf "$(ROMANIAN_CHARACTERS_LIST)" | dmenu  -l 5 -p 'Pick a character: ')"
+   printf "$ROMANIAN_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$ROMANIAN_LETTER_CHOICE copied to clipboard."
+}
+ 
+COPYPASTALIST()
+{ 
+  printf "I'd just like to interject for a moment. What you're referring to as Linux, is in fact, GNU/Linux, or as I've recently taken to calling it, GNU plus Linux. Linux is not an operating system unto itself, but rather another free component of a fully functioning GNU system made useful by the GNU corelibs, shell utilities and vital system components comprising a full OS as defined by POSIX.Many computer users run a modified version of the GNU system every day, without realizing it. Through a peculiar turn of events, the version of GNU which is widely used today is often called Linux, and many of its users are not aware that it is basically the GNU system, developed by the GNU Project. There really is a Linux, and these people are using it, but it is just a part of the system they use. Linux is the kernel: the program in the system that allocates the machine's resources to the other programs that you run. The kernel is an essential part of an operating system, but useless by itself; it can only function in the context of a complete operating system. Linux is normally used in combination with the GNU operating system: the whole system is basically GNU with Linux added, or GNU/Linux. All the so-called Linux distributions are really distributions of GNU/Linux.
+No, Richard, it's 'Linux', not 'GNU/Linux'. The most important contributions that the FSF made to Linux were the creation of the GPL and the GCC compiler. Those are fine and inspired products. GCC is a monumental achievement and has earned you, RMS, and the Free Software Foundation countless kudos and much appreciation. Following are some reasons for you to mull over, including some already answered in your FAQ. One guy, Linus Torvalds, used GCC to make his operating system (yes, Linux is an OS -- more on this later). He named it 'Linux' with a little help from his friends. Why doesn't he call it GNU/Linux? Because he wrote it, with more help from his friends, not you. You named your stuff, I named my stuff -- including the software I wrote using GCC -- and Linus named his stuff. The proper name is Linux because Linus Torvalds says so. Linus has spoken. Accept his authority. To do otherwise is to become a nag. You don't want to be known as a nag, do you? (An operating system) != (a distribution). Linux is an operating system. By my definition, an operating system is that software which provides and limits access to hardware resources on a computer. That definition applies wherever you see Linux in use. However, Linux is usually distributed with a collection of utilities and applications to make it easily configurable as a desktop system, a server, a development box, or a graphics workstation, or whatever the user needs. In such a configuration, we have a Linux (based) distribution. Therein lies your strongest argument for the unwieldy title 'GNU/Linux' (when said bundled software is largely from the FSF). Go bug the distribution makers on that one. Take your beef to Red Hat, Mandrake, and Slackware. At least there you have an argument. Linux alone is an operating system that can be used in various applications without any GNU software whatsoever. Embedded applications come to mind as an obvious example. Next, even if we limit the GNU/Linux title to the GNU-based Linux distributions, we run into another obvious problem. XFree86 may well be more important to a particular Linux installation than the sum of all the GNU contributions. More properly, shouldn't the distribution be called XFree86/Linux? Or, at a minimum, XFree86/GNU/Linux? Of course, it would be rather arbitrary to draw the line there when many other fine contributions go unlisted. Yes, I know you've heard this one before. Get used to it. You'll keep hearing it until you can cleanly counter it. You seem to like the lines-of-code metric. There are many lines of GNU code in a typical Linux distribution. You seem to suggest that (more LOC) == (more important). However, I submit to you that raw LOC numbers do not directly correlate with importance. I would suggest that clock cycles spent on code is a better metric. For example, if my system spends 90% of its time executing XFree86 code, XFree86 is probably the single most important collection of code on my system. Even if I loaded ten times as many lines of useless bloatware on my system and I never excuted that bloatware, it certainly isn't more important code than XFree86. Obviously, this metric isn't perfect either, but LOC really, really sucks. Please refrain from using it ever again in supporting any argument. Last, I'd like to point out that we Linux and GNU users shouldn't be fighting among ourselves over naming other people's software. But what the heck, I'm in a bad mood now. I think I'm feeling sufficiently obnoxious to make the point that GCC is so very famous and, yes, so very useful only because Linux was developed. In a show of proper respect and gratitude, shouldn't you and everyone refer to GCC as 'the Linux compiler'? Or at least, 'Linux GCC'? Seriously, where would your masterpiece be without Linux? Languishing with the HURD? If there is a moral buried in this rant, maybe it is this: Be grateful for your abilities and your incredible success and your considerable fame. Continue to use that success and fame for good, not evil. Also, be especially grateful for Linux' huge contribution to that success. You, RMS, the Free Software Foundation, and GNU software have reached their current high profiles largely on the back of Linux. You have changed the world. Now, go forth and don't be a nag. Thanks for listening.
+Stop using the term 'Open Source'. By supporting 'open source', you're not supporting software that respects the user's freedom. Instead you're supporting "fake" freedom. If that's what you actually support, please use the term 'Free software' or 'Libre software' instead. If you support 'open source' you're supporting companies Microsoft, Google, Apple and many more who don't care about your (free)dom but just the "collaborate" aspect of open source. They like open source because they get YOUR (as in people who write code for the project) work and your code and you get nothing in return. Open source is important but it's just part of freedom (specifically freedom 1 and 3). In addition to this, many people who are unaware of the free software movement/project think these big tech companies are nice people who care about their users when this is far from the truth. Open source does not guarantee the user's freedom. This is why tech companies support 'Open source' but not free software. Free software is evil to them because they want control, something free software doesn't and cannot allow. If you support 'open source' then you don't deserve anything except the evil you're responsible for.
+  "
+} 
+ 
+COPYPASTACOPY()
+{ 
+  COPYPASTASEL="$(printf "$(COPYPASTALIST)" | dmenu -l 5 -p 'Pick a copypasta: ')"
+  printf "$COPYPASTASEL" | xclip -selection clipboard && notify-send "$COPYPASTASEL copied to clipboard."
+} 
+ 
+EMOJICOPY()
+{ 
+  EMOJISEL="$(printf "$(EMOJILIST)" | dmenu -l 5 -p 'Pick an emoji: ' | awk '{ print $1 }')"
+  printf $EMOJISEL | xclip -selection clipboard && notify-send "$EMOJISEL copied to clipboard."
+} 
+
+DBOARD_CREDITS()
+{
+  printf "speedie - Wrote the script & Swedish characters\njornmann - Helped out with some code\nLuke Smith - The idea\nLucss21a - Baybayin characters\nDamaj301Damaj - Arabic characters"
+}
+
+DBOARD_ABOUT()
+{
+  printf "dboard 0.2\nReleased and licensed to you (the end user) under the GNU GPLv3 free software license.\nYou are using this software at your own risk."
+}
+
+###########################################################
+ 
+# Ask the user what they wanna do
+ACTION=$(printf "Emoji\nCopypasta\nSwedish/Finnish letters\nSpanish letters\nChinese letters\nJapanese letters\nBaybain letters\nArabic letters\nRomanian letters\nCredits\nAbout\nExit" | dmenu -p 'What would you like to copy?' -l 20)
+ 
+if [ "$ACTION" = "Emoji" ]; then
+EMOJICOPY
+elif [ "$ACTION" = "Copypasta" ]; then
+COPYPASTACOPY
+elif [ "$ACTION" = "Swedish/Finnish letters" ]; then
+SWEDISHFINNISHCOPY
+elif [ "$ACTION" = "Spanish letters" ]; then
+SPANISHCOPY
+elif [ "$ACTION" = "Chinese letters" ]; then
+CHINESECOPY
+elif [ "$ACTION" = "Japanese letters" ]; then
+JAPANESECOPY
+elif [ "$ACTION" = "Baybain letters" ]; then
+BAYBAINCOPY
+elif [ "$ACTION" = "Arabic letters" ]; then
+ARABICCOPY
+elif [ "$ACTION" = "Romanian letters" ]; then
+ROMANIANCOPY
+elif [ "$ACTION" = "Credits" ]; then
+CREDIT_SEL=$(printf "$(DBOARD_CREDITS)" | dmenu -p 'dboard was created with the help of and by: ' -l 20 -g 1)
+case "$CREDIT_SEL" in
+"speedie - Wrote the script & Swedish characters") $BROWSER 'https://speedie.gq' ;;
+"jornmann - Helped out with some code") $BROWSER 'https://donut.gq' ;;
+"Luke Smith - The idea") $BROWSER 'https://lukesmith.xyz' ;;
+"Lucss21a - Baybayin characters") $BROWSER 'https://alexisgaming95.neocities.org' ;;
+"Damaj301Damaj - Arabic characters") $BROWSER 'https://github.com/Damaj301damaj-lol' ;;
+"Gabubu - Romanian characters") $BROWSER 'https://github.com/GabubuAvailable' ;;
+esac
+elif [ "$ACTION" = "Exit" ]; then
+exit 0
+elif [ "$ACTION" = "About" ]; then
+printf "$(DBOARD_ABOUT)" | dmenu -p 'About dboard: ' -l 20 -g 1
+fi
+ 
+exit 0

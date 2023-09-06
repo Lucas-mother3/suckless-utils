@@ -1,0 +1,46 @@
+#!/bin/sh
+# dfmpeg
+# dmenu gui for recording your screen with ffmpeg
+# Licensed under MIT, written by speedie
+# https://github.com/speediegamer/dfmpeg
+
+defaultConfig() {
+	DFMPEG_DOTDIR="$HOME/.config/dfmpeg" # The directory where dotfiles are
+	DFMPEG_RESOLUTION="1920x1080" # The resolution to record in
+	DFMPEG_AUDIO_DEVICE="alsa" # How to capture audio (alsa/pulseaudio)
+	DFMPEG_FRAME_RATE="60" # Frame rate to capture in.
+	DFMPEG_RECORD_DEVICE="x11grab" # Probably do not change.
+	DFMPEG_OUTPUT_PATH="$HOME/Videos" # Path where videos will be saved.
+	DFMPEG_OUTPUT_FORMAT="mp4" # What format to use
+	DFMPEG_OUTPUT_FILENAME="$DFMPEG_OUTPUT_PATH/Dfmpeg-Output-$(date +"%d-%d-%y-%T").$DFMPEG_OUTPUT_FORMAT" # File name of the output. Probably don't need to change.
+	DFMPEG_WH=":0.0" # Width and height, no need to change, defaults should work.
+	DFMPEG_DMENU="dmenu" # Path to dmenu
+	DFMPEG_TERM="$TERMINAL" # Terminal to use when editing the configuration file.
+	DFMPEG_EDITOR="vim" # Editor to edit the config file with
+}
+
+defaultConfig
+. "$DFMPEG_DOTDIR"/dfmpegrc
+startrec="ffmpeg -f $DFMPEG_RECORD_DEVICE -s $DFMPEG_RESOLUTION -i $DFMPEG_WH -f $DFMPEG_AUDIO_DEVICE -r $DFMPEG_FRAME_RATE -i default $DFMPEG_OUTPUT_FILENAME"
+startrec_no_audio="ffmpeg -f $DFMPEG_RECORD_DEVICE -s $DFMPEG_RESOLUTION -r $DFMPEG_FRAME_RATE -i $DFMPEG_WH $DFMPEG_OUTPUT_FILENAME"
+stoprec="pkill ffmpeg"
+dfmpeg_ver="2022-04-03-r1"
+about_screen="dfmpeg $dfmpeg_ver."
+about_screen_2="Licensed under MIT, written by speedie + contributors."
+about_screen_3="https://github.com/speediegamer/dfmpeg"
+
+case "$(printf 'Start\nStop\nStart-No-Audio\nConfigure\nExit\nAbout' | dmenu -p 'Record your screen:')" in
+	"Exit") DFMPEG_STATUS=idle && exit 0 ;;
+	"Start") DFMPEG_STATUS=recording && touch /tmp/dfmpeg-recording && $startrec && exit 0 ;;
+	"Stop") $stoprec && rm /tmp/dfmpeg-recording && DFMPEG_STATUS=idle ;;
+	"Configure") $DFMPEG_TERM $DFMPEG_EDITOR $DFMPEG_DOTDIR/dfmpegrc ;;
+	"Start-No-Audio") DFMPEG_STATUS=recording && touch /tmp/dfmpeg-recording && $startrec_no_audio && exit 0 ;;
+	"About")
+		echo $about_screen > $DFMPEG_DOTDIR/dfmpeg_about
+		echo $about_screen_2 >> $DFMPEG_DOTDIR/dfmpeg_about
+		echo $about_screen_3 >> $DFMPEG_DOTDIR/dfmpeg_about
+		$DFMPEG_TERM $DFMPEG_EDITOR $DFMPEG_DOTDIR/dfmpeg_about
+	;;
+esac
+
+exit 0 # This fixes a small bug.

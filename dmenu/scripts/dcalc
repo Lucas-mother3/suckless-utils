@@ -1,0 +1,83 @@
+#!/bin/sh
+# Super basic dmenu calculator.
+# Written by speedie
+# Licensed under GNU GPLv3.
+
+LIST_01()
+{
+printf "
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+Last
+Previous Result
+Quit"
+}
+
+VALUE_01=$(printf "$(LIST_01)" | dmenu -l 20 -p "dcalc") && printf "$VALUE_01" > /tmp/dcalc_val1
+case "$VALUE_01" in
+"Last") VALUE_01=$(cat /tmp/dcalc_val1) ;;
+"Quit") exit 0 ;;
+"Previous Result") VALUE_01=$(cat /tmp/dcalc-result) ;;
+"") exit 0 ;;
+esac
+
+LIST_02()
+{
+printf "
++
+-
+×
+÷
+Quit
+Last"
+}
+
+VALUE_02=$(printf "$(LIST_02)" | dmenu -l 20 -p "dcalc") && printf "$VALUE_02" > /tmp/dcalc_val2
+case "$VALUE_02" in
+"Last") VALUE_02=$(cat /tmp/dcalc_val2) ;;
+"×") VALUE_02="*" ;;
+"÷") VALUE_02="/" ;;
+"Quit") exit 0 ;;
+esac
+
+LIST_03()
+{
+printf "
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+0
+Quit
+Previous Result
+Last"
+}
+
+VALUE_03=$(printf "$(LIST_03)" | dmenu -l 20 -p "dcalc") && printf "$VALUE_03" > /tmp/dcalc_val3
+case "$VALUE_03" in
+"Last") VALUE_03=$(cat /tmp/dcalc_val3) ;;
+"Previous Result") VALUE_03=$(cat /tmp/dcalc-result) ;;
+"Quit") exit 0 ;;
+"") exit 0 ;;
+esac
+
+RESULT=$(expr ${VALUE_01} "${VALUE_02}" ${VALUE_03})
+
+printf "Result = $RESULT" | dmenu -l 1 | sed "s|Result = ||" | xclip -selection clipboard && notify-send "$RESULT copied to clipboard!"
+printf "$RESULT" > /tmp/dcalc-result
+
