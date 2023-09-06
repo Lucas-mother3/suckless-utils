@@ -100,7 +100,7 @@ static const char *dmenualt[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *tabtermcmd[] = { "tabbed", "-r 2", "st", "-w", "''", NULL };
 static const char *firefoxcmd[] = { "firefox", NULL };
-static const char *thunarcmd[] = { "Dolphin", NULL };
+static const char *thunarcmd[] = { "dolphin", NULL };
 
 #include "shiftview.c"
 static Key keys[] = {
