@@ -2103,7 +2103,9 @@ drawTab(int nwins, int first, Monitor *m)
 		Monitor *m = selmon;
 		XSetWindowAttributes wa = {
 			.override_redirect = True,
-			.background_pixmap = ParentRelative,
+		    .background_pixel = 0,
+			.border_pixel = 0,
+			.colormap = cmap,
 			.event_mask = ButtonPressMask|ExposureMask
 		};
 
@@ -2129,9 +2131,9 @@ drawTab(int nwins, int first, Monitor *m)
 
 		h = selmon->maxHTab;
 		/* XCreateWindow(display, parent, x, y, width, height, border_width, depth, class, visual, valuemask, attributes); just reference */
-		m->tabwin = XCreateWindow(dpy, root, posX, posY, selmon->maxWTab, selmon->maxHTab, 2, DefaultDepth(dpy, screen),
-								CopyFromParent, DefaultVisual(dpy, screen),
-								CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa); /* create tabwin */
+		m->tabwin = XCreateWindow(dpy, root, posX, posY, selmon->maxWTab, selmon->maxHTab, 2, depth,
+								InputOutput, visual,
+		                        CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 
 		XDefineCursor(dpy, m->tabwin, cursor[CurNormal]->cursor);
 		XMapRaised(dpy, m->tabwin);
