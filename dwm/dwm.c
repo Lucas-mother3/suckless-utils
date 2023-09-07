@@ -242,6 +242,7 @@ static void setmfact(const Arg *arg);
 static void setup(void);
 static void seturgent(Client *c, int urg);
 static void show(const Arg *arg);
+static void shiftview(const Arg *arg);
 static void showwin(Client *c);
 static void showhide(Client *c);
 static void sigchld(int unused);
@@ -320,6 +321,8 @@ static int useargb = 0;
 static Visual *visual;
 static int depth;
 static Colormap cmap;
+
+#include "layouts.c"
 
 /* configuration, allows nested code to access above variables */
 #include "config.h"
@@ -1041,7 +1044,7 @@ focusstack(int inc, int hid)
 				if (ISVISIBLE(i) && !(!hid && HIDDEN(i)))
 					c = i;
 	}
-	
+
 	if (c) {
 		focus(c);
 
@@ -1084,9 +1087,9 @@ geticonprop(Window win, unsigned int *picw, unsigned int *pich)
 	unsigned long n, extra, *p = NULL;
 	Atom real;
 
-	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType, 
+	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType,
 						   &real, &format, &n, &extra, (unsigned char **)&p) != Success)
-		return None; 
+		return None;
 	if (n == 0 || format != 32) { XFree(p); return None; }
 
 	unsigned long *bstp = NULL;
@@ -1261,7 +1264,7 @@ incnmaster(const Arg *arg)
 	for(i=0; i<LENGTH(tags); ++i)
 		if(selmon->tagset[selmon->seltags] & 1<<i)
 			selmon->pertag->nmasters[i+1] = selmon->nmaster;
-	
+
 	if(selmon->pertag->curtag == 0)
 	{
 		selmon->pertag->nmasters[0] = selmon->nmaster;
@@ -1842,13 +1845,13 @@ setlayout(const Arg *arg)
 	for(i=0; i<LENGTH(tags); ++i)
 		if(selmon->tagset[selmon->seltags] & 1<<i)
 		{
-			selmon->pertag->ltidxs[i+1][selmon->sellt] = selmon->lt[selmon->sellt]; 
+			selmon->pertag->ltidxs[i+1][selmon->sellt] = selmon->lt[selmon->sellt];
 			selmon->pertag->sellts[i+1] = selmon->sellt;
 		}
-	
+
 	if(selmon->pertag->curtag == 0)
 	{
-		selmon->pertag->ltidxs[0][selmon->sellt] = selmon->lt[selmon->sellt]; 
+		selmon->pertag->ltidxs[0][selmon->sellt] = selmon->lt[selmon->sellt];
 		selmon->pertag->sellts[0] = selmon->sellt;
 	}
 
@@ -1980,6 +1983,21 @@ show(const Arg *arg)
 }
 
 void
+shiftview(const Arg *arg) {
+	Arg shifted;
+
+	if(arg->i > 0) // left circular shift
+		shifted.ui = (selmon->tagset[selmon->seltags] << arg->i)
+		   | (selmon->tagset[selmon->seltags] >> (LENGTH(tags) - arg->i));
+
+	else // right circular shift
+		shifted.ui = selmon->tagset[selmon->seltags] >> (- arg->i)
+		   | selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i);
+
+	view(&shifted);
+}
+
+void
 showwin(Client *c)
 {
 	if (!c || !HIDDEN(c))
@@ -2019,8 +2037,6 @@ sigchld(int unused)
 void
 spawn(const Arg *arg)
 {
-	if (arg->v == dmenucmd)
-		dmenumon[0] = '0' + selmon->num;
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
@@ -2040,7 +2056,7 @@ altTab()
 		selmon->altTabN++;
 		if (selmon->altTabN >= selmon->nTabs)
 			selmon->altTabN = 0; /* reset altTabN */
-		
+
 		focus(selmon->altsnext[selmon->altTabN]);
 		restack(selmon);
 	}
@@ -2056,9 +2072,9 @@ altTabEnd()
 	if (selmon->isAlt == 0)
 		return;
 
-	/* 
+	/*
 	* move all clients between 1st and choosen position,
-	* one down in stack and put choosen client to the first position 
+	* one down in stack and put choosen client to the first position
 	* so they remain in right order for the next time that alt-tab is used
 	*/
 	if (selmon->nTabs > 1) {
@@ -2103,7 +2119,9 @@ drawTab(int nwins, int first, Monitor *m)
 		Monitor *m = selmon;
 		XSetWindowAttributes wa = {
 			.override_redirect = True,
-			.background_pixmap = ParentRelative,
+		    .background_pixel = 0,
+			.border_pixel = 0,
+			.colormap = cmap,
 			.event_mask = ButtonPressMask|ExposureMask
 		};
 
@@ -2129,9 +2147,9 @@ drawTab(int nwins, int first, Monitor *m)
 
 		h = selmon->maxHTab;
 		/* XCreateWindow(display, parent, x, y, width, height, border_width, depth, class, visual, valuemask, attributes); just reference */
-		m->tabwin = XCreateWindow(dpy, root, posX, posY, selmon->maxWTab, selmon->maxHTab, 2, DefaultDepth(dpy, screen),
-								CopyFromParent, DefaultVisual(dpy, screen),
-								CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa); /* create tabwin */
+		m->tabwin = XCreateWindow(dpy, root, posX, posY, selmon->maxWTab, selmon->maxHTab, 2, depth,
+								InputOutput, visual,
+		                        CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 
 		XDefineCursor(dpy, m->tabwin, cursor[CurNormal]->cursor);
 		XMapRaised(dpy, m->tabwin);
@@ -2224,7 +2242,7 @@ altTabStart(const Arg *arg)
 					}
 				}
 
-				c = selmon->sel; 
+				c = selmon->sel;
 				altTabEnd(); /* end the alt-tab functionality */
 				/* XUngrabKeyboard(display, time); just a reference */
 				XUngrabKeyboard(dpy, CurrentTime); /* stop taking all input from keyboard */
@@ -2394,17 +2412,20 @@ void
 togglewin(const Arg *arg)
 {
 	Client *c = (Client*)arg->v;
+	if (!c)
+		c = selmon->sel;
+	if (!c)
+		return;
 
-	if (c == selmon->sel) {
-		hidewin(c);
-		focus(NULL);
-		arrange(c->mon);
+	if (HIDDEN(c)) {
+		showwin(c);
 	} else {
-		if (HIDDEN(c))
-			showwin(c);
-		focus(c);
-		restack(selmon);
+		hidewin(c);
 	}
+
+    restack(c->mon);
+    focus(c);
+    arrange(selmon);
 }
 
 void
