@@ -65,6 +65,11 @@ static const Rule rules[] = {
 	{ "Firefox",         NULL,       NULL,    1 << 8,       0,           0,                    -1 },
 };
 
+/* window following */
+#define WFACTIVE '>'
+#define WFINACTIVE 'v'
+#define WFDEFAULT WFINACTIVE
+
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
@@ -73,12 +78,16 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 static const int decorhints  = 1;    /* 1 means respect decoration hints */
 
 #include "layouts.c"
+#include "horizgrid.c"
+#include "gaplessgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
 	{ "HHH",      grid },
+	{ "-#-",      horizgrid },
+	{ "###",      gaplessgrid },
 };
 
 /* key definitions */
@@ -113,6 +122,7 @@ static Key keys[] = {
 	{ Mod4Mask,                     XK_e,      spawn,          {.v = thunarcmd } },  
         { Mod4Mask,                     XK_Print,  spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_n,      togglefollow,   {0} },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstackvis,  {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_j,      focusstackhid,  {.i = +1 } },
@@ -122,12 +132,14 @@ static Key keys[] = {
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_q,    view,           {0} },
+	{ MODKEY,                       XK_q,      view,           {0} },
 	{ MODKEY|ShiftMask,             XK_x,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
@@ -135,13 +147,15 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY,                       XK_s,      show,           {0} },
-	{ MODKEY,                       XK_h,      hide,           {0} },
+	{ ControlMask|ShiftMask,        XK_s,      show,           {0} },
+	{ ControlMask|ShiftMask,        XK_h,      hide,           {0} },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-        { MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-        { MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
-        { MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
+	{ MODKEY|ShiftMask,             XK_h,      layoutscroll,   {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l,      layoutscroll,   {.i = +1 } },
+	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
+	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ Mod1Mask,             		XK_Tab,    altTabStart,	   {0} },
 	{ MODKEY,                       XK_n,     shiftview,      { .i = +1 } },
 	{ MODKEY,                       XK_b,     shiftview,      { .i = -1 } },
@@ -164,6 +178,7 @@ static Button buttons[] = {
 	{ ClkButton,		0,		Button1,	spawn,		{.v = dmenucmd } },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkFollowSymbol,      0,              Button1,        togglefollow,   {0} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },

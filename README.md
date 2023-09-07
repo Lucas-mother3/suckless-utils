@@ -39,6 +39,7 @@ or
 
 ## Current bugs
 - ~~Taskbar not working properly~~ (fixed in commit [e9015f2](https://github.com/Lucas-mother3/suckless-utils/commit/e9015f2d2a09ef66f1c9e188b277c89d23635195) & [7085f9](https://github.com/Lucas-mother3/suckless-utils/commit/7085f97d80fc203d6f54d0209af07007c0347880)). Thanks, [Speedie](https://speedie.gq)!
+- Unhiding a hidden window (using the show/hide function) crashes dwm
 
 ## Patching even further 
 
