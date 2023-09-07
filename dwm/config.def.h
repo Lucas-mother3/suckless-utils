@@ -53,7 +53,7 @@ static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just 
 
 static const char ptagf[] = "[%s %s]";	/* format of a tag label */
 static const char etagf[] = "[%s]";	/* format of an empty tag */
-static const int lcaselbl = 0;		/* 1 means make tag label lowercase */	
+static const int lcaselbl = 0;		/* 1 means make tag label lowercase */
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -101,26 +101,15 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
-/* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-/* replace the values with ones on col_color as an workaround */
-static const char *dmenucmd[] = { "j4-dmenu-desktop", "--dmenu", "dmenu -fn  'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb  '#124f5f' -sf  '#eeeeee' -g 6 -l 6 ", "--term", "st", NULL };
-static const char *dmenualt[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_color1, "-nf", col_color3, "-sb", col_color5, "-sf", col_color4, "-g", "6", "-l", "6", NULL};
-static const char *termcmd[]  = { "st", NULL };
-static const char *tabtermcmd[] = { "tabbed", "-r 2", "st", "-w", "''", NULL };
-static const char *firefoxcmd[] = { "firefox", NULL };
-static const char *thunarcmd[] = { "dolphin", NULL };
-
-#include "shiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ Mod4Mask,                     XK_s,      spawn,          {.v = dmenucmd } },
-	{ Mod4Mask|ShiftMask,		XK_s,      spawn,	   {.v = dmenualt } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = tabtermcmd } },
-        { MODKEY|ShiftMask,             XK_i,      spawn,          {.v = firefoxcmd } },
-	{ Mod4Mask,                     XK_e,      spawn,          {.v = thunarcmd } },  
-        { Mod4Mask,                     XK_Print,  spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
+	{ Mod4Mask,                     XK_s,      spawn,          SHCMD("j4-dmenu-desktop --dmenu dmenu -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6 --term st") },
+	{ Mod4Mask|ShiftMask,		    XK_s,      spawn,          SHCMD("dmenu_run -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6") },
+	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st -e") },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
+    { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
+	{ Mod4Mask,                     XK_e,      spawn,          SHCMD("dolphin") },
+    { Mod4Mask,                     XK_Print,  spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_n,      togglefollow,   {0} },
 	{ MODKEY,                       XK_j,      focusstackvis,  {.i = +1 } },
@@ -156,9 +145,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	{ MODKEY,             		XK_Tab,    altTabStart,	   {0} },
-	{ MODKEY,                       XK_n,     shiftview,      { .i = +1 } },
-	{ MODKEY,                       XK_b,     shiftview,      { .i = -1 } },
+	{ MODKEY,             		    XK_Tab,    altTabStart,	   {0} },
+	{ MODKEY,                       XK_n,      shiftview,      { .i = +1 } },
+	{ MODKEY,                       XK_b,      shiftview,      { .i = -1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -175,7 +164,7 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,		0,		Button1,	spawn,		{.v = dmenucmd } },
+	{ ClkButton,		    0,		        Button1,	    spawn,		    {.v = dmenucmd } },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkFollowSymbol,      0,              Button1,        togglefollow,   {0} },
