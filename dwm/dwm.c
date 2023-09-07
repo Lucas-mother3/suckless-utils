@@ -1041,7 +1041,7 @@ focusstack(int inc, int hid)
 				if (ISVISIBLE(i) && !(!hid && HIDDEN(i)))
 					c = i;
 	}
-	
+
 	if (c) {
 		focus(c);
 
@@ -1084,9 +1084,9 @@ geticonprop(Window win, unsigned int *picw, unsigned int *pich)
 	unsigned long n, extra, *p = NULL;
 	Atom real;
 
-	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType, 
+	if (XGetWindowProperty(dpy, win, netatom[NetWMIcon], 0L, LONG_MAX, False, AnyPropertyType,
 						   &real, &format, &n, &extra, (unsigned char **)&p) != Success)
-		return None; 
+		return None;
 	if (n == 0 || format != 32) { XFree(p); return None; }
 
 	unsigned long *bstp = NULL;
@@ -1261,7 +1261,7 @@ incnmaster(const Arg *arg)
 	for(i=0; i<LENGTH(tags); ++i)
 		if(selmon->tagset[selmon->seltags] & 1<<i)
 			selmon->pertag->nmasters[i+1] = selmon->nmaster;
-	
+
 	if(selmon->pertag->curtag == 0)
 	{
 		selmon->pertag->nmasters[0] = selmon->nmaster;
@@ -1842,13 +1842,13 @@ setlayout(const Arg *arg)
 	for(i=0; i<LENGTH(tags); ++i)
 		if(selmon->tagset[selmon->seltags] & 1<<i)
 		{
-			selmon->pertag->ltidxs[i+1][selmon->sellt] = selmon->lt[selmon->sellt]; 
+			selmon->pertag->ltidxs[i+1][selmon->sellt] = selmon->lt[selmon->sellt];
 			selmon->pertag->sellts[i+1] = selmon->sellt;
 		}
-	
+
 	if(selmon->pertag->curtag == 0)
 	{
-		selmon->pertag->ltidxs[0][selmon->sellt] = selmon->lt[selmon->sellt]; 
+		selmon->pertag->ltidxs[0][selmon->sellt] = selmon->lt[selmon->sellt];
 		selmon->pertag->sellts[0] = selmon->sellt;
 	}
 
@@ -2040,7 +2040,7 @@ altTab()
 		selmon->altTabN++;
 		if (selmon->altTabN >= selmon->nTabs)
 			selmon->altTabN = 0; /* reset altTabN */
-		
+
 		focus(selmon->altsnext[selmon->altTabN]);
 		restack(selmon);
 	}
@@ -2056,9 +2056,9 @@ altTabEnd()
 	if (selmon->isAlt == 0)
 		return;
 
-	/* 
+	/*
 	* move all clients between 1st and choosen position,
-	* one down in stack and put choosen client to the first position 
+	* one down in stack and put choosen client to the first position
 	* so they remain in right order for the next time that alt-tab is used
 	*/
 	if (selmon->nTabs > 1) {
@@ -2224,7 +2224,7 @@ altTabStart(const Arg *arg)
 					}
 				}
 
-				c = selmon->sel; 
+				c = selmon->sel;
 				altTabEnd(); /* end the alt-tab functionality */
 				/* XUngrabKeyboard(display, time); just a reference */
 				XUngrabKeyboard(dpy, CurrentTime); /* stop taking all input from keyboard */
@@ -2394,17 +2394,20 @@ void
 togglewin(const Arg *arg)
 {
 	Client *c = (Client*)arg->v;
+	if (!c)
+		c = selmon->sel;
+	if (!c)
+		return;
 
-	if (c == selmon->sel) {
-		hidewin(c);
-		focus(NULL);
-		arrange(c->mon);
+	if (HIDDEN(c)) {
+		showwin(c);
 	} else {
-		if (HIDDEN(c))
-			showwin(c);
-		focus(c);
-		restack(selmon);
+		hidewin(c);
 	}
+
+    restack(c->mon);
+    focus(c);
+    arrange(selmon);
 }
 
 void
