@@ -14,7 +14,6 @@ Linux/Unix users:
 - freetype(-devel or -dev) 
 - fontconfig(-devel or -dev)
 - Nerd Fonts (for slstatus)
-- terminus-font
 - imlibs2(-devel or -dev)
 - picom (for transparency)
 - feh (optional)
