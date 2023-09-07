@@ -77,9 +77,6 @@ static const int resizehints = 1;    /* 1 means respect size hints in tiled resi
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 static const int decorhints  = 1;    /* 1 means respect decoration hints */
 
-#include "layouts.c"
-#include "horizgrid.c"
-#include "gaplessgrid.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
@@ -164,13 +161,13 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,		    0,		        Button1,	    spawn,		    {.v = dmenucmd } },
+	{ ClkButton,		    0,		        Button1,	    spawn,		    SHCMD("j4-dmenu-desktop --dmenu dmenu -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6 --term st") },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkFollowSymbol,      0,              Button1,        togglefollow,   {0} },
 	{ ClkWinTitle,          0,              Button1,        togglewin,      {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkStatusText,        0,              Button2,        spawn,          SHCMD("st -e") },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
