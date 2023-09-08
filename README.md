@@ -3,6 +3,8 @@
 These are my builds of suckless software such as dwm and st.
 It's simple to compile these things. 
 
+Additionals are spmenu configs made by myself, as well as scripts for `spmenu_run`. If you prefer dmenu, it still exists, and could be launched via `Win/Super/Cmd+Alt+S`, while `Win/Super/Cmd+S` would launch `spmenu_run -d` by default (only with .desktop entries, while  `Win/Super/Cmd+Shift+S` would launch `spmenu_run` in a similar fashion to dmenu.
+
 1. Install necessary tools and libraries 
 ```
 Linux/Unix users:
@@ -29,13 +31,29 @@ or
 - XSDL client
 or
 - Termux:X11 (both apk and deb)
+
+For spmenu:
+- wayland-client(-devel or -dev, for Wayland support)
+- wayland-scanner(-devel or -dev, for Wayland support)
+- wayland-protocols(-devel or -dev, for Wayland support)
+- xbcommon(-devel or -dev, for Wayland support)
+- pango(-devel or -dev)
+- cairo(-devel or -dev)
+- libconfig(-devel or -dev)
+- OpenSSL or libssl(-devel or -dev)
+- meson
 ````
-2. Clone this repository 
+2. Clone this repository (`git clone --recurse-submodules`)
 3. Change directory to what suckless software do you want to use
 4. Remove the `config.h` file, to make sure all patches are applied correctly
 5. Copy `make clean install` and paste it on your terminal
-6. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
-7. Start it and done! 
+6. Building the spmenu submodule included in this repo (by speedie) would strictly use meson as it's build system.
+6.1. For that, `cd` to the spmenu folder.
+6.2. Initialize setup via `meson setup build`. Pass `-Dwayland-=false` for disabling Wayland support.
+6.3. Run `ninja -C build` for building the binaries.
+6.4. Install via `meson install -C build`, and it'll prompt you if you would like to use sudo if not run as root.
+7. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
+8. Start it and done! 
 
 ## Current bugs
 - ~~Taskbar not working properly~~ (fixed in commit [e9015f2](https://github.com/Lucas-mother3/suckless-utils/commit/e9015f2d2a09ef66f1c9e188b277c89d23635195) & [7085f9](https://github.com/Lucas-mother3/suckless-utils/commit/7085f97d80fc203d6f54d0209af07007c0347880)). Thanks, [Speedie](https://speedie.gq)!
