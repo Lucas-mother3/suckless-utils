@@ -1,3 +1,3 @@
-[submodule "j4-dmenu-desktop"]
-	path = j4-dmenu-desktop
-	url = http://github.com/enkore/j4-dmenu-desktop.git
+[submodule "spmenu"]
+	path = spmenu
+	url = https://git.speedie.site/speedie/spmenu

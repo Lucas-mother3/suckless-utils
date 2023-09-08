@@ -100,8 +100,9 @@ static const Layout layouts[] = {
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ Mod4Mask,                     XK_s,      spawn,          SHCMD("j4-dmenu-desktop --dmenu dmenu -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6 --term st") },
-	{ Mod4Mask|ShiftMask,		    XK_s,      spawn,          SHCMD("dmenu_run -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6") },
+	{ Mod4Mask,                     XK_s,      spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
+	{ Mod4Mask|ShiftMask,		XK_s,      spawn,          SHCMD("spmenu -run -a '-g 4-l 10'") },
+	{ Mod4Mask|Mod1Mask,		XK_s,	   spawn,	   SHCMD("dmenu_run -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st -e") },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
     { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
@@ -124,7 +125,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[4]} },
+	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
