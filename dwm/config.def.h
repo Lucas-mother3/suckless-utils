@@ -101,7 +101,7 @@ static const Layout layouts[] = {
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ Mod4Mask,                     XK_s,      spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
-	{ Mod4Mask|ShiftMask,		XK_s,      spawn,          SHCMD("spmenu -run -a '-g 4-l 10'") },
+	{ Mod4Mask|ShiftMask,		XK_s,      spawn,          SHCMD("spmenu_run -a '-g 4-l 10'") },
 	{ Mod4Mask|Mod1Mask,		XK_s,	   spawn,	   SHCMD("dmenu_run -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st -e") },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
@@ -162,7 +162,7 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,		    0,		        Button1,	    spawn,		    SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
+	{ ClkButton,	        0,	        Button1,	spawn,		SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkFollowSymbol,      0,              Button1,        togglefollow,   {0} },
