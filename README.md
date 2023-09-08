@@ -3,7 +3,29 @@
 These are my builds of suckless software such as dwm and st.
 It's simple to compile these things. 
 
+## Notes
+
 Additionals are spmenu configs made by myself, as well as scripts for `spmenu_run`. If you prefer dmenu, it still exists, and could be launched via `Win/Super/Cmd+Alt+S`, while `Win/Super/Cmd+S` would launch `spmenu_run -d` by default (only with .desktop entries, while  `Win/Super/Cmd+Shift+S` would launch `spmenu_run` in a similar fashion to dmenu.
+
+Some user scripts are also included, which has it's own set of dependencies. For example, `clipmenu-spmenu` needs `xsel` and `clipnotify`. These are optional, however.
+
+```
+clipmenu-spmenu dependencies:
+- xsel
+- clipnotify (included on the folder)
+
+screenshot-spmenu dependencies:
+- curl
+- xclip (X11)
+- maim (X11)
+- wayshot (Wayland)
+- wl-clipboard (Wayland)
+- slurp (Wayland)
+
+wallpaper-spmenu dependencies:
+- xwallpaper
+```
+## Building
 
 1. Install necessary tools and libraries 
 ```

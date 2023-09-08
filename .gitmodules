@@ -1,3 +1,15 @@
 [submodule "spmenu"]
 	path = spmenu
 	url = https://git.speedie.site/speedie/spmenu
+[submodule "scripts/clipmenu-spmenu"]
+	path = scripts/clipmenu-spmenu
+	url = https://git.speedie.site/speedie/clipmenu-spmenu
+[submodule "scripts/pirokit-spmenu"]
+	path = scripts/pirokit-spmenu
+	url = https://git.speedie.site/speedie/pirokit-spmenu.git
+[submodule "scripts/screenshot-spmenu"]
+	path = scripts/screenshot-spmenu
+	url = https://git.speedie.site/speedie/screenshot-spmenu.git
+[submodule "scripts/wallpaper-spmenu"]
+	path = scripts/wallpaper-spmenu
+	url = https://git.speedie.site/speedie/wallpaper-spmenu.git
