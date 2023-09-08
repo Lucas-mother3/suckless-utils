@@ -162,7 +162,7 @@ static Key keys[] = {
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
-	{ ClkButton,		    0,		        Button1,	    spawn,		    SHCMD("j4-dmenu-desktop --dmenu dmenu -fn 'Hack Nerd Font:size=14' -nb '#173f4f' -nf '#ffffff' -sb '#124f5f' -sf '#eeeeee' -g 6 -l 6 --term st") },
+	{ ClkButton,		    0,		        Button1,	    spawn,		    SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
 	{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	{ ClkFollowSymbol,      0,              Button1,        togglefollow,   {0} },
