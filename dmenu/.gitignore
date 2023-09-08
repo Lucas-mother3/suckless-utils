@@ -1,6 +1,4 @@
 *.o
 dmenu
-dmenu_path
-dmenu_run
 stest
 config.h
