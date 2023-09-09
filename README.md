@@ -64,7 +64,8 @@ For spmenu:
 - libconfig(-devel or -dev)
 - OpenSSL or libssl(-devel or -dev)
 - meson
-````
+```
+
 2. Clone this repository (`git clone --recurse-submodules`)
 3. Change directory to what suckless software do you want to use
 4. Remove the `config.h` file, to make sure all patches are applied correctly
