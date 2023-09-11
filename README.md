@@ -71,10 +71,15 @@ For spmenu:
 4. Remove the `config.h` file, to make sure all patches are applied correctly
 5. Copy `make clean install` and paste it on your terminal
 6. Building the spmenu submodule included in this repo (by speedie) would strictly use meson as it's build system.
+
 6.1. For that, `cd` to the spmenu folder.
+
 6.2. Initialize setup via `meson setup build`. Pass `-Dwayland-=false` for disabling Wayland support.
+
 6.3. Run `ninja -C build` for building the binaries.
+
 6.4. Install via `meson install -C build`, and it'll prompt you if you would like to use sudo if not run as root.
+
 7. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
 8. Start it and done! 
 
@@ -104,3 +109,10 @@ All programs are licensed under the MIT License, which sucks, and worse than GNU
 ## Special thanks 
 * [Speedie](https://speedie.gq) for helping me out with this and providing me with patches 
 * [The suckless team](https://suckless.org) for maintaining suckless software suck less
+
+## Mirrors
+
+* [GitHub](https://github.com/Lucas-mother3/suckless-utils) - Main mirror
+* [GitLab](https://gitlab.com/Lucas-mother3/suckless-utils) - Secondary (and backup)
+* [BitBucket](https://bitbucket.org/Lucas-mother3/suckless-utils) - Secondary backup
+* [speedie.site](https://git.speedie.site/Lucas-mother3/suckless-utils) - Mirror of gitlab
