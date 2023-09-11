@@ -25,14 +25,15 @@ static const char col_color1[]       = "#173f4f";
 static const char col_color2[]       = "#173f4f";
 static const char col_color3[]       = "#ffffff";
 static const char col_color4[]       = "#eeeeee";
-static const char col_color5[]        = "#124f5f";
+static const char col_color5[]       = "#124f5f";
+static const char col_color6[]	     = "#cccccc";
 static const unsigned int baralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_color3, col_color1, col_color2 },
 	[SchemeSel]  = { col_color4, col_color5,  col_color5  },
-	[SchemeHid]  = { col_color5,  col_color1, col_color5  },
+	[SchemeHid]  = { col_color6,  col_color1, col_color5  },
 };
 static const unsigned int alphas[][3]      = {
 	/*               fg      bg        border     */
