@@ -111,6 +111,8 @@ static Key keys[] = {
 	{ Mod4Mask|Mod1Mask,		XK_Print,  spawn,	   SHCMD("screenshot-spmenu -s") },  
 	{ Mod4Mask,			XK_p,	   spawn,	   SHCMD("pirokit") },
 	{ Mod4Mask|ShiftMask,		XK_w,	   spawn,	   SHCMD("wallpaper-spmenu") },
+	{ Mod4Mask,			XK_n,	   spawn,	   SHCMD("dunstctl history-pop") },
+	{ Mod4Mask,			XK_x,	   spawn,	   SHCMD("dunstctl close-all") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st -e") },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
     { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
