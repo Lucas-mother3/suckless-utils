@@ -116,7 +116,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st -e") },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
     { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
-	{ Mod4Mask,                     XK_e,      spawn,          SHCMD("dolphin") },
+	{ Mod4Mask,                     XK_e,      spawn,          SHCMD("st -T sfm sfm") },
     { Mod4Mask,                     XK_Print,  spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY|ShiftMask,             XK_n,      togglefollow,   {0} },
