@@ -113,6 +113,10 @@ static Key keys[] = {
 	{ Mod4Mask|ShiftMask,		XK_w,	   spawn,	   SHCMD("wallpaper-spmenu") },
 	{ Mod4Mask,			XK_n,	   spawn,	   SHCMD("dunstctl history-pop") },
 	{ Mod4Mask,			XK_x,	   spawn,	   SHCMD("dunstctl close-all") },
+	/* install paplay, dunst, and the scripts on scripts/dunst first */
+	{ Mod4Mask,                     XK_u,      spawn,          SHCMD("volume-dunst up") },
+	{ Mod4Mask,                     XK_d,      spawn,          SHCMD("volume-dunst down") },
+	{ Mod4Mask,                     XK_m,      spawn,          SHCMD("volume-dunst mute") },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          SHCMD("st -e") },
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
     { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
