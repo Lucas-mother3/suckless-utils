@@ -13,3 +13,6 @@
 [submodule "scripts/wallpaper-spmenu"]
 	path = scripts/wallpaper-spmenu
 	url = https://git.speedie.site/speedie/wallpaper-spmenu.git
+[submodule "sfm"]
+	path = sfm
+	url = https://github.com/afify/sfm.git
