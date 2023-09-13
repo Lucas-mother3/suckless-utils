@@ -84,6 +84,13 @@ For spmenu:
 - ~~Unhiding a hidden window (using the show/hide function) and if it's the only program running, crashes dwm~~
 - ~~Alt-tab crashes dwm altogther (idk man)~~
 
+## Future plans
+- [ ] Rebase the dwm build to dwm-flexipatch (maybe under a new branch with a VM debug environment?)
+- [ ] Integrate barmodules if the dwm-flexipatch rewrite did happen
+- [ ] Version jump from 6.3 -> 6.4
+- [ ] Potentially making this project into a desktop environment, when I feel it's ready to do so
+- [ ] Use `spmenu-desktop-launcher` if it's mature/usable, retaining `spmenu_run` for backwards compatibility with existing scripts 
+
 ## Patching even further 
 
 Patching everything is as easy as downloading the diff file, use the `patch` command and apply changes.
