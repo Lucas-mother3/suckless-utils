@@ -423,7 +423,7 @@
  * Essentially this way the colors you use in your regular tty is "mirrored" to dwm.
  * https://dwm.suckless.org/patches/vtcolors/
  */
-#define BAR_VTCOLORS_PATCH 0
+#define BAR_VTCOLORS_PATCH 1
 
 /* This patch allows client windows to be hidden. This code was originally part of awesomebar,
  * but has been separated out so that other bar modules can take advantage of it.
@@ -667,7 +667,7 @@
  *   xdotool selectwindow -- set_window --urgency 1
  * https://dwm.suckless.org/patches/focusurgent/
  */
-#define FOCUSURGENT_PATCH 0
+#define FOCUSURGENT_PATCH 1
 
 /* By default, dwm responds to _NET_ACTIVE_WINDOW client messages by setting
  * the urgency bit on the named window. This patch activates the window instead.
