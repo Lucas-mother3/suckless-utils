@@ -94,7 +94,7 @@ static const int horizpadbar             = 2;   /* horizontal padding for status
 static const int vertpadbar              = 0;   /* vertical padding for statusbar */
 #endif // BAR_STATUSPADDING_PATCH
 #if BAR_STATUSBUTTON_PATCH
-static const char buttonbar[]            = "<O>";
+static const char buttonbar[]            = "󰕰 Start";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -160,11 +160,11 @@ static void (*bartabmonfns[])(Monitor *) = { NULL /* , customlayoutfn */ };
 #endif // MONOCLE_LAYOUT
 #endif // BAR_TABGROUPS_PATCH
 #if BAR_PANGO_PATCH
-static const char font[]                 = "monospace 10";
+static const char font[]                 = "Hack Nerd Font 11";
 #else
-static const char *fonts[]               = { "monospace:size=10" };
+static const char *fonts[]               = { "Hack Nerd Font:size=11" };
 #endif // BAR_PANGO_PATCH
-static const char dmenufont[]            = "monospace:size=10";
+static const char dmenufont[]            = "Hack Nerd Font:size=11";
 
 static char c000000[]                    = "#000000"; // placeholder value
 
@@ -451,7 +451,7 @@ static char *tagicons[][NUMTAGS] =
 {
 	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
 	[ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
-	[ALT_TAGS_DECORATION] = { "<1>", "<2>", "<3>", "<4>", "<5>", "<6>", "<7>", "<8>", "<9>" },
+	[ALT_TAGS_DECORATION] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
 };
 
 #if BAR_TAGGRID_PATCH
@@ -628,7 +628,7 @@ static const int nmaster     = 1;    /* number of clients in master area */
 #if FLEXTILE_DELUXE_LAYOUT
 static const int nstack      = 0;    /* number of clients in primary stack area */
 #endif // FLEXTILE_DELUXE_LAYOUT
-static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
 #if DECORATION_HINTS_PATCH
 static const int decorhints  = 1;    /* 1 means respect decoration hints */
@@ -867,9 +867,11 @@ static const char *dmenucmd[] = {
 	#if BAR_DMENUMATCHTOP_PATCH
 	topbar ? NULL : "-b",
 	#endif // BAR_DMENUMATCHTOP_PATCH
+	"-g", "4",
+	"-l", "10",
 	NULL
 };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", NULL };
 
 #if BAR_STATUSCMD_PATCH
 #if BAR_DWMBLOCKS_PATCH
@@ -897,15 +899,38 @@ static const Key on_empty_keys[] = {
 
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
+	/* spmenu bindings here */
+	{ Mod4Mask,                     XK_s,   	   spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
+	{ Mod4Mask|ShiftMask,		    XK_s,   	   spawn,          SHCMD("spmenu_run -a '-g 4 -l 10'") },
+	{ Mod4Mask,                     XK_f,   	   spawn,          SHCMD("spmenu_run -fm -a '-g 4 -l 10'") },
+	/* spmenu scripts down here */
+	{ Mod4Mask,						XK_v,		   spawn,	   SHCMD("clipmenu-spmenu") },
+	{ Mod4Mask|ShiftMask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -f") },
+	{ Mod4Mask|Mod1Mask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -s") },
+	{ Mod4Mask,						XK_p,		   spawn,	   SHCMD("pirokit") },
+	{ Mod4Mask|ShiftMask,			XK_w,		   spawn,	   SHCMD("wallpaper-spmenu") },
+	/* end of spmenu keybinds */
+	/* dunst specific keybinds */
+	{ Mod4Mask,						XK_n,		   spawn,	   SHCMD("dunstctl history-pop") },
+	{ Mod4Mask,						XK_x,		   spawn,	   SHCMD("dunstctl close-all") },
+	/* install paplay, dunst, and the scripts on scripts/dunst first */
+	{ Mod4Mask,                     XK_u,   	   spawn,          SHCMD("volume-dunst up") },
+	{ Mod4Mask,                     XK_d,   	   spawn,          SHCMD("volume-dunst down") },
+	{ Mod4Mask,                     XK_m,   	   spawn,          SHCMD("volume-dunst mute") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
-	{ MODKEY,                       XK_p,          spawn,                  {.v = dmenucmd } },
+	{ Mod4Mask|Mod1Mask,            XK_s,          spawn,                  {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                  {.v = termcmd } },
 	#if RIODRAW_PATCH
-	{ MODKEY|ControlMask,           XK_p,          riospawnsync,           {.v = dmenucmd } },
+	{ MODKEY|ControlMask,           XK_s,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
 	{ MODKEY,                       XK_s,          rioresize,              {0} },
+	/* suckless-utils keymaps */
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
+    { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
+	{ Mod4Mask,                     XK_e,      spawn,          SHCMD("st -T sfm sfm") },
+    { Mod4Mask,                     XK_Print,  spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
 	#endif // RIODRAW_PATCH
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	#if TOGGLETOPBAR_PATCH
@@ -1332,7 +1357,7 @@ static const Command commands[] = {
 static const Button buttons[] = {
 	/* click                event mask           button          function        argument */
 	#if BAR_STATUSBUTTON_PATCH
-	{ ClkButton,            0,                   Button1,        spawn,          {.v = dmenucmd } },
+	{ ClkButton,            0,                   Button1,        spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") /* use spmenu instead of dmenu */ },
 	#endif // BAR_STATUSBUTTON_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
 	#if BAR_LAYOUTMENU_PATCH
