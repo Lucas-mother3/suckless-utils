@@ -1,4 +1,8 @@
 # Suckless Utilities version 6.3
+## Warning
+
+This is an older version, maintained for archival. Check main for an updated version.
+
 ## About 
 These are my builds of suckless software such as dwm and st.
 It's simple to compile these things. 
