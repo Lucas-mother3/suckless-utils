@@ -153,6 +153,7 @@ All programs are licensed under the MIT License, except for some submodules, whi
 ## Screenshots
 ![Screenshot of neofetch](/pics/neofetch.png)
 ![Screenshot of the desktop](/pics/desktop.png)
+![Screenshot of st (in a scratchpad), Discord and Firefox](/pics/random.png)
 
 ## Special thanks 
 * [Speedie](https://speedie.site) for helping me out with this and providing me with patches 
