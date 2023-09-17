@@ -1,6 +1,0 @@
-#!/bin/sh
-systemctl --user restart clipmenud.service
-xrdb -merge ~/.Xresources &  
-/usr/local/bin/slstatus &
-paplay /usr/share/sounds/Oxygen-Sys-Special.ogg
-exec ./dwm

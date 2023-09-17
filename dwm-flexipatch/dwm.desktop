@@ -1,7 +1,7 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Dwm
+Name=dwm-flexipatch (X11)
 Comment=Dynamic window manager
-Exec=dwm
+Exec=/usr/local/bin/startdwm
 Icon=dwm
 Type=XSession

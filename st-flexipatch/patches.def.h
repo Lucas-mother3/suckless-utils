@@ -22,7 +22,7 @@
  * https://github.com/juliusHuelsmann/st-focus/
  * https://st.suckless.org/patches/alpha_focus_highlight/
  */
-#define ALPHA_FOCUS_HIGHLIGHT_PATCH 1
+#define ALPHA_FOCUS_HIGHLIGHT_PATCH 0
 
 /* Adds gradient transparency to st, depends on the alpha patch.
  * https://st.suckless.org/patches/gradient/
@@ -274,7 +274,7 @@
  * program of choice, e.g. open a file, view an image, open a URL.
  * https://st.suckless.org/patches/right_click_to_plumb/
  */
-#define RIGHTCLICKTOPLUMB_PATCH 1
+#define RIGHTCLICKTOPLUMB_PATCH 0
 
 /* Scroll back through terminal output using Shift+{PageUp, PageDown}.
  * https://st.suckless.org/patches/scrollback/
@@ -378,7 +378,7 @@
  * scroll program.
  * https://st.suckless.org/patches/universcroll/
  */
-#define UNIVERSCROLL_PATCH 0
+#define UNIVERSCROLL_PATCH 1
 
 /* Use XftFontMatch in place of FcFontMatch.
  *
@@ -407,7 +407,7 @@
  * https://github.com/juliusHuelsmann/st-history-vim
  * https://st.suckless.org/patches/vim_browse/
  */
-#define VIM_BROWSE_PATCH 1
+#define VIM_BROWSE_PATCH 0
 
 /* Briefly inverts window content on terminal bell event.
  * https://st.suckless.org/patches/visualbell/

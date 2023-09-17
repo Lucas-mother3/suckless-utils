@@ -168,45 +168,45 @@ static const char dmenufont[]            = "Hack Nerd Font:size=11";
 
 static char c000000[]                    = "#000000"; // placeholder value
 
-static char normfgcolor[]                = "#bbbbbb";
-static char normbgcolor[]                = "#222222";
-static char normbordercolor[]            = "#444444";
-static char normfloatcolor[]             = "#db8fd9";
+static char normfgcolor[]                = "#ffffff";
+static char normbgcolor[]                = "#173f4f";
+static char normbordercolor[]            = "#173f4f";
+static char normfloatcolor[]             = "#124f5f";
 
 static char selfgcolor[]                 = "#eeeeee";
-static char selbgcolor[]                 = "#005577";
-static char selbordercolor[]             = "#005577";
-static char selfloatcolor[]              = "#005577";
+static char selbgcolor[]                 = "#153a49";
+static char selbordercolor[]             = "#153a49";
+static char selfloatcolor[]              = "#153a49";
 
-static char titlenormfgcolor[]           = "#bbbbbb";
-static char titlenormbgcolor[]           = "#222222";
-static char titlenormbordercolor[]       = "#444444";
-static char titlenormfloatcolor[]        = "#db8fd9";
+static char titlenormfgcolor[]           = "#ffffff";
+static char titlenormbgcolor[]           = "#173f4f";
+static char titlenormbordercolor[]       = "#173f4f";
+static char titlenormfloatcolor[]        = "#124f5f";
 
 static char titleselfgcolor[]            = "#eeeeee";
-static char titleselbgcolor[]            = "#005577";
-static char titleselbordercolor[]        = "#005577";
-static char titleselfloatcolor[]         = "#005577";
+static char titleselbgcolor[]            = "#153a49";
+static char titleselbordercolor[]        = "#153a49";
+static char titleselfloatcolor[]         = "#153a49";
 
-static char tagsnormfgcolor[]            = "#bbbbbb";
-static char tagsnormbgcolor[]            = "#222222";
-static char tagsnormbordercolor[]        = "#444444";
-static char tagsnormfloatcolor[]         = "#db8fd9";
+static char tagsnormfgcolor[]            = "#ffffff";
+static char tagsnormbgcolor[]            = "#173f4f";
+static char tagsnormbordercolor[]        = "#173f4f";
+static char tagsnormfloatcolor[]         = "#124f5f";
 
 static char tagsselfgcolor[]             = "#eeeeee";
-static char tagsselbgcolor[]             = "#005577";
-static char tagsselbordercolor[]         = "#005577";
-static char tagsselfloatcolor[]          = "#005577";
+static char tagsselbgcolor[]             = "#153a49";
+static char tagsselbordercolor[]         = "#153a49";
+static char tagsselfloatcolor[]          = "#153a49";
 
-static char hidnormfgcolor[]             = "#005577";
+static char hidnormfgcolor[]             = "#153a49";
 static char hidselfgcolor[]              = "#227799";
-static char hidnormbgcolor[]             = "#222222";
-static char hidselbgcolor[]              = "#222222";
+static char hidnormbgcolor[]             = "#173f4f";
+static char hidselbgcolor[]              = "#173f4f";
 
-static char urgfgcolor[]                 = "#bbbbbb";
-static char urgbgcolor[]                 = "#222222";
+static char urgfgcolor[]                 = "#ffffff";
+static char urgbgcolor[]                 = "#173f4f";
 static char urgbordercolor[]             = "#ff0000";
-static char urgfloatcolor[]              = "#db8fd9";
+static char urgfloatcolor[]              = "#124f5f";
 
 #if RENAMED_SCRATCHPADS_PATCH
 static char scratchselfgcolor[]          = "#FFF7D4";
@@ -905,7 +905,7 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_f,   	   spawn,          SHCMD("spmenu_run -fm -a '-g 4 -l 10'") },
 	/* spmenu scripts down here */
 	{ Mod4Mask,						XK_v,		   spawn,	   SHCMD("clipmenu-spmenu") },
-	{ Mod4Mask|ShiftMask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -f") },
+	{ Mod4Mask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -f") },
 	{ Mod4Mask|Mod1Mask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -s") },
 	{ Mod4Mask,						XK_p,		   spawn,	   SHCMD("pirokit") },
 	{ Mod4Mask|ShiftMask,			XK_w,		   spawn,	   SHCMD("wallpaper-spmenu") },
@@ -917,6 +917,8 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_u,   	   spawn,          SHCMD("volume-dunst up") },
 	{ Mod4Mask,                     XK_d,   	   spawn,          SHCMD("volume-dunst down") },
 	{ Mod4Mask,                     XK_m,   	   spawn,          SHCMD("volume-dunst mute") },
+	/* slock must be installed */
+	{ Mod4Mask,                     XK_l,              spawn,          SHCMD("slock") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
@@ -928,9 +930,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_s,          rioresize,              {0} },
 	/* suckless-utils keymaps */
 	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
-    { MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
+	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
 	{ Mod4Mask,                     XK_e,      spawn,          SHCMD("st -T sfm sfm") },
-    { Mod4Mask,                     XK_Print,  spawn,          SHCMD("maim ~/Pictures/Screenshot_$(date +%s).png") },
 	#endif // RIODRAW_PATCH
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	#if TOGGLETOPBAR_PATCH
@@ -1093,7 +1094,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_o,          winview,                {0} },
 	#endif // WINVIEW_PATCH
 	#if XRDB_PATCH && !BAR_VTCOLORS_PATCH
-	{ MODKEY,                       XK_F5,         xrdb,                   {.v = NULL } },
+	{ MODKEY,                       XK_F5,          xrdb,                   {.v = NULL } },
 	#endif // XRDB_PATCH
 	{ MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,          setlayout,              {.v = &layouts[1]} },

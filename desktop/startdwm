@@ -1,0 +1,8 @@
+#!/bin/sh
+systemctl --user restart clipmenud.service # restarts clipmenud, if installed
+wal -i "/usr/local/share/wallpapers/opensuse.png" --backend colorz # could be changed
+picom -b # launches compositor
+/usr/local/bin/dwmblocks & # launches slstatus/dwmblocks
+/usr/bin/dunst & # launches dunst daemon
+paplay /usr/share/sounds/Oxygen-Sys-Special.ogg # autoplay sound, optional
+exec /usr/local/bin/dwm # launch dwm

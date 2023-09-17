@@ -1,18 +1,49 @@
-# Suckless Utilities version 6.3
+# Suckless Utilities version 6.4
 ## About 
-These are my builds of suckless software such as dwm and st.
-It's simple to compile these things. 
+These are my builds of suckless software such as dwm and st, based on the work for flexipatch by bakkeby. This aims for much more streamlined configuration and patching than 6.3 (which becomes more complicated over time and whenever more patches are integrated). 
+
+This was designed to save me some sanity in maintaining it as well as easily integrating requested patches, whenever it drops from the flexipatch upstream. This should be easy to hack and build, and should be as fast as the previous versions of my build.
+
+## Included software
+
+- dwm
+- dmenu
+- st
+- slstatus
+- tabbed
+- sfm
+- spmenu
+- dwmblocks-async
+- slock
 
 ## Notes
 
-Additionals are spmenu configs made by myself, as well as scripts for `spmenu_run`. If you prefer dmenu, it still exists, and could be launched via `Win/Super/Cmd+Alt+S`, while `Win/Super/Cmd+S` would launch `spmenu_run -d` by default (only with .desktop entries, while  `Win/Super/Cmd+Shift+S` would launch `spmenu_run` in a similar fashion to dmenu.
+### Compatibility notes
+
+For those who want the old version, check out `oldmain`. I don't plan on maintaining it myself since the flexipatch base means much more flexibility over codebase updates as well as new patches.
+
+Note that there are some programs that is included here, mainly for compatibility or choice reasons. While slstatus is pretty barebones compared to dwmblocks-async, it is included on the repo if one decides not to have statuscmd, for example. This aims to be also compatible with already existing setups.
+
+### Keybind notes
+
+In the documentation for this suite, <kbd>Mod4Key</kbd> would be defined as <kbd>⊞ Win</kbd>/<kbd>⌘ Cmd</kbd>/<kbd>❖ Super</kbd>, depending on whichever keyboard do you use.
+
+In most cases, you probably have only <kbd>⊞ Win</kbd>, but I added <kbd>⌘ Cmd</kbd> and <kbd>❖ Super</kbd> for Mac and advanced Linux/Unix users, respectively.
+
+If one uses ChromeOS, <kbd>⊞ Win</kbd> equals to the <kbd>🔍 Search</kbd> key. But I don't know who uses X11 window managers inside ChromeOS.
+
+For new to dwm, <kbd>MODKEY</kbd> or <kbd>Mod1Mask</kbd> is the <kbd>Alt</kbd> key. 
+
+### spmenu notes
+
+Additionals are spmenu configs made by myself, as well as scripts for `spmenu_run`. If you prefer dmenu, it still exists, and could be launched via <kbd>⊞ Win</kbd>/<kbd>⌘ Cmd</kbd>/<kbd>❖ Super</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>, while <kbd>⊞ Win</kbd>/<kbd>⌘ Cmd</kbd>/<kbd>❖ Super</kbd>+<kbd>S</kbd> would launch `spmenu_run -d` by default (only with .desktop entries, while  <kbd>⊞ Win</kbd>/<kbd>⌘ Cmd</kbd>/<kbd>❖ Super</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd> would launch `spmenu_run` in a similar fashion to dmenu.
 
 Some user scripts are also included, which has it's own set of dependencies. For example, `clipmenu-spmenu` needs `xsel` and `clipnotify`. These are optional, however.
 
 ```
 clipmenu-spmenu dependencies:
 - xsel
-- clipnotify (included on the folder)
+- clipnotify
 
 screenshot-spmenu dependencies:
 - curl
@@ -25,19 +56,23 @@ screenshot-spmenu dependencies:
 wallpaper-spmenu dependencies:
 - xwallpaper
 ```
-## Building
 
-1. Install necessary tools and libraries 
+Additionally, spmenu will not work on macOS, so use `dmenu` instead. 
+
+## Building 
+### Prerequisites 
 ```
 Linux/Unix users:
 - xorg (including drivers of course)
 - base-devel (or build-essential/s)
 - libX11(-devel or -dev)
 - libXft(-devel or -dev) 
+- libXcb(-devel or -dev)
+- libXrender(-devel or -dev)
 - libXinerama(-devel or -dev) 
 - freetype(-devel or -dev) 
 - fontconfig(-devel or -dev)
-- Nerd Fonts (for slstatus)
+- Nerd Fonts (Hack as default, can be changed manually)
 - imlibs2(-devel or -dev)
 - picom (for transparency)
 - feh (optional)
@@ -64,11 +99,15 @@ For spmenu:
 - libconfig(-devel or -dev)
 - OpenSSL or libssl(-devel or -dev)
 - meson
+
+Refer to patches.def.h and config.mk for additional patch-related requirements.
 ```
 
+### Compiling the whole thing 
+1. Install necessary tools and libraries 
 2. Clone this repository (`git clone --recurse-submodules`)
 3. Change directory to what suckless software do you want to use
-4. Remove the `config.h` file, to make sure all patches are applied correctly
+4. Remove the `config.h`, and `patches.h` files, to make sure all patches are applied correctly
 5. Copy `make clean install` and paste it on your terminal
 6. Building the spmenu submodule included in this repo (by speedie) would strictly use meson as it's build system.
     1. For that, `cd` to the spmenu folder.
@@ -76,42 +115,49 @@ For spmenu:
     3. Run `ninja -C build` for building the binaries.
     4. Install via `meson install -C build`, and it'll prompt you if you would like to use sudo if not run as root.
 
-7. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `/home/<username>/.xinitrc`)
-8. Start it and done! 
+7. Insert dwm, slstatus and/or st inside your `.xinitrc` using your favorite text editor (usually located in `$HOME/.xinitrc`)
+    - Additionally, a script called `startdwm` located in `desktop` could be installed in `/usr/local/bin` which could be used to launch dwm on display managers, such as GDM or SDDM.
+    - `startdwm` could be also used as the xinitrc script by putting it under $HOME and renaming it to `.xinitrc`.
+8. Install the `dwmblocks` scripts (in `scripts/dwmblocks`) to your `$PATH`.
+9.  Start it and done! 
 
-## Current bugs
-- ~~Taskbar not working properly~~ (fixed in commit [e9015f2](https://github.com/Lucas-mother3/suckless-utils/commit/e9015f2d2a09ef66f1c9e188b277c89d23635195) & [7085f9](https://github.com/Lucas-mother3/suckless-utils/commit/7085f97d80fc203d6f54d0209af07007c0347880)). Thanks, [Speedie](https://speedie.gq)!
-- ~~Unhiding a hidden window (using the show/hide function) and if it's the only program running, crashes dwm~~
-- ~~Alt-tab crashes dwm altogther (idk man)~~
 
 ## Future plans
-- [ ] Rebase the dwm build to dwm-flexipatch (maybe under a new branch with a VM debug environment?)
-- [ ] Integrate barmodules if the dwm-flexipatch rewrite did happen
-- [ ] Version jump from 6.3 -> 6.4
+- [x] Rebase the dwm build to dwm-flexipatch (maybe under a new branch with a VM debug environment?)
+- [x] Integrate barmodules if the dwm-flexipatch rewrite did happen
+- [x] Version jump from 6.3 -> 6.4
 - [ ] Potentially making this project into a desktop environment, when I feel it's ready to do so
 - [ ] Use `spmenu-desktop-launcher` if it's mature/usable, retaining `spmenu_run` for backwards compatibility with existing scripts 
+- [ ] Making a wiki for documenting functions in this build, as well as other important information about the project
 
 ## Patching even further 
 
-Patching everything is as easy as downloading the diff file, use the `patch` command and apply changes.
+Patching everything is as easy as editing the `patches.def.h` file included in the repo. Unlike 6.3, which had a complicated codebase, 6.4 aims for a much more streamlined process of patching things, unlike the previous version which would mean using `patch` and manually editing files whenever something isn't patched up properly. 
 
-But, since this is a heavily patched version of everything, I wouldn't recommend patching even further unless if you know what you're doing.
+A huge thanks for bakkeby on the work for making suckless software easier to patch, meaning more people could modify and configure the code to their liking. 
+
+## Contributing to the project
+
+Contributions are welcome, as long as it follows the defined rules in [the CONTRIBUTING document](/CONTRIBUTING.md).
+
+Documentations are also welcome, in fact, I do need someone who could maintain documentation for the project's inner workings. 
 
 ## How the versioning system works
 
-Suckless Uilities (the whole package and not the individual components) are versioned under the current version of the repo's dwm.
-Even if dwm 6.4 releases, if the repo still uses dwm 6.3 for compatibility reasons, the whole package will be still be Suckless Utilities 6.3.
+Suckless Utilities (the whole package and not the individual components) are versioned under the current version of the repo's dwm.
+Even if dwm(-flexipatch) 6.5 releases, if the repo still uses dwm(-flexipatch) 6.4 for compatibility reasons, the whole package will still be Suckless Utilities 6.4.
 
 ## Licensing
-All programs are licensed under the MIT License, which sucks, and worse than GNU GPL, but hey, it's better than proprietary code!
+All programs are licensed under the MIT License, except for some submodules, which might have different licenses (for example, GPLv2).
 
 ## Screenshots
 ![Screenshot of neofetch](/pics/neofetch.png)
-![Screenshot of random applications (Spotify, Space Cadet Pinball, NCSA Mosaic)](/pics/random.png)
+![Screenshot of random applications](/pics/random.png)
 
 ## Special thanks 
-* [Speedie](https://speedie.gq) for helping me out with this and providing me with patches 
+* [Speedie](https://speedie.site) for helping me out with this and providing me with patches 
 * [The suckless team](https://suckless.org) for maintaining suckless software suck less
+* [bakkeby](https://github.com/bakkeby) for creating dwm-flexipatch and related projects, making it possible to easily integrate patches
 
 ## Mirrors
 
