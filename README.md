@@ -152,7 +152,7 @@ All programs are licensed under the MIT License, except for some submodules, whi
 
 ## Screenshots
 ![Screenshot of neofetch](/pics/neofetch.png)
-![Screenshot of random applications](/pics/random.png)
+![Screenshot of the desktop](/pics/desktop.png)
 
 ## Special thanks 
 * [Speedie](https://speedie.site) for helping me out with this and providing me with patches 
