@@ -2,7 +2,7 @@
 # Displays the current time in HH:MM:SS (AM|PM)
 
 notify() {
-    notify-send -i office-calendar-symbolic \
+    notify-send -a Calendar -i office-calendar-symbolic \
         -h string:x-canonical-private-synchronous:"$1" "$@"
 }
 

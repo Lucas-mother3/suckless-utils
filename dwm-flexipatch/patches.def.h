@@ -51,7 +51,7 @@
  * Patch: https://gist.github.com/danbyl/54f7c1d57fc6507242a95b71c3d8fdea
  * https://dwm.suckless.org/patches/statuscmd/
  */
-#define BAR_DWMBLOCKS_SIGUSR1_PATCH 1
+#define BAR_DWMBLOCKS_SIGUSR1_PATCH 0
 
 /* This patch shows the titles of all visible windows in the status bar
  * (as opposed to showing only the selected one).

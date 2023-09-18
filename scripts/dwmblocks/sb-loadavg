@@ -10,4 +10,4 @@ load=$(cut -d' ' -f1 /proc/loadavg)
 
 . sb-theme
 [ 1 -eq "$(echo "$load > $threshold" | bc)" ] && color=9
-display " $load" "$color"
+display " $load" "$color"
