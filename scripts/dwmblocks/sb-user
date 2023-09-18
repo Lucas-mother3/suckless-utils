@@ -1,0 +1,5 @@
+#!/bin/sh
+# Displays the current user
+
+. sb-theme
+display " $(whoami)"
