@@ -4,5 +4,10 @@ wal -i "/usr/local/share/wallpapers/opensuse.png" --backend colorz # could be ch
 picom -b # launches compositor
 /usr/local/bin/dwmblocks & # launches slstatus/dwmblocks
 /usr/bin/dunst & # launches dunst daemon
+while true; do 
+	xsetroot -name ";$(date +'%A, %B %d, %Y') | Kernel $(uname -r) | suckless-utils 6.4"
+	sleep infinity 
+done &
 paplay /usr/share/sounds/Oxygen-Sys-Special.ogg # autoplay sound, optional
+pkill -f "sleep infinity" &
 exec /usr/local/bin/dwm # launch dwm
