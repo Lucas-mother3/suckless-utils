@@ -76,6 +76,8 @@ Linux/Unix users:
 - imlibs2(-devel or -dev)
 - picom (for transparency)
 - feh (optional)
+- pywal (for colors/wallpaper)
+- slop (for riodraw)
 
 Termux users:
 - xorg 
