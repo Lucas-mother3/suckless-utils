@@ -900,25 +900,25 @@ static const Key on_empty_keys[] = {
 static const Key keys[] = {
 	/* modifier                     key            function                argument */
 	/* spmenu bindings here */
-	{ Mod4Mask,                     XK_s,   	   spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
-	{ Mod4Mask|ShiftMask,		    XK_s,   	   spawn,          SHCMD("spmenu_run -a '-g 4 -l 10'") },
-	{ Mod4Mask,                     XK_f,   	   spawn,          SHCMD("spmenu_run -fm -a '-g 4 -l 10'") },
+	{ Mod4Mask,                     XK_s,          spawn,                  SHCMD("spmenu_run -d -a '-g 4 -l 10'") },
+	{ Mod4Mask|ShiftMask,	        XK_s,          spawn,                  SHCMD("spmenu_run -a '-g 4 -l 10'") },
+	{ Mod4Mask,                     XK_f,          spawn,                  SHCMD("spmenu_run -fm -a '-g 4 -l 10'") },
 	/* spmenu scripts down here */
-	{ Mod4Mask,						XK_v,		   spawn,	   SHCMD("clipmenu-spmenu") },
-	{ Mod4Mask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -f") },
-	{ Mod4Mask|Mod1Mask,			XK_Print,	   spawn,	   SHCMD("screenshot-spmenu -s") },
-	{ Mod4Mask,						XK_p,		   spawn,	   SHCMD("pirokit") },
-	{ Mod4Mask|ShiftMask,			XK_w,		   spawn,	   SHCMD("wallpaper-spmenu") },
+	{ Mod4Mask,			XK_v,	       spawn,	               SHCMD("clipmenu-spmenu") },
+	{ Mod4Mask,			XK_Print,      spawn,	               SHCMD("screenshot-spmenu -f") },
+	{ Mod4Mask|ShiftMask,		XK_Print,      spawn,	               SHCMD("screenshot-spmenu -s") },
+	{ Mod4Mask,			XK_p,	       spawn,	               SHCMD("pirokit") },
+	{ Mod4Mask|ShiftMask,		XK_w,	       spawn,	               SHCMD("wallpaper-spmenu") },
 	/* end of spmenu keybinds */
 	/* dunst specific keybinds */
-	{ Mod4Mask,						XK_n,		   spawn,	   SHCMD("dunstctl history-pop") },
-	{ Mod4Mask,						XK_x,		   spawn,	   SHCMD("dunstctl close-all") },
+	{ Mod4Mask,			XK_n,	       spawn,	               SHCMD("dunstctl history-pop") },
+	{ Mod4Mask,			XK_x,	       spawn,	               SHCMD("dunstctl close-all") },
 	/* install paplay, dunst, and the scripts on scripts/dunst first */
-	{ Mod4Mask,                     XK_u,   	   spawn,          SHCMD("volume-dunst up") },
-	{ Mod4Mask,                     XK_d,   	   spawn,          SHCMD("volume-dunst down") },
-	{ Mod4Mask,                     XK_m,   	   spawn,          SHCMD("volume-dunst mute") },
+	{ Mod4Mask,                     XK_u,          spawn,                  SHCMD("volume-dunst up") },
+	{ Mod4Mask,                     XK_d,          spawn,                  SHCMD("volume-dunst down") },
+	{ Mod4Mask,                     XK_m,          spawn,                  SHCMD("volume-dunst mute") },
 	/* slock must be installed */
-	{ Mod4Mask,                     XK_l,              spawn,          SHCMD("slock") },
+	{ Mod4Mask,                     XK_l,          spawn,                  SHCMD("slock") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
@@ -929,9 +929,9 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
 	{ MODKEY,                       XK_s,          rioresize,              {0} },
 	/* suckless-utils keymaps */
-	{ MODKEY|ShiftMask,             XK_t,      spawn,          SHCMD("tabbed -r 2 st -w ''") },
-	{ MODKEY|ShiftMask,             XK_i,      spawn,          SHCMD("firefox") },
-	{ Mod4Mask,                     XK_e,      spawn,          SHCMD("st -T sfm sfm") },
+	{ MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("tabbed -r 2 st -w ''") },
+	{ MODKEY|ShiftMask,             XK_i,          spawn,                  SHCMD("firefox") },
+	{ Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },
 	#endif // RIODRAW_PATCH
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	#if TOGGLETOPBAR_PATCH
@@ -1375,6 +1375,9 @@ static const Button buttons[] = {
 	{ ClkStatusText,        0,                   Button1,        sigstatusbar,   {.i = 1 } },
 	{ ClkStatusText,        0,                   Button2,        sigstatusbar,   {.i = 2 } },
 	{ ClkStatusText,        0,                   Button3,        sigstatusbar,   {.i = 3 } },
+	{ ClkStatusText,        0,                   Button4,        sigstatusbar,   {.i = 4 } },
+	{ ClkStatusText,        0,                   Button5,        sigstatusbar,   {.i = 5 } },
+	{ ClkStatusText,        0,                   Button6,        sigstatusbar,   {.i = 6 } },
 	#elif BAR_STATUSCMD_PATCH
 	{ ClkStatusText,        0,                   Button1,        spawn,          {.v = statuscmd } },
 	{ ClkStatusText,        0,                   Button2,        spawn,          {.v = statuscmd } },
