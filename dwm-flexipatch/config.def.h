@@ -919,6 +919,10 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_m,          spawn,                  SHCMD("volume-dunst mute") },
 	/* slock must be installed */
 	{ Mod4Mask,                     XK_l,          spawn,                  SHCMD("slock") },
+        /* suckless-utils keymaps */
+        { Mod4Mask,                     XK_t,          spawn,                  SHCMD("tabbed -r 2 st -w ''") },
+        { Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
+        { Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
@@ -928,10 +932,6 @@ static const Key keys[] = {
 	{ MODKEY|ControlMask,           XK_s,          riospawnsync,           {.v = dmenucmd } },
 	{ MODKEY|ControlMask,           XK_Return,     riospawn,               {.v = termcmd } },
 	{ MODKEY,                       XK_s,          rioresize,              {0} },
-	/* suckless-utils keymaps */
-	{ MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("tabbed -r 2 st -w ''") },
-	{ Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
-	{ Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },
 	#endif // RIODRAW_PATCH
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
 	#if TOGGLETOPBAR_PATCH
