@@ -930,7 +930,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_s,          rioresize,              {0} },
 	/* suckless-utils keymaps */
 	{ MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("tabbed -r 2 st -w ''") },
-	{ MODKEY|ShiftMask,             XK_i,          spawn,                  SHCMD("firefox") },
+	{ Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
 	{ Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },
 	#endif // RIODRAW_PATCH
 	{ MODKEY,                       XK_b,          togglebar,              {0} },
