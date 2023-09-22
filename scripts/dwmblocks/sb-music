@@ -15,7 +15,7 @@ icon=""
 pausedIcon=""
 if status="$(playerctl "$@" status 2>&1)" && [ "$status" != "Stopped" ]; then
     [ "$status" = "Paused" ] && icon="$pausedIcon"
-    currentSong="$(playerctl "$@" metadata --format "{{title}} - {{artist}}")"
+    currentSong="$(playerctl "$@" metadata --format "{{title}}" | sed 's/\(.\{22\}\).*/\1.../')"
 else
     [ "$(mpc status "%state%")" = "paused" ] && icon="$pausedIcon"
     currentSong="$(mpc current -f "%title%" | sed 's/\(.\{22\}\).*/\1.../')"
