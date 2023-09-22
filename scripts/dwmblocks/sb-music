@@ -2,11 +2,11 @@
 # Display currently playing music metadata.
 
 case "$BLOCK_BUTTON" in
-    1) musicctl prev ;;
-    2) musicctl toggle ;;
-    3) musicctl next ;;
-    4) musicctl seek +5 ;;
-    5) musicctl seek -5 ;;
+    1) mpc prev ;;
+    2) mpc toggle ;;
+    3) mpc next ;;
+    4) mpc seek +5 ;;
+    5) mpc seek -5 ;;
     6) terminal -e "$EDITOR" "$0" ;;
 esac
 
@@ -18,7 +18,7 @@ if status="$(playerctl "$@" status 2>&1)" && [ "$status" != "Stopped" ]; then
     currentSong="$(playerctl "$@" metadata --format "{{title}} - {{artist}}")"
 else
     [ "$(mpc status "%state%")" = "paused" ] && icon="$pausedIcon"
-    currentSong="$(mpc current -f "%title%" | sed 's/\(.\{30\}\).*/\1.../')"
+    currentSong="$(mpc current -f "%title%" | sed 's/\(.\{22\}\).*/\1.../')"
 fi
 
 [ -z "$currentSong" ] && exit
