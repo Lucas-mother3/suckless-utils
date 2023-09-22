@@ -18,7 +18,7 @@ if status="$(playerctl "$@" status 2>&1)" && [ "$status" != "Stopped" ]; then
     currentSong="$(playerctl "$@" metadata --format "{{title}} - {{artist}}")"
 else
     [ "$(mpc status "%state%")" = "paused" ] && icon="$pausedIcon"
-    currentSong="$(mpc current -f "%title%" | awk '{print substr($0, 1, 30) "..."}')"
+    currentSong="$(mpc current -f "%title%" | sed 's/\(.\{30\}\).*/\1.../')"
 fi
 
 [ -z "$currentSong" ] && exit
