@@ -18,7 +18,7 @@ if status="$(playerctl "$@" status 2>&1)" && [ "$status" != "Stopped" ]; then
     currentSong="$(playerctl "$@" metadata --format "{{title}} - {{artist}}")"
 else
     [ "$(mpc status "%state%")" = "paused" ] && icon="$pausedIcon"
-    currentSong="$(mpc current -f "%title%[ - %artist%]")"
+    currentSong="$(mpc current -f "%title%")"
 fi
 
 [ -z "$currentSong" ] && exit
