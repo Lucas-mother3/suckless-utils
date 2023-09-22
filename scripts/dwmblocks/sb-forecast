@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Displays today's weather. A simpler version of luke smith's script.
+# Usually intended for the statusbar.
+
+showweather() {
+        curl -s 'wttr.in/?format=1' | sed 's/ //'	
+}
+
+case $BLOCK_BUTTON in
+	1) "$TERMINAL" -e "curl wttr.in" ;;
+	3) notify-send "🌈 Weather module" "\- Left click for full forecast." ;;
+	6) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+
+showweather
