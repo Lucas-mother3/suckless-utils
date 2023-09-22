@@ -7,7 +7,7 @@ Block blocks[] = {
     {"sb-disk",    1800, 1 },
     {"sb-memory",  10,   2 },
     {"sb-loadavg", 5,    3 },
-    {"sb-record",  0,    4 },
+    {"sb-music",  0,    4 },
     {"sb-volume",  1,    5 },
     {"sb-date",    1,    6 },
     {"sb-user",    0,    7 },
