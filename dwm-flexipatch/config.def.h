@@ -923,7 +923,7 @@ static const Key keys[] = {
         { Mod4Mask,                     XK_t,          spawn,                  SHCMD("tabbed -r 2 st -w ''") },
         { Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
         { Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
-        { Mod4Mask,                     XK_m,          spawn,                  SHCMD("st -T ncmpcpp ncmpcpp") },
+        { Mod4Mask,                     XK_a,          spawn,                  SHCMD("st -T ncmpcpp ncmpcpp") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
