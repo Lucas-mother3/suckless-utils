@@ -5,10 +5,11 @@ picom -b # launches compositor
 /usr/local/bin/dwmblocks & # launches slstatus/dwmblocks
 /usr/bin/dunst & # launches dunst daemon
 while true; do 
-	xsetroot -name ";$(date +'%A, %B %d, %Y') | Kernel $(uname -r) | suckless-utils 6.4"
-	sleep infinity 
-done &
+	xsetroot -name ";$(date +'%A, %B %d, %Y') | Kernel $(uname -r) | suckless-utils 6.4" # set bottom bar status
+	sleep infinity # to stop it from interfering with dwmblocks/slstatus
+done & 
 paplay /usr/share/sounds/Oxygen-Sys-Special.ogg # autoplay sound, optional
-pkill -f "sleep infinity" &
-nm-applet &
+pkill -f "sleep infinity" & # set the bottom status as sleep infinity doesn't load it up
+nm-applet & # optional, launch network-manager applet
+nemo-desktop & # launch nemo in desktop mode, to provide desktop icons, optional
 exec /usr/local/bin/dwm # launch dwm
