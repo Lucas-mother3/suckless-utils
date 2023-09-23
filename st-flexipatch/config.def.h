@@ -424,7 +424,7 @@ static Shortcut shortcuts[] = {
 	{ MODKEY,               XK_o,           opencopied,      {.v = "xdg-open"} },
 	#endif // OPENCOPIED_PATCH
 	#if NEWTERM_PATCH
-	{ TERMMOD,              XK_t,      newterm,         {.i =  0} },
+	{ TERMMOD,              XK_Return,      newterm,         {.i =  0} },
 	#endif // NEWTERM_PATCH
 	#if EXTERNALPIPE_PATCH
 	{ TERMMOD,              XK_U,           externalpipe,    { .v = openurlcmd } },
