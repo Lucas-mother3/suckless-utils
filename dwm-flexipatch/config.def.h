@@ -38,7 +38,7 @@ static const char localshare[]           = ".local/share";
 #endif // AUTOSTART_PATCH
 #if BAR_ANYBAR_PATCH
 static const int usealtbar               = 1;        /* 1 means use non-dwm status bar */
-static const char *altbarclass           = "Polybar"; /* Alternate bar class name */
+static const char *altbarclass           = "Tint2"; /* Alternate bar class name */
 static const char *altbarcmd             = "$HOME/bar.sh"; /* Alternate bar launch command */
 #endif // BAR_ANYBAR_PATCH
 #if BAR_HOLDBAR_PATCH
@@ -95,6 +95,8 @@ static const int vertpadbar              = 0;   /* vertical padding for statusba
 #endif // BAR_STATUSPADDING_PATCH
 #if BAR_STATUSBUTTON_PATCH
 static const char buttonbar[]            = "󰕰 Start";
+static const char buttonbar2[]           = " st";
+static const char buttonbar3[]           = " Firefox";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -549,6 +551,8 @@ static const BarRule barrules[] = {
 	/* monitor   bar    alignment         widthfunc                 drawfunc                clickfunc                hoverfunc                name */
 	#if BAR_STATUSBUTTON_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_stbutton,           draw_stbutton,          click_stbutton,          NULL,                    "statusbutton" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton2,          draw_stbutton2,          click_stbutton2,          NULL,                    "statusbutton2" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton3,          draw_stbutton3,          click_stbutton3,          NULL,                    "statusbutton3" },
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_POWERLINE_TAGS_PATCH
 	{  0,        0,     BAR_ALIGN_LEFT,   width_pwrl_tags,          draw_pwrl_tags,         click_pwrl_tags,         NULL,                    "powerline_tags" },
@@ -579,19 +583,19 @@ static const BarRule barrules[] = {
 	#elif BAR_POWERLINE_STATUS_PATCH
 	{ statusmon, 0,     BAR_ALIGN_RIGHT,  width_pwrl_status,        draw_pwrl_status,       click_pwrl_status,       NULL,                    "powerline_status" },
 	#elif BAR_STATUS_PATCH && BAR_STATUSCMD_PATCH
-	{ statusmon, 0,     BAR_ALIGN_RIGHT,  width_status,             draw_status,            click_statuscmd,         NULL,                    "status" },
+	{ statusmon, 1,     BAR_ALIGN_RIGHT,  width_status,             draw_status,            click_statuscmd,         NULL,                    "status" },
 	#elif BAR_STATUS_PATCH
-	{ statusmon, 0,     BAR_ALIGN_RIGHT,  width_status,             draw_status,            click_status,            NULL,                    "status" },
+	{ statusmon, 1,     BAR_ALIGN_RIGHT,  width_status,             draw_status,            click_status,            NULL,                    "status" },
 	#endif // BAR_STATUS2D_PATCH | BAR_STATUSCMD_PATCH
 	#if XKB_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_xkb,                draw_xkb,               click_xkb,               NULL,                    "xkb" },
 	#endif // XKB_PATCH
 	#if BAR_FLEXWINTITLE_PATCH
-	{ -1,        0,     BAR_ALIGN_NONE,   width_flexwintitle,       draw_flexwintitle,      click_flexwintitle,      NULL,                    "flexwintitle" },
+	{ -1,        1,     BAR_ALIGN_NONE,   width_flexwintitle,       draw_flexwintitle,      click_flexwintitle,      NULL,                    "flexwintitle" },
 	#elif BAR_TABGROUPS_PATCH
 	{ -1,        0,     BAR_ALIGN_NONE,   width_bartabgroups,       draw_bartabgroups,      click_bartabgroups,      NULL,                    "bartabgroups" },
 	#elif BAR_AWESOMEBAR_PATCH
-	{ -1,        0,     BAR_ALIGN_NONE,   width_awesomebar,         draw_awesomebar,        click_awesomebar,        NULL,                    "awesomebar" },
+	{ -1,        1,     BAR_ALIGN_NONE,   width_awesomebar,         draw_awesomebar,        click_awesomebar,        NULL,                    "awesomebar" },
 	#elif BAR_FANCYBAR_PATCH
 	{ -1,        0,     BAR_ALIGN_NONE,   width_fancybar,           draw_fancybar,          click_fancybar,          NULL,                    "fancybar" },
 	#elif BAR_WINTITLE_PATCH
@@ -1362,6 +1366,8 @@ static const Button buttons[] = {
 	/* click                event mask           button          function        argument */
 	#if BAR_STATUSBUTTON_PATCH
 	{ ClkButton,            0,                   Button1,        spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") /* use spmenu instead of dmenu */ },
+	{ ClkButton2,            0,                  Button1,        spawn,          {.v = termcmd } },
+	{ ClkButton3,            0,                  Button1,        spawn,          SHCMD("firefox") },
 	#endif // BAR_STATUSBUTTON_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
 	#if BAR_LAYOUTMENU_PATCH

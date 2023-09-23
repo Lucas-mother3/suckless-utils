@@ -232,6 +232,8 @@ enum {
 enum {
 	#if BAR_STATUSBUTTON_PATCH
 	ClkButton,
+	ClkButton2,
+	ClkButton3,
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if TAB_PATCH
 	ClkTabBar,

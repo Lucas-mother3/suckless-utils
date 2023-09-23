@@ -65,7 +65,7 @@
  * taps into the many layout options that flextile-deluxe offers to produce a window
  * title section in the bar that is representative of what is shown on screen.
  */
-#define BAR_FLEXWINTITLE_PATCH 0
+#define BAR_FLEXWINTITLE_PATCH 0 
 
 /* This patch adds a context menu for layout switching.
  *   - xmenu needs to be installed.
@@ -272,13 +272,13 @@
  *
  * https://dwm.suckless.org/patches/anybar/
  */
-#define BAR_ANYBAR_PATCH 0
+#define BAR_ANYBAR_PATCH 1
 
 /* Anybar option to place the next bar depending on previous bar's position (top or bottom) */
-#define BAR_ANYBAR_TOP_AND_BOTTOM_BARS_PATCH 0
+#define BAR_ANYBAR_TOP_AND_BOTTOM_BARS_PATCH 1
 
 /* Anybar option to let dwm manage the width of the bar */
-#define BAR_ANYBAR_MANAGE_WIDTH_PATCH 0
+#define BAR_ANYBAR_MANAGE_WIDTH_PATCH 1
 
 /* This patch adds a border around the status bar(s) just like the border of client windows.
  * https://codemadness.org/paste/dwm-border-bar.patch
@@ -290,7 +290,7 @@
  * modules.
  * https://dwm.suckless.org/patches/centeredwindowname/
  */
-#define BAR_CENTEREDWINDOWNAME_PATCH 0
+#define BAR_CENTEREDWINDOWNAME_PATCH 0 
 
 /* Draws a dot indicator overlayed on each tag icon for each client. The selected client
  * is drawn as a larger horizontal line.
@@ -400,7 +400,7 @@
 /* This patch draws and updates the statusbar on all monitors.
  * https://dwm.suckless.org/patches/statusallmons/
  */
-#define BAR_STATUSALLMONS_PATCH 0
+#define BAR_STATUSALLMONS_PATCH 1
 
 /* This patch enables colored text in the status bar. It changes the way colors are defined
  * in config.h allowing multiple color combinations for use in the status script.
