@@ -1,0 +1,9 @@
+# screenshot-spmenu config file
+RUNLAUNCHER="spmenu" # Run launcher to use
+SHOW_CURSOR="true" # Show cursor or not (true/false)
+DEFAULT_SCREENSHOT_DIRECTORY="/home/lucss21a/Screenshots" # Default screenshot path
+PREFIX="screenshot-" # Screenshot prefix
+FORMAT="+%T_%D" # Screenshot format
+PREVIEW_IMAGE=true
+IMAGE_SIZE="500"
+CACHE_IMAGE="false"

@@ -78,6 +78,8 @@ Linux/Unix users:
 - feh (optional)
 - pywal (for colors/wallpaper)
 - slop (for riodraw)
+- libmpdclient(-devel or -dev) for mpdclient
+- yajl for ipc
 
 Termux users:
 - xorg 

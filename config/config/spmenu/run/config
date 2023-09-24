@@ -1,0 +1,154 @@
+# spmenu_run default configuration file
+#
+# This is the configuration file for the run launcher spmenu comes with.
+# It is not the configuration file for spmenu, see ~/.config/spmenu/spmenu.conf for that.
+#
+# spmenu_run also runs these functions if found in the config file:
+#
+# 'run_pre_func' before spawning spmenu.
+# 'run_post_func' after spawning spmenu, selected item passed as an argument.
+# 'run_pre_bookmark_list_func' while listing selected/marked items. The selected item is passed as an argument.
+# 'run_post_bookmark_list_func' while listing selected/marked items. The selected item is passed as an argument.
+# 'run_file_bookmark_list_func' while reading entries from the bookmark file. The current bookmark is passed as an argument.
+# 'run_single_char_pre_bookmark_list_func' while listing selected/marked items. The first character of the spmenu output is passed as an argument.
+# 'run_single_char_func' while checking the value of a single character. The first character of the spmenu output is passed as an argument.
+# 'run_output_func' while checking the value of the spmenu output. spmenu output is passed as an argument.
+# 'desktop_pre_func' before spawning spmenu.
+# 'desktop_post_func' after spawning spmenu, selected item passed as an argument.
+# 'desktop_pre_caching_func' before caching entries.
+# 'desktop_post_caching_func' after caching entries.
+# 'desktop_file_caching_func' while caching entries. The current file that is being parsed is passed as an argument.
+# 'fm_pre_func' before spawning spmenu.
+# 'fm_post_func' after spawning spmenu, selected item passed as an argument.
+# 'fm_pre_list_func' right before listing out files.
+# 'fm_post_list_func' right after listing out files.
+# 'fm_line_func' for each line in ls output, the line is passed as an argument, including SGR colors.
+# 'read_man' when reading a man page, selected item passed as an argument.
+# 'print_array' when printing out .desktop entries
+#
+# You may create those functions below.
+#
+# For example, to implement a basic history file:
+#
+# run_post_func() {
+#   rm -f /tmp/spmenu_entryhist; printf "$1\n" >> /tmp/spmenu_entryhist
+# }
+#
+# You can use anything POSIX compliant shells and Bash support, as well as programs available on the system.
+
+
+# Miscellanious software options
+TERMINAL="${TERMINAL:-st -e}" # Terminal commands are spawned in
+BROWSER="${BROWSER:-xdg-open}" # Web browser, for URLs
+TORRENT="${TORRENT:-qbittorrent}" # Torrent client, for magnet links
+PDF_READER="${PDF_READER:-zathura}" # PDF reader, for file management
+EDITOR="${EDITOR:-nvim}" # Editor, used to open documents
+PLAYER="${PLAYER:-mpv}" # Player, used to play audio/video
+GENERIC="${GENERIC:-$TERMINAL -e $EDITOR}" # Generic, used to open unknown files
+WEB_GREP="http:|https:|www[.]" # Needs to be in grep -E syntax
+MAGNET_GREP="magnet:?" # Needs to be in grep -E syntax
+HISTORY="${XDG_CACHE_HOME:-$HOME/.cache/}/spmenu/spmenu_run.hist" # History file, spmenu (meaning your user) must have permission to read and write to it.
+DISPLAY_BOOKMARKS="true" # Display bookmarks in regular list (true/false)
+BOOKMARK_FILE="${BOOKMARK_FILE:-${XDG_CACHE_HOME:-$HOME/.cache/}/spmenu/spmenu_run.bookmarks}" # Bookmark file, spmenu_run must have permission to read and write to it.
+BOOKMARK_PROMPT="Bookmarks" # Bookmark prompt (-p)
+
+# Run launcher argument options
+RUNLAUNCHER="${RUNLAUNCHER:-spmenu}" # Run launcher to use
+RUNLAUNCHER_RUN_ARGS="" # Extra arguments passed to $RUNLAUNCHER when using the run launcher
+RUNLAUNCHER_BM_ARGS="" # Extra arguments passed to $RUNLAUNCHER when using the bookmark menu
+RUNLAUNCHER_DESKTOP_ARGS="" # Extra rguments passed to $RUNLAUNCHER when using the .desktop launcher
+RUNLAUNCHER_FM_ARGS="" # Extra arguments passed to $RUNLAUNCHER when using the file manager
+RUNLAUNCHER_HELP_ARGS="" # Extra arguments passed to $RUNLAUNCHER when using the help
+DMENU_COMPAT="false" # Enable dmenu compatibility (true/false)
+
+# Pretext
+RUNLAUNCHER_RUN_PRETEXT="Type in keywords to search for a program.." # Text to display when no input text
+RUNLAUNCHER_BM_PRETEXT="Type in keywords to search for a bookmark.." # Text to display when no input text
+RUNLAUNCHER_DESKTOP_PRETEXT="Type in keywords to search for a program.." # Text to display when no input text
+RUNLAUNCHER_FM_PRETEXT="Type in keywords to search for a file or directory.." # Text to display when no input text
+RUNLAUNCHER_HELP_PRETEXT="" # Text to display when no input text
+
+# Sorting
+SORT_BY_NUMBER="false" # Sort by numbers
+SORT_IN_REVERSE="false" # Sort in reverse
+SORT_BY_RECENT="false" # Sort by recent
+SORT_ARGS="" # Extra arguments passed to the sort command.
+
+# Keywords
+HIDDEN_KEYWORDS="spmenu" # Keywords that will be ignored, needs to be in grep -vE syntax.
+KEYWORDS="" # Keywords that will be matched, needs to be in grep -E syntax.
+
+# Miscellanious
+STDOUT="false" # Print to stdout and exit (true/false)
+DISPLAY_DUPLICATES="false" # Display duplicates or not
+DEFAULT_FEATURE="" # spmenu_run default feature (run/fm/desktop/help)
+HELP_COLOR="#FFFF00"
+
+# .desktop entry options
+DESKTOP_DIR="/usr/share/applications /usr/local/share/applications /home/lucss21a/.local/share/applications /var/lib/flatpak/exports/share/applications /home/lucss21a/.local/share/flatpak/exports/share/applications" # Directories for .desktop entries
+ICON_DIR="/usr/share/icons /usr/local/share/icons /home/lucss21a/.local/share/icons /usr/share/pixmaps /usr/local/share/pixmaps /var/lib/flatpak/exports/share/icons" # Directories for icons defined in the entries
+HIDDEN_ENTRY_KEYWORDS="$HIDDEN_KEYWORDS" # Keywords that will be ignored, needs to be in grep -vE syntax.
+ENTRY_KEYWORDS="$KEYWORDS" # Keywords that will be matched, needs to be in grep -E syntax.
+AUTOREFRESH="true" # Refresh (clear) cache if there are more entries available than cached. May cause cache to be cleared every time in some cases. (true/false)
+MULTISELECT="true" # Allow handling multiple items, if set to false only the first line/selected item will be used.
+IMAGE="true" # Display images (true/false)
+DISPLAY_COMMENT="true" # Display comment (true/false)
+DISPLAY_DESCRIPTION="false" # Display description (true/false)"
+DESCRIPTION_COLOR="#999888" # Description text color
+DESCRIPTION_SEPARATOR=" - " # Separator between title and description
+COMMENT_COLOR="#999888" # Comment text color
+COMMENT_SEPARATOR=" - " # Separator between title and comment
+RESPECT_NODISPLAY="true" # Respect NoDisplay in .desktop entries. If set to true, entries with 'NoDisplay=true' will not be displayed (true/false)
+RESPECT_ONLYSHOWIN="true" # Respect OnlyShowIn in .desktop entries. If set to true, entries wth 'OnlyShowIn' assigned will not be displayed (true/false)
+PREFERRED_LANGUAGE="generic" # Preferred language for the title and description. "generic" means the default for that .desktop entry (true/false)
+LOGFILE="/tmp/spmenu_run.log" # Log file
+PRINT_LOGS_STDERR="true" # Print information (such as logs) to stderr (true/false)
+TITLEFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_title" # File containing the different titles to display.
+DESCFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_desc" # File containing the description to display
+EXECFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_exec" # File containing the different executables to run.
+ICONFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_icon" # File containing the paths to the icons to display.
+FILEFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_file" # File containing the path to the .desktop entries.
+TERMFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_term" # File containing the path to the terminal data
+ONLYFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_only" # File containing the path to the OnlyShowIn data
+DISPLAYFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_display" # File containing the path to the NoDisplay data
+COMMENTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/spmenu/.desktop_comment" # File containing the comment to display
+
+# File management
+DEFAULT_DIRECTORY="$(pwd)" # Directory to start -fm if none is specified.
+LS_ARGS="${LS_ARGS:- --color=always}" # Arguments passed to /bin/ls
+USE_FULL_PATH="true" # Return full path (true/false)
+
+# Function to read the man page in spmenu
+read_man() {
+    man "$1" | \
+    col -b | \
+    ${RUNLAUNCHER:-spmenu} --lines 40 --columns 1 -p "man $1"
+}
+
+# Function used to print out the .desktop entries
+print_array() {
+    for i in "${!it_title[@]}"; do
+        [ "$RESPECT_ONLYSHOWIN" != "false" ] && [ "${it_only[i]}" != "false" ] && continue
+        [ "$RESPECT_NODISPLAY" != "false" ] && [ "${it_display[i]}" != "true" ] && continue
+
+        if [ -f "${it_icon[i]}" ] && [ -n "${it_title[i]}" ] && [ -n "${it_exec[i]}" ] && [ "$IMAGE" != "false" ]; then
+            printf "%s\t%s" "img://${it_icon[i]}" "${it_title[i]}"
+        elif [ -n "${it_title[i]}" ] && [ -n "${it_exec[i]}" ]; then
+            printf "%s" "${it_title[i]}"
+        else
+            continue
+        fi
+
+        if [ -n "${it_desc[i]}" ] && [ "$DISPLAY_DESCRIPTION" = "true" ]; then
+            [ "$DMENU_COMPAT" != "true" ] && COL='\033[0;31m'
+            printf -- "$DESCRIPTION_SEPARATOR%b%s" "${COL}" "${it_desc[i]}"
+        fi
+
+        if [ -n "${it_comment[i]}" ] && [ "$DISPLAY_COMMENT" = "true" ]; then
+            [ "$DMENU_COMPAT" != "true" ] && COL='\033[0;32m'
+            printf -- "$COMMENT_SEPARATOR%b%s" "${COL}" "${it_comment[i]}"
+        fi
+
+        printf "\n"
+    done
+}

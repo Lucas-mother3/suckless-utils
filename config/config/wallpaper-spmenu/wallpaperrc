@@ -1,0 +1,13 @@
+# wallpaper-spmenu 0.1
+# This is the default config file for wallpaper-spmenu.
+# You can use any valid shell syntax here.
+# See https://spmenu.speedie.site wiki for more information.
+
+PROTOCOL="1" # Default protocol to use (0: X11, 1: Wayland w/ wlroots)
+WALLPAPER_DIR="/home/lucss21a/Wallpapers" # Default wallpaper directory, can be set on runtime
+
+COLOR="always" # Color the entries (always/never)
+DEFAULT_MODE="fill" # Default mode (stretch/fit/fill/center/tile)
+ASK_MODE="false" # Ask how the wallpaper should be set (true/false)
+DEFAULT_FEATURE="pw" # Default feature (sw/pw)
+PREVIEW_IMAGE="true" # Enable image previews (true/false)
