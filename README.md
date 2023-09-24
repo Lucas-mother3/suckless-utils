@@ -18,6 +18,10 @@ This was designed to save me some sanity in maintaining it as well as easily int
 
 ## Notes
 
+### Configuration notes
+
+The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom` and `ncmpcppp`. 
+
 ### Compatibility notes
 
 For those who want the old version, check out `oldmain`. I don't plan on maintaining it myself since the flexipatch base means much more flexibility over codebase updates as well as new patches.
