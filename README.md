@@ -18,6 +18,10 @@ This was designed to save me some sanity in maintaining it as well as easily int
 
 ## Notes
 
+### eww notes
+
+The weather widget is pretty barebones as of now. Report bugs if found.
+
 ### Configuration notes
 
 The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom` and `ncmpcppp`. 
@@ -84,6 +88,7 @@ Linux/Unix users:
 - slop (for riodraw)
 - libmpdclient(-devel or -dev) for mpdclient
 - yajl for ipc
+- eww (optional)
 
 Termux users:
 - xorg 
@@ -127,7 +132,9 @@ Refer to patches.def.h and config.mk for additional patch-related requirements.
     - Additionally, a script called `startdwm` located in `desktop` could be installed in `/usr/local/bin` which could be used to launch dwm on display managers, such as GDM or SDDM.
     - `startdwm` could be also used as the xinitrc script by putting it under $HOME and renaming it to `.xinitrc`.
 8. Install the `dwmblocks` scripts (in `scripts/dwmblocks`) to your `$PATH`.
-9.  Start it and done! 
+9. Install eww, and put the config inside `config/eww` to `$HOME/.config`. Put the scripts inside `scripts/eww` inside `$PATH`.
+    - (Recommended) Make a hard link of `.cache/wal/colors.scss` to `.config/eww/colors.scss`.
+10.  Start it and done! 
 
 
 ## Future plans
@@ -161,7 +168,8 @@ All programs are licensed under the MIT License, except for some submodules, whi
 ## Screenshots
 ![Screenshot of neofetch](/pics/neofetch.png)
 ![Screenshot of the desktop](/pics/desktop.png)
-![Screenshot of st (in a scratchpad), Discord and Firefox](/pics/random.png)
+![Screenshot of random screenshots](/pics/random.png)
+![Screenshot of SM64 port](/pics/gaming.png)
 
 ## Special thanks 
 * [Speedie](https://speedie.site) for helping me out with this and providing me with patches 

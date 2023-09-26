@@ -12,17 +12,17 @@
 (defpoll gpu :interval "1s" "printf '󰍹 : ' && glxinfo -B | grep 'OpenGL renderer string' | sed 's/OpenGL renderer string: //g' | head -c 25")
 (defpoll wm :interval "1s" "printf ' : ' && wmctrl -m | grep 'Name: ' | sed 's/Name: //g'")
 
-; (defpoll weather-icon :interval "1s" "curl -s wttr.in/Gapan?format='%c'")
-; (defpoll weather-location :interval "1s" "curl -s wttr.in/Gapan?format='%l'")
-; (defpoll weather-temp :interval "1s" "curl -s wttr.in/Gapan?format='%t'")
-(defvar weather-temp "+34°C")
-(defvar weather-location "Gapan, NE")
-(defvar weather-icon "☁")
+(defpoll weather-icon :interval "1s" "curl -s wttr.in/?format='%c'")
+(defpoll weather-location :interval "1s" "curl -s wttr.in/?format='%l'")
+(defpoll weather-temp :interval "1s" "curl -s wttr.in/?format='%t'")
+; (defvar weather-temp "+34°C")
+; (defvar weather-location "Test")
+; (defvar weather-icon "☁")
 
 (defvar notification "Notifications")
 (defpoll notification-history :interval "1s" "printf 'In history: ' && dunstctl count history")
 (defpoll notification-display :interval "1s" "printf 'Currently Displayed: ' && dunstctl count displayed")
-(defpoll notification-summary :interval "1s" "printf 'Last notification:\\n' && dunstctl history | jq '.data[] | .[] | .summary | .data' | head -n 1 | sed 's/\"//g' ")
+(defpoll notification-summary :interval "1s" "printf 'Last notification:\\n' && dunstctl history | jq '.data[] | .[] | .summary | .data' | head -n 1 | sed 's/\"//g' | fold -w 25")
 
 (defpoll quoter-text :interval "10s" "quoter | fold -w 30")
 
