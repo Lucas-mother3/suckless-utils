@@ -1,0 +1,152 @@
+(defpoll time :interval "1s" "date '+%I:%M:%S'")
+(defpoll date :interval "1s" "date '+%B %d, %Y'")
+(defpoll time2 :interval "1s" "TZ=UTC date '+%I:%M %B %d (%Z)'")
+
+(defpoll title :interval "1s" "eww-music")
+(defpoll artist :interval "1s" "eww-artist")
+(defpoll album :interval "1s" "eww-album")
+
+(defpoll distro :interval "1s" "printf '󱅿 : ' && cat /etc/os-release | grep 'NAME=' | head -n 1 | sed -e 's/NAME=//g' -e 's/\"//g'")
+(defpoll kernel :interval "1s" "printf ' : ' && uname -r")
+(defpoll cpu :interval "1s" "printf ' : ' && lscpu | grep 'Model name:' | sed 's/Model name:                         //g' | head -c 25")
+(defpoll gpu :interval "1s" "printf '󰍹 : ' && glxinfo -B | grep 'OpenGL renderer string' | sed 's/OpenGL renderer string: //g' | head -c 25")
+(defpoll wm :interval "1s" "printf ' : ' && wmctrl -m | grep 'Name: ' | sed 's/Name: //g'")
+
+; (defpoll weather-icon :interval "1s" "curl -s wttr.in/Gapan?format='%c'")
+; (defpoll weather-location :interval "1s" "curl -s wttr.in/Gapan?format='%l'")
+; (defpoll weather-temp :interval "1s" "curl -s wttr.in/Gapan?format='%t'")
+(defvar weather-temp "+34°C")
+(defvar weather-location "Gapan, NE")
+(defvar weather-icon "☁")
+
+(defvar notification "Notifications")
+(defpoll notification-history :interval "1s" "printf 'In history: ' && dunstctl count history")
+(defpoll notification-display :interval "1s" "printf 'Currently Displayed: ' && dunstctl count displayed")
+(defpoll notification-summary :interval "1s" "printf 'Last notification:\\n' && dunstctl history | jq '.data[] | .[] | .summary | .data' | head -n 1 | sed 's/\"//g' ")
+
+(defpoll quoter-text :interval "10s" "quoter | fold -w 30")
+
+(defwidget datetime []
+  (box :class "date-box" :space-evenly "false" :orientation "v"
+    (label :class "time" :text time)
+    (label :class "date" :text date)
+    (label :class "date" :text time2)
+  )
+)
+
+(defwidget music[]
+  (box :class "music-box" :space-evenly "false" :orientation "v"
+    (label :class "title" :text title)
+    (label :class "artist" :text artist)
+    (label :class "album" :text album)
+  )
+)
+
+(defwidget fetch[]
+  (box :class "music-box" :space-evenly "false" :orientation "v"
+    (label :class "title" :text distro :xalign 0)
+    (label :class "artist" :text kernel :xalign 0)
+    (label :class "album" :text cpu :xalign 0)
+    (label :class "album" :text gpu :xalign 0)
+    (label :class "album" :text wm :xalign 0)
+  )
+)
+
+(defwidget quoter[]
+  (box :class "music-box" :space-evenly "false" :orientation "v"
+    (label :class "title" :text quoter-text :xalign 0)
+  )
+)
+
+
+
+(defwidget notifications[]
+  (box :class "music-box" :space-evenly "false" :orientation "v"
+    (label :class "notification" :text notification)
+    (label :class "artist" :text notification-history :xalign 0)
+    (label :class "album" :text notification-display :xalign 0)
+    (label :class "album" :text notification-summary :xalign 0)
+  )
+)
+
+(defwidget weather[]
+  (box :class "weather-box" :space-evenly "false" :orientation "h"
+    (box :class "weather-icon" :space-evenly "false" :orientation "v"
+    (label :class "weather-icon-text" :text weather-icon)
+    )
+    (box :class "spacer" :space-evenly "false" :orientation "v")
+    (box :class "weather-forecast" :space-evenly "false" :orientation "v"
+    (label :class "weather-location" :text weather-location :xalign 0)
+    (label :class "weather-temp" :text weather-temp :xalign 0)
+    )
+  )
+)
+(defwidget ram []
+  (box :class "ram-box" :space-evenly "false" :orientation "v"
+   (circular-progress :class "ram-radial"
+                        :value "${EWW_RAM.used_mem_perc}"
+                        :thickness 10
+                        :clockwise "true"
+                        :tooltip "Used RAM: ${EWW_RAM.used_mem_perc}%" 
+                        (label 
+                              :class "ram-radial-label" 
+                              :text ""
+                              :valign "center"
+                              :halign "center"))))
+
+(defwidget cpu []
+  (box :class "cpu-box" :space-evenly "false" :orientation "v"
+  (circular-progress :class "cpu-radial"
+                        :value "${EWW_CPU.avg}"
+                        :thickness 10
+                        :clockwise "true"
+                        :tooltip "CPU Usage: ${EWW_CPU.avg}%" 
+                        (label 
+                              :class "cpu-radial-label" 
+                              :text ""
+                              :valign "center"
+                              :halign "center"))))
+
+(defwidget spacer[]
+  (box :class "spacer" :space-evenly "false" :orientation "v")
+)
+
+(defwidget main []
+  (box :class "main" :space-evenly "false" :orientation "v"
+    (box :class "top-row" :space-evenly "false" :orientation "v" 
+    (datetime)
+    (spacer)
+    (music)
+    (spacer)
+    )
+    (box :class "middle-row" :space-evenly "false" :orientation "h" :halign "center"
+    (ram)
+    (spacer)
+    (cpu)
+    )
+    (box :class "bottom-row" :space-evenly "false" :orientation "v" :halign "center"
+    (spacer)
+    (fetch)
+    (spacer)
+    (weather)
+    (spacer)
+    (notifications)
+    (spacer)
+    (quoter)
+    )
+  )
+)
+
+(defwindow main
+           :monitor 0
+           :geometry (geometry 
+                        :x "-30px"
+                        :y "0%"
+                        :width "15%"
+                        :height "94%"
+                        :anchor "center right")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "desktop"
+           :wm-ignore false
+  (main))

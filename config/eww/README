@@ -1,0 +1,8 @@
+Please link your scss wal config here
+
+use:
+
+ln $HOME/.cache/wal/colors.scss $HOME/.config/eww/colors.scss
+
+
+Also please install the scripts in ../scripts/eww to $PATH

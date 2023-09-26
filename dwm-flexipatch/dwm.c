@@ -234,6 +234,7 @@ enum {
 	ClkButton,
 	ClkButton2,
 	ClkButton3,
+	ClkButton4,
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if TAB_PATCH
 	ClkTabBar,

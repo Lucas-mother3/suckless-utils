@@ -50,3 +50,20 @@ click_stbutton3(Bar *bar, Arg *arg, BarArg *a)
 {
 	return ClkButton3;
 }
+int
+width_stbutton4(Bar *bar, BarArg *a)
+{
+	return TEXTW(buttonbar4);
+}
+
+int
+draw_stbutton4(Bar *bar, BarArg *a)
+{
+	return drw_text(drw, a->x, a->y, a->w, a->h, lrpad / 2, buttonbar4, 0, False);
+}
+
+int
+click_stbutton4(Bar *bar, Arg *arg, BarArg *a)
+{
+	return ClkButton4;
+}

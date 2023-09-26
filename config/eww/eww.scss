@@ -1,0 +1,90 @@
+/** Colors *******************************************/
+@import 'colors.scss'
+
+* {
+    font-family: "Hack Nerd Font"; 
+}
+
+.main {
+    background-color: $color0;
+    padding: 1em;
+    margin: 0.5em;
+}
+
+.date-box {
+    background-color: $color6;
+    color: $color0;
+    padding: 0.9em;
+}
+.spacer {
+    padding: 0.5rem;
+    background-color: $color0;
+}
+.time {
+    font-size: 3rem;
+}
+.date {
+    font-size: 1.2rem;
+}
+.title, .album, .artist {
+    color: $color0;
+    font-size: 1rem;
+}
+.title, .album, .artist {
+    color: $color0;
+    font-size: 1rem;
+}
+.music-box{
+    background-color: $color6;
+    padding: 0.9em;
+}
+.weather-box{
+    background-color: $color0;
+}
+.weather-icon {
+    background-color: $color6;
+    padding: 1em;
+}
+.weather-forecast {
+    color: $color0;
+    background-color: $color6;
+    padding: 1rem;
+    padding-right: 7em;
+}
+.weather-icon-text {
+    color: $color0;
+    font-size: 2em;
+    margin: 1rem;
+    margin-right: 0rem;
+  }
+.ram-box, .cpu-box {
+    background-color: $color6;
+    padding: 1em;
+}
+.ram-radial, .cpu-radial {
+    color: $color0;
+    background-color: $color5;
+  }
+.ram-radial-label {
+    font-size: 2em;
+    padding: 3rem;
+    margin-left: 0.25rem;
+    margin-right: 0.75rem;
+  }
+  .cpu-radial-label {
+    font-size: 2em;
+    padding: 3rem;
+    margin-right: 0.75rem;
+  }
+
+.weather-location {
+    font-size: 1.25rem;
+}
+.weather-temp {
+    font-size: 2rem;
+    font-weight: bold;
+}
+.notification {
+    font-weight: bold;
+    color: $color0;
+}

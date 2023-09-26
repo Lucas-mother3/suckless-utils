@@ -1,0 +1,14 @@
+#!/bin/bash
+# Quoter, the randomly generated quotes maker
+# It reads messages off a file called "messages.txt"
+# If it doesn't exists on the same dir as the script, it'll fail.
+
+# Setting vars
+
+file=$HOME/messages.txt
+count=$(wc -l $file | awk '{print $1}')
+number=$((1 + $RANDOM % $count))
+
+quote=$(sed -n $number\p $file)
+
+echo "Random quote: $quote"

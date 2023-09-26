@@ -173,4 +173,5 @@ All programs are licensed under the MIT License, except for some submodules, whi
 * [GitHub](https://github.com/Lucas-mother3/suckless-utils) - Main mirror
 * [GitLab](https://gitlab.com/Lucas-mother3/suckless-utils) - Secondary (and backup)
 * [BitBucket](https://bitbucket.org/Lucas-mother3/suckless-utils) - Secondary backup
+* [Codeberg](https://codeberg.org/Lucas-mother3/suckless-utils) - Tritary backup
 * [speedie.site](https://git.speedie.site/Lucas-mother3/suckless-utils) - Mirror of gitlab

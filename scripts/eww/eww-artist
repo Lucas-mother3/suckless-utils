@@ -1,0 +1,30 @@
+#!/bin/sh
+# Display currently playing music metadata.
+
+if status="$(playerctl "$@" status 2>&1)" && [ "$status" != "Stopped" ]; then
+    [ "$status" = "Paused" ] && icon="$pausedIcon"
+    playerctl="$(playerctl "$@" metadata --format "{{artist}}" | sed 's/\(.\{25\}\).*/\1.../')"
+else
+    [ "$(mpc status "%state%")" = "paused" ] && icon="$pausedIcon"
+    mpd="$(mpc current -f "%artist%" | sed 's/\(.\{25\}\).*/\1.../')"
+fi
+
+if [ -z "$(mpc current -f "%artist%")" ]; then
+	currentSong="Try playing something"
+else
+	currentSong="$mpd"
+fi
+
+if [ "$status" = "No players found" ]; then
+		if [ -z "$mpd" ]; then
+		        currentSong="Try playing something"
+		else
+			currentSong="$mpd"
+		fi
+else
+		currentSong="$playerctl"
+fi
+
+
+[ -z "currentSong" ] && exit
+echo "$currentSong"

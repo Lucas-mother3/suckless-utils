@@ -6,5 +6,7 @@ picom -b # launches compositor
 /usr/bin/dunst & # launches dunst daemon
 paplay /usr/share/sounds/Oxygen-Sys-Special.ogg # autoplay sound, optional
 nm-applet & # optional, launch network-manager applet
+/usr/local/bin/eww daemon & # launch eww in start up, assumes eww is copied to $PATH
+/usr/local/bin/eww open main & # make sure the config is copied
 nemo-desktop & # launch nemo in desktop mode, to provide desktop icons, optional
 exec /usr/local/bin/dwm # launch dwm
