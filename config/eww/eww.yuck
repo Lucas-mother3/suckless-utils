@@ -15,16 +15,17 @@
 (defpoll weather-icon :interval "1s" "curl -s wttr.in/?format='%c'")
 (defpoll weather-location :interval "1s" "curl -s wttr.in/?format='%l'")
 (defpoll weather-temp :interval "1s" "curl -s wttr.in/?format='%t'")
+(defpoll weather-feeltemp :interval "1s" "printf 'Feels like ' && curl -s wttr.in/?format='%f'")
 ; (defvar weather-temp "+34°C")
-; (defvar weather-location "Test")
+; (defvar weather-location "Gapan, NE")
 ; (defvar weather-icon "☁")
 
 (defvar notification "Notifications")
 (defpoll notification-history :interval "1s" "printf 'In history: ' && dunstctl count history")
 (defpoll notification-display :interval "1s" "printf 'Currently Displayed: ' && dunstctl count displayed")
-(defpoll notification-summary :interval "1s" "printf 'Last notification:\\n' && dunstctl history | jq '.data[] | .[] | .summary | .data' | head -n 1 | sed 's/\"//g' | fold -w 25")
+(defpoll notification-summary :interval "1s" "printf 'Last notification:\\n' && dunstctl history | jq '.data[] | .[] | .summary | .data' | head -n 1 | sed 's/\"//g' | fold -sw 25")
 
-(defpoll quoter-text :interval "10s" "quoter | fold -w 30")
+(defpoll quoter-text :interval "10s" "quoter | fold -sw 30")
 
 (defwidget datetime []
   (box :class "date-box" :space-evenly "false" :orientation "v"
@@ -78,6 +79,7 @@
     (box :class "weather-forecast" :space-evenly "false" :orientation "v"
     (label :class "weather-location" :text weather-location :xalign 0)
     (label :class "weather-temp" :text weather-temp :xalign 0)
+    (label :class "weather-location" :text weather-feeltemp :xalign 0)
     )
   )
 )
