@@ -15,6 +15,8 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - spmenu
 - dwmblocks-async
 - slock
+- dvtm
+- abduco
 
 ## Notes
 

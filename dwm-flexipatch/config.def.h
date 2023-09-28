@@ -98,7 +98,7 @@ static const char buttonbar[]            = "󰕰 Start";
 static const char buttonbar2[]           = " st";
 static const char buttonbar3[]           = " Firefox";
 static const char buttonbar4[]           = "󰝚 mpd";
-static const char buttonbar5[]           = "󰍃󰐥";
+static const char buttonbar5[]           = "󰍃 󰐥 Power";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -573,7 +573,7 @@ static const BarRule barrules[] = {
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH
 	#if BAR_STATUSBUTTON_PATCH
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton5,           draw_stbutton5,          click_stbutton5,          NULL,                    "statusbutton5" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_LTSYMBOL_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_ltsymbol,           draw_ltsymbol,          click_ltsymbol,          NULL,                    "layout" },
