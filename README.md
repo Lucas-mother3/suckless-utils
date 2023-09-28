@@ -6,6 +6,7 @@ This was designed to save me some sanity in maintaining it as well as easily int
 
 ## Included software
 
+### X11
 - dwm
 - dmenu
 - st
@@ -15,8 +16,11 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - spmenu
 - dwmblocks-async
 - slock
+
+### Terminal
 - dvtm
 - abduco
+- shmenu
 
 ## Notes
 
