@@ -1,7 +1,7 @@
 #!/bin/sh
 # This simple script uses dmenu to ask the user what they wanna do.
 
-USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nKill X" | spmenu -l 5 -g 1 -p "What do you wanna do?")
+USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nKill X" | spmenu -b -l 5 -g 1 -p "What do you wanna do?")
 
 
 case "$USER_OPT1" in
