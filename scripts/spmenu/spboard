@@ -1,5 +1,5 @@
 #!/bin/sh
-# dkeyboard by speedie
+# spkeyboard by speedie
 # Licensed under GNU GPLv3
  
 EMOJILIST()
@@ -2124,12 +2124,12 @@ EMOJICOPY()
 
 DBOARD_CREDITS()
 {
-  printf "speedie - Wrote the script & Swedish characters\njornmann - Helped out with some code\nLuke Smith - The idea\nLucss21a - Baybayin characters\nDamaj301Damaj - Arabic characters"
+  printf "speedie - Wrote the script & Swedish characters\njornmann - Helped out with some code\nLuke Smith - The idea\nLucss21a - Baybayin characters, rewrote this script to be compatible with spmenu\nDamaj301Damaj - Arabic characters"
 }
 
 DBOARD_ABOUT()
 {
-  printf "dboard 0.2\nReleased and licensed to you (the end user) under the GNU GPLv3 free software license.\nYou are using this software at your own risk."
+  printf "spboard 0.1\nReleased and licensed to you (the end user) under the GNU GPLv3 free software license.\nYou are using this software at your own risk."
 }
 
 ###########################################################

@@ -97,7 +97,8 @@ static const int vertpadbar              = 0;   /* vertical padding for statusba
 static const char buttonbar[]            = "󰕰 Start";
 static const char buttonbar2[]           = " st";
 static const char buttonbar3[]           = " Firefox";
-static const char buttonbar4[]           = "Layouts";
+static const char buttonbar4[]           = "󰝚 mpd";
+static const char buttonbar5[]           = "󰍃󰐥";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -554,6 +555,7 @@ static const BarRule barrules[] = {
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_stbutton,           draw_stbutton,          click_stbutton,          NULL,                    "statusbutton" },
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton2,          draw_stbutton2,          click_stbutton2,          NULL,                    "statusbutton2" },
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton3,          draw_stbutton3,          click_stbutton3,          NULL,                    "statusbutton3" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton4,           draw_stbutton4,          click_stbutton4,          NULL,                    "statusbutton4" },
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_POWERLINE_TAGS_PATCH
 	{  0,        0,     BAR_ALIGN_LEFT,   width_pwrl_tags,          draw_pwrl_tags,         click_pwrl_tags,         NULL,                    "powerline_tags" },
@@ -570,12 +572,12 @@ static const BarRule barrules[] = {
 	#if BAR_SYSTRAY_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH
+	#if BAR_STATUSBUTTON_PATCH
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton5,           draw_stbutton5,          click_stbutton5,          NULL,                    "statusbutton5" },
+	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_LTSYMBOL_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_ltsymbol,           draw_ltsymbol,          click_ltsymbol,          NULL,                    "layout" },
 	#endif // BAR_LTSYMBOL_PATCH
-	#if BAR_STATUSBUTTON_PATCH
-	{ -1,        0,     BAR_ALIGN_LEFT,   width_stbutton4,           draw_stbutton4,          click_stbutton4,          NULL,                    "statusbutton4" },
-	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_STATUSCOLORS_PATCH && BAR_STATUSCMD_PATCH
 	{ statusmon, 0,     BAR_ALIGN_RIGHT,  width_statuscolors,       draw_statuscolors,      click_statuscmd,         NULL,                    "statuscolors" },
 	#elif BAR_STATUSCOLORS_PATCH
@@ -934,6 +936,7 @@ static const Key keys[] = {
         { Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
         { Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
         { Mod4Mask,                     XK_a,          spawn,                  SHCMD("st -T ncmpcpp ncmpcpp") },
+	{ Mod4Mask|ShiftMask,           XK_t,          spawn,                  SHCMD("st -T dvtm abduco -c dvtm dvtm-status") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
@@ -1372,12 +1375,14 @@ static const Button buttons[] = {
 	{ ClkButton,            0,                   Button1,        spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") /* use spmenu instead of dmenu */ },
 	{ ClkButton2,            0,                  Button1,        spawn,          {.v = termcmd } },
 	{ ClkButton3,            0,                  Button1,        spawn,          SHCMD("firefox") },
+	{ ClkButton4,           0,                   Button1,        spawn,          SHCMD("st -T ncmpcpp ncmpcpp") },
+	{ ClkButton5,           0,                   Button1,        spawn,          SHCMD("shutdown") },
 	#endif // BAR_STATUSBUTTON_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
 	#if BAR_LAYOUTMENU_PATCH
-	{ ClkButton4,           0,                   Button1,        layoutmenu,     {0} },
+	{ ClkLtSymbol,          0,                   Button3,        layoutmenu,     {0} },
 	#else
-	{ ClkLtSymbol,          0,                   Button3,        setlayout,      {.v = &layouts[2]} },
+	{ ClkLtSymbol,          0,                   Button3,        spawn,          SHCMD("layoutmenu") },
 	#endif // BAR_LAYOUTMENU_PATCH
 	#if BAR_WINTITLEACTIONS_PATCH
 	{ ClkWinTitle,          0,                   Button1,        togglewin,      {0} },

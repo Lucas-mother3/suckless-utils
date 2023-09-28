@@ -16,3 +16,9 @@
 [submodule "sfm"]
 	path = sfm
 	url = https://github.com/afify/sfm.git
+[submodule "dvtm"]
+	path = dvtm
+	url = https://github.com/martanne/dvtm.git
+[submodule "abduco"]
+	path = abduco
+	url = https://github.com/martanne/abduco.git

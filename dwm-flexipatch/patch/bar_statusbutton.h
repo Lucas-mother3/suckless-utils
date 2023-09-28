@@ -10,3 +10,6 @@ static int click_stbutton3(Bar *bar, Arg *arg, BarArg *a);
 static int width_stbutton4(Bar *bar, BarArg *a);
 static int draw_stbutton4(Bar *bar, BarArg *a);
 static int click_stbutton4(Bar *bar, Arg *arg, BarArg *a);
+static int width_stbutton5(Bar *bar, BarArg *a);
+static int draw_stbutton5(Bar *bar, BarArg *a);
+static int click_stbutton5(Bar *bar, Arg *arg, BarArg *a);
