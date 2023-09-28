@@ -6,7 +6,7 @@ USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nKill X" | spmenu -b -l 5 -g 1 
 
 case "$USER_OPT1" in
 "Shutdown") sudo shutdown now || doas shutdown now || systemctl shutdown ;;
-"Reboot") reboot || systemctl restart ;;
+"Reboot") reboot || systemctl reboot ;;
 "Exit") loginctl kill-session self;;
 "Lock") slock ;;
 "Kill X") pkill Xorg || pkill X ;;
