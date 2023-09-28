@@ -1,0 +1,2 @@
+#!/bin/sh
+shmenu_path | shmenu  
