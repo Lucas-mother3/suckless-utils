@@ -20,14 +20,14 @@ Monocle,	dwmc setlayoutex 15
 Bottom Stack,	dwmc setlayoutex 16
 Bottom Stack Horizontal,	dwmc setlayoutex 17
 Centered Master,	dwmc setlayoutex 18
-Centered Floating Master,	dwmc setlayoutexex 19
-Columns,	dwmc setlayoutexex 20
-Deck,	dwmc setlayoutexex 21
-Fibonacci Spiral,	dwmc setlayoutexex 22
-Fibonacci Dwindle,	dwmc setlayoutexex 23
-Grid,	dwmc setlayoutexex 24
-Horizontal Grid,	dwmc setlayoutexex 25
-Gapless Grid,	dwmc setlayoutexex 26
-N-row Grid,	dwmc setlayoutexexex 27
+Centered Floating Master,	dwmc setlayoutex 19
+Columns,	dwmc setlayoutex 20
+Deck,	dwmc setlayout 21
+Fibonacci Spiral,	dwmc setlayoutex 22
+Fibonacci Dwindle,	dwmc setlayoutex 23
+Grid,	dwmc setlayoutex 24
+Horizontal Grid,	dwmc setlayoutex 25
+Gapless Grid,	dwmc setlayoutex 26
+N-row Grid,	dwmc setlayoutexex 27
 EOF
 
