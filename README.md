@@ -30,7 +30,7 @@ The weather widget is pretty barebones as of now. Report bugs if found.
 
 ### Configuration notes
 
-The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom` and `ncmpcppp`. 
+The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom`, `ncmpcppp`, and `wal`.
 
 ### Compatibility notes
 
@@ -95,6 +95,7 @@ Linux/Unix users:
 - libmpdclient(-devel or -dev) for mpdclient
 - yajl for ipc
 - eww (optional)
+- jgmenu
 
 Termux users:
 - xorg 
