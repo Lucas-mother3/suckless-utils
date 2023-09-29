@@ -1,0 +1,13 @@
+#!/bin/sh
+# This simple script uses dmenu to ask the user what they wanna do.
+# Only works with systemd for now.
+
+cat <<EOF | jgmenu  --simple --at-pointer
+󰐥 Shutdown, 	systemctl poweroff
+󰜉 Reboot,	systemctl reboot
+󰗼 Exit, 	dwmc quit
+󰌾 Lock session, 	slock
+󰤁 Suspend,	systemctl suspend
+󰤄 Hibernate,	 systemctl hibernate
+󰚌 Kill X,	xkill -a
+EOF

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+cat <<EOF | jgmenu  --simple --at-pointer
+(Flextile) Tiled, 	dwmc setlayoutex 0
+(Flextile) Floating,	dwmc setlayoutex 1
+(Flextile) Monocle, 	dwmc setlayoutex 2
+(Flextile) Columns, 	dwmc setlayoutex 3
+(Flextile) Floating Master,	dwmc setlayoutex 4
+(Flextile) Deck,	dwmc setlayoutex 5
+(Flextile) Bottom Stack,	dwmc setlayoutex 6
+(Flextile) Bottom Stack Horizontal,	dwmc setlayoutex 7
+(Flextile) Centered Naster,	dwmc setlayoutex 8
+(Flextile) Centered Master Horizontal,	dwmc setlayoutex 9
+(Flextile) Gapless Grid,	dwmc setlayoutex 10
+(Flextile) Fibonacci Dwindle,	dwmc setlayoutex 11
+(Flextile) Fibonacci Spiral,	dwmc setlayoutex 12
+(Flextile) Tatami Tats,	dwmc setlayoutex 13
+Tiled,	dwmc setlayoutex 14
+Monocle,	dwmc setlayoutex 15
+Bottom Stack,	dwmc setlayoutex 16
+Bottom Stack Horizontal,	dwmc setlayoutex 17
+Centered Master,	dwmc setlayoutex 18
+Centered Floating Master,	dwmc setlayoutexex 19
+Columns,	dwmc setlayoutexex 20
+Deck,	dwmc setlayoutexex 21
+Fibonacci Spiral,	dwmc setlayoutexex 22
+Fibonacci Dwindle,	dwmc setlayoutexex 23
+Grid,	dwmc setlayoutexex 24
+Horizontal Grid,	dwmc setlayoutexex 25
+Gapless Grid,	dwmc setlayoutexex 26
+N-row Grid,	dwmc setlayoutexexex 27
+EOF
+
