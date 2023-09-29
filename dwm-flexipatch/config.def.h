@@ -1378,7 +1378,7 @@ static const Button buttons[] = {
 	{ ClkButton3,            0,                  Button1,        spawn,          SHCMD("firefox") },
 	{ ClkButton3,            0,                  Button3,        spawn,          SHCMD("printf ' New Window, firefox\n󱀣 New Private Window, firefox -private-window\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton4,           0,                   Button1,        spawn,          SHCMD("st -T ncmpcpp ncmpcpp") },
-	{ ClkButton4,           0,                   Button3,        spawn,          SHCMD("printf '󰒮 Previous Song, mpc prev\n󰐊 Play, mpc play\n󰏤 Pause, mpc pause\n󰓛 Stop, mpc stop\n󰒭 Next Song, mpc next\nVol +5%%,󰕾 mpc vol +5\n󰖀 Vol -5%%, mpc vol -5\n' | jgmenu --simple --at-pointer") },
+	{ ClkButton4,           0,                   Button3,        spawn,          SHCMD("printf '󰒮 Previous Song, mpc prev\n󰐊 Play, mpc play\n󰏤 Pause, mpc pause\n󰓛 Stop, mpc stop\n󰒭 Next Song, mpc next\n󰕾 Vol +5%%,mpc vol +5\n󰖀 Vol -5%%, mpc vol -5\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton5,           0,                   Button1,        spawn,          SHCMD("shutdown") },
 	#endif // BAR_STATUSBUTTON_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
