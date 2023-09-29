@@ -22,12 +22,12 @@ Bottom Stack Horizontal,	dwmc setlayoutex 17
 Centered Master,	dwmc setlayoutex 18
 Centered Floating Master,	dwmc setlayoutex 19
 Columns,	dwmc setlayoutex 20
-Deck,	dwmc setlayout 21
+Deck,	dwmc setlayoutex 21
 Fibonacci Spiral,	dwmc setlayoutex 22
 Fibonacci Dwindle,	dwmc setlayoutex 23
 Grid,	dwmc setlayoutex 24
 Horizontal Grid,	dwmc setlayoutex 25
 Gapless Grid,	dwmc setlayoutex 26
-N-row Grid,	dwmc setlayoutexex 27
+N-row Grid,	dwmc setlayoutex 27
 EOF
 
