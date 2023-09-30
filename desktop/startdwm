@@ -4,7 +4,6 @@ wal -R # could be changed
 picom -b # launches compositor
 /usr/local/bin/dwmblocks & # launches slstatus/dwmblocks
 /usr/bin/dunst & # launches dunst daemon
-paplay /usr/share/sounds/Oxygen-Sys-Special.ogg # autoplay sound, optional
 nm-applet & # optional, launch network-manager applet
 /usr/local/bin/eww daemon & # launch eww in start up, assumes eww is copied to $PATH
 /usr/local/bin/eww open main & # make sure the config is copied

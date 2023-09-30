@@ -405,6 +405,7 @@ static const char *layoutmenu_cmd = "layoutmenu.sh";
 
 #if COOL_AUTOSTART_PATCH
 static const char *const autostart[] = {
+	"paplay", "/usr/share/sounds/Oxygen-Sys-Special.ogg", NULL,
 	NULL /* terminate */
 };
 #endif // COOL_AUTOSTART_PATCH

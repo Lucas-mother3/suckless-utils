@@ -6,6 +6,7 @@ cat <<EOF | jgmenu  --simple --at-pointer
 󰐥 Shutdown, 	systemctl poweroff
 󰜉 Reboot,	systemctl reboot
 󰗼 Exit, 	dwmc quit
+󰑐 Restart dwm,       dwmc self_restart
 󰌾 Lock session, 	slock
 󰤁 Suspend,	systemctl suspend
 󰤄 Hibernate,	 systemctl hibernate
