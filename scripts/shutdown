@@ -10,5 +10,5 @@ cat <<EOF | jgmenu  --simple --at-pointer
 󰌾 Lock session, 	slock
 󰤁 Suspend,	systemctl suspend
 󰤄 Hibernate,	 systemctl hibernate
-󰚌 Kill X,	xkill -a
+󰚌 Kill X,	pkill X || pkill Xorg || SUDO_ASKPASS=/usr/libexec/ssh/gnome-ssh-askpass sudo -A pkill X || SUDO_ASKPASS=/usr/libexec/ssh/gnome-ssh-askpass sudo -A pkill Xorg
 EOF

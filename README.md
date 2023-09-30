@@ -38,6 +38,8 @@ For those who want the old version, check out `oldmain`. I don't plan on maintai
 
 Note that there are some programs that is included here, mainly for compatibility or choice reasons. While slstatus is pretty barebones compared to dwmblocks-async, it is included on the repo if one decides not to have statuscmd, for example. This aims to be also compatible with already existing setups.
 
+For the shutdown menu script (located in `scripts/shutdown`), `/usr/libexec/ssh/gnome-ssh-askpass` was set by default for asking password for killing X. Either change it to a more preferred ssh-askpass program or make sudo passwordless.
+
 ### Keybind notes
 
 In the documentation for this suite, <kbd>Mod4Key</kbd> would be defined as <kbd>⊞ Win</kbd>/<kbd>⌘ Cmd</kbd>/<kbd>❖ Super</kbd>, depending on whichever keyboard do you use.
