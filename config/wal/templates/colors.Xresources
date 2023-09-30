@@ -4,6 +4,9 @@
 *background:        {background}
 *.foreground:       {foreground}
 *.background:       {background}
+Xmessage*font:      -misc-hack-medium-r-normal-*-17-120-100-100-*-0-iso10646-1
+Xmessage*foreground: {foreground}
+Xmessage*background: {background}
 emacs*foreground:   {foreground}
 emacs*background:   {background}
 URxvt*foreground:   {foreground}

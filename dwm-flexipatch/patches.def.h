@@ -1048,18 +1048,18 @@
  * Also see the focusadjacenttag patch.
  * https://dwm.suckless.org/patches/shift-tools/
  */
-#define SHIFTTAG_PATCH 0
+#define SHIFTTAG_PATCH 1
 
 /* Moves the current selected client to the adjacent tag that has at least one client, if none
  * then it acts as shifttag.
  * https://dwm.suckless.org/patches/shift-tools/
  */
-#define SHIFTTAGCLIENTS_PATCH 0
+#define SHIFTTAGCLIENTS_PATCH 1
 
 /* This patch adds keybindings for left and right circular shift through tags.
  * https://github.com/chau-bao-long/dotfiles/blob/master/suckless/dwm/shiftview.diff
  */
-#define SHIFTVIEW_PATCH 0
+#define SHIFTVIEW_PATCH 1
 
 /* This variant of the shiftview patch adds left and right circular shift through tags,
  * but skips tags where there are no clients.
