@@ -893,7 +893,7 @@
 /* This patch lets you change the position of a client in the stack using the mouse.
  * https://github.com/bakkeby/patches/wiki/placemouse
  */
-#define PLACEMOUSE_PATCH 0
+#define PLACEMOUSE_PATCH 1 
 
 /* This patch provides a way to move clients up and down inside the client list.
  * https://dwm.suckless.org/patches/push/
@@ -906,7 +906,7 @@
  * This takes precedence over the push patch above.
  * https://dwm.suckless.org/patches/push/
  */
-#define PUSH_NO_MASTER_PATCH 0
+#define PUSH_NO_MASTER_PATCH 1
 
 /* Variant of the named scratchpads patch allowing scratch keys to be added or removed
  * on demand, allowing multiple scratchpad windows to be toggled into and out of view
@@ -996,7 +996,7 @@
  * feature in i3wm.
  * https://github.com/GasparVardanyan/dwm-scratchpad
  */
-#define SCRATCHPAD_ALT_1_PATCH 0
+#define SCRATCHPAD_ALT_1_PATCH 0 
 
 /* This patch persists some settings across window manager restarts. These include but are not
  * limited to:
