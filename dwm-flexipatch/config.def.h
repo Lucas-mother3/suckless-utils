@@ -501,7 +501,7 @@ static const Rule rules[] = {
 	RULE(.class = "St", .isterminal = 1)
 	RULE(.wintype = WTYPE "DESKTOP", .unmanaged = 2)
 	RULE(.wintype = WTYPE "DOCK", .unmanaged = 1)
-	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1, .noswallow = 0)
+	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1, .noswallow = 1)
 	RULE(.class = "Xmessage", .isfloating = 1)
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
