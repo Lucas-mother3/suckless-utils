@@ -497,6 +497,8 @@ static const Rule rules[] = {
 	 *	WM_WINDOW_ROLE(STRING) = role
 	 *	_NET_WM_WINDOW_TYPE(ATOM) = wintype
 	 */
+	RULE(.class = "st", .isterminal = 1)
+	RULE(.class = "St", .isterminal = 1)
 	RULE(.wintype = WTYPE "DESKTOP", .unmanaged = 2)
 	RULE(.wintype = WTYPE "DOCK", .unmanaged = 1)
 	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1)
@@ -505,7 +507,6 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
 	RULE(.class = "Gimp", .tags = 1 << 4)
-	RULE(.class = "St", .isterminal = 1, .noswallow = 0)
         RULE(.class = "Firefox", .tags = 1 << 7)
 	#if RENAMED_SCRATCHPADS_PATCH
 	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
