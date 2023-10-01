@@ -509,9 +509,9 @@ static const Rule rules[] = {
 	RULE(.class = "Gimp", .tags = 1 << 4)
         RULE(.class = "Firefox", .tags = 1 << 7)
 	#if RENAMED_SCRATCHPADS_PATCH
-	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1)
+	RULE(.instance = "spterm", .scratchkey = 's', .isfloating = 1, .isterminal = 1)
 	#elif SCRATCHPADS_PATCH
-	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
+	RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1, .isterminal = 1)
 	#endif // SCRATCHPADS_PATCH
 };
 

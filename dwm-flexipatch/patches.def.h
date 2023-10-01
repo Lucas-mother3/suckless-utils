@@ -918,7 +918,7 @@
 
 /* Renamed scratchpads option to auto-hide scratchpads when moving to a different tag.
  * This behaviour is similar to that of the (multiple) scratchpads patch. */
-#define RENAMED_SCRATCHPADS_AUTO_HIDE_PATCH 0
+#define RENAMED_SCRATCHPADS_AUTO_HIDE_PATCH 0 
 
 /* Shifts all clients per tag to leftmost unoccupied tags.
  *
