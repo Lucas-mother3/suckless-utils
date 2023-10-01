@@ -554,9 +554,10 @@ static const BarRule barrules[] = {
 	/* monitor   bar    alignment         widthfunc                 drawfunc                clickfunc                hoverfunc                name */
 	#if BAR_STATUSBUTTON_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_stbutton,           draw_stbutton,          click_stbutton,          NULL,                    "statusbutton" },
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton2,          draw_stbutton2,          click_stbutton2,          NULL,                    "statusbutton2" },
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton3,          draw_stbutton3,          click_stbutton3,          NULL,                    "statusbutton3" },
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton4,           draw_stbutton4,          click_stbutton4,          NULL,                    "statusbutton4" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton2,          draw_stbutton2,         click_stbutton2,         NULL,                    "statusbutton2" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton3,          draw_stbutton3,         click_stbutton3,         NULL,                    "statusbutton3" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton4,          draw_stbutton4,         click_stbutton4,         NULL,                    "statusbutton4" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,  width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_POWERLINE_TAGS_PATCH
 	{  0,        0,     BAR_ALIGN_LEFT,   width_pwrl_tags,          draw_pwrl_tags,         click_pwrl_tags,         NULL,                    "powerline_tags" },
@@ -565,7 +566,7 @@ static const BarRule barrules[] = {
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_tags,               draw_tags,              click_tags,              hover_tags,              "tags" },
 	#endif // BAR_TAGS_PATCH
 	#if BAR_TAGLABELS_PATCH
-	{ -1,        0,     BAR_ALIGN_LEFT,   width_taglabels,          draw_taglabels,         click_taglabels,         NULL,                    "taglabels" },
+	{ -1,        0,     BAR_ALIGN_LEFT,   width_taglabels,          draw_taglabels,         click_taglabels,         hover_taglabels,         "taglabels" },
 	#endif // BAR_TAGLABELS_PATCH
 	#if BAR_TAGGRID_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taggrid,            draw_taggrid,           click_taggrid,           NULL,                    "taggrid" },
@@ -573,9 +574,6 @@ static const BarRule barrules[] = {
 	#if BAR_SYSTRAY_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH
-	#if BAR_STATUSBUTTON_PATCH
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
-	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_LTSYMBOL_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_ltsymbol,           draw_ltsymbol,          click_ltsymbol,          NULL,                    "layout" },
 	#endif // BAR_LTSYMBOL_PATCH
