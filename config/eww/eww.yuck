@@ -142,7 +142,7 @@
 (defwindow main
            :monitor 0
            :geometry (geometry 
-                        :x "-30px"
+                        :x "-20px"
                         :y "0%"
                         :width "15%"
                         :height "94%"
