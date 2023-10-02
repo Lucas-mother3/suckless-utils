@@ -1094,7 +1094,7 @@
  *
  * https://dwm.suckless.org/patches/sizehints/
  */
-#define SIZEHINTS_ISFREESIZE_PATCH 0
+#define SIZEHINTS_ISFREESIZE_PATCH 1
 
 /* In a multi-head setup monitor 0 is by default the primary screen, with the left and right
  * screen being monitor 1 and 2 respectively. This patch sorts screens left to right (or
@@ -1107,7 +1107,7 @@
 /* Spawns programs from currently focused client's working directory.
  * https://dwm.suckless.org/patches/spawn_cwd/
  */
-#define SPAWNCMD_PATCH 0
+#define SPAWNCMD_PATCH 1
 
 /* This patch provides comprehensive utilities for managing the client stack, providing
  * keyboard shortcuts for focusing or placing a client at specific positions in the stack.
@@ -1357,7 +1357,7 @@
  * or Google-chrome "browser" vs "pop-up".
  * https://github.com/bakkeby/patches/blob/master/dwm/dwm-windowrolerule-6.2.diff
  */
-#define WINDOWROLERULE_PATCH 0
+#define WINDOWROLERULE_PATCH 1
 
 /* The winview patch allows switching the view to that of a given client from the all-window
  * view (Mod-0) using a keyboard shortcut.
