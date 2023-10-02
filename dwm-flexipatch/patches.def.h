@@ -728,7 +728,7 @@
 /* This patch adds a keybinding to kills all visible clients that are not selected.
  * https://dwm.suckless.org/patches/killunsel/
  */
-#define KILLUNSEL_PATCH 0
+#define KILLUNSEL_PATCH 1
 
 /* This changes the window manager name to LG3d instead of dwm as a workaround for Java
  * applications that assume that the window manager is using window reparenting.
@@ -784,7 +784,7 @@
 /* This patch allows you to move and resize dwm's clients using keyboard bindings.
  * https://dwm.suckless.org/patches/moveresize/
  */
-#define MOVERESIZE_PATCH 0
+#define MOVERESIZE_PATCH 1
 
 /* This patch allows you to move clients around in the stack and swap them with the master.
  * https://dwm.suckless.org/patches/movestack/
