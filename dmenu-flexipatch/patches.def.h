@@ -299,7 +299,7 @@
  * it can handle long text.
  * https://tools.suckless.org/dmenu/patches/scroll/
  */
-#define SCROLL_PATCH 1
+#define SCROLL_PATCH 0 
 
 /* This patch adds -d and -D flags which separates the input into two halves; one half to be
  * displayed in dmenu and the other to be printed to stdout. This patch takes precedence over

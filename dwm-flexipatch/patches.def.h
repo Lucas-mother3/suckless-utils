@@ -811,11 +811,11 @@
  *
  * https://dwm.suckless.org/patches/nametag/
  */
-#define NAMETAG_PATCH 0
+#define NAMETAG_PATCH 1
 
 /* Variant of the above which prepends the tag number to the given string.
  * The toggle does nothing on its own and need to be enabled in combination with the above. */
-#define NAMETAG_PREPEND_PATCH 0
+#define NAMETAG_PREPEND_PATCH 1 
 
 /* Adds support for the _NET_CLIENT_LIST_STACKING atom, needed by certain applications like the
  * Zoom video conferencing application.
