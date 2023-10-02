@@ -105,18 +105,9 @@ hover_taglabels(Bar *bar, BarArg *a, XMotionEvent *ev)
 	int oh = 0;
 	#endif // VANITYGAPS_PATCH
 
-	#if BAR_HIDEVACANTTAGS_PATCH
-	Client *c;
-	unsigned int occ = 0;
-	for (c = bar->mon->clients; c; c = c->next)
-		occ |= c->tags == 255 ? 0 : c->tags;
-	#endif // BAR_HIDEVACANTTAGS_PATCH
-
 	do {
-		#if BAR_HIDEVACANTTAGS_PATCH
-		if (!(occ & 1 << i || bar->mon->tagset[bar->mon->seltags] & 1 << i))
+		if (!m->taglabel[i][0])
 			continue;
-		#endif // BAR_HIDEVACANTTAGS_PATCH
 		x += TEXTW(m->taglabel[i]);
 	} while (a->x >= x && ++i < NUMTAGS);
 
