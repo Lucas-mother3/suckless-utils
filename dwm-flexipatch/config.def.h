@@ -453,9 +453,9 @@ static char tagicons[][NUMTAGS][MAX_TAGLEN] =
 static char *tagicons[][NUMTAGS] =
 #endif // NAMETAG_PATCH
 {
-	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
-	[ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I" },
-	[ALT_TAGS_DECORATION] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" },
+	[DEFAULT_TAGS]        = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" },
+	[ALTERNATIVE_TAGS]    = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" },
+	[ALT_TAGS_DECORATION] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" },
 };
 
 #if BAR_TAGGRID_PATCH
@@ -561,6 +561,9 @@ static const BarRule barrules[] = {
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton4,          draw_stbutton4,         click_stbutton4,         NULL,                    "statusbutton4" },
 	{ -1,        1,     BAR_ALIGN_RIGHT,  width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
 	#endif // BAR_STATUSBUTTON_PATCH
+	#if BAR_TAGGRID_PATCH
+	{ -1,        0,     BAR_ALIGN_LEFT,   width_taggrid,            draw_taggrid,           click_taggrid,           NULL,                    "taggrid" },
+	#endif // BAR_TAGGRID_PATCH
 	#if BAR_POWERLINE_TAGS_PATCH
 	{  0,        0,     BAR_ALIGN_LEFT,   width_pwrl_tags,          draw_pwrl_tags,         click_pwrl_tags,         hover_pwrl_tags,         "powerline_tags" },
 	#endif // BAR_POWERLINE_TAGS_PATCH
@@ -570,9 +573,6 @@ static const BarRule barrules[] = {
 	#if BAR_TAGLABELS_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taglabels,          draw_taglabels,         click_taglabels,         hover_taglabels,         "taglabels" },
 	#endif // BAR_TAGLABELS_PATCH
-	#if BAR_TAGGRID_PATCH
-	{ -1,        0,     BAR_ALIGN_LEFT,   width_taggrid,            draw_taggrid,           click_taggrid,           NULL,                    "taggrid" },
-	#endif // BAR_TAGGRID_PATCH
 	#if BAR_SYSTRAY_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH

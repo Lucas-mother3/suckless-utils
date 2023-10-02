@@ -113,7 +113,7 @@
 /* This patch adds an option to place tags in rows like in many other window managers.
  * https://dwm.suckless.org/patches/taggrid/
  */
-#define BAR_TAGGRID_PATCH 0
+#define BAR_TAGGRID_PATCH 1
 
 /* Hover tag icons to see a preview of the windows on that tag.
  *
