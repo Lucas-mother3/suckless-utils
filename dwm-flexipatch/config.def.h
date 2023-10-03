@@ -123,7 +123,7 @@ static const int ulineall = 0;                  /* 1 to show underline on all ta
 #if NAMETAG_PREPEND_PATCH
 /* The format in which the tag is written when named. E.g. %d: %.12s will write the tag number
  * followed the first 12 characters of the given string. You can also just use "%d: %s" here. */
-#define NAMETAG_FORMAT "%d: %.12s"
+#define NAMETAG_FORMAT "%d: %s"
 #else
 #define NAMETAG_FORMAT "%s"
 #endif // NAMETAG_PREPEND_PATCH
