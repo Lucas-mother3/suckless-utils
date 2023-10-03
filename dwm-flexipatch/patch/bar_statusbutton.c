@@ -76,7 +76,7 @@ width_stbutton5(Bar *bar, BarArg *a)
 int
 draw_stbutton5(Bar *bar, BarArg *a)
 {
-	return drw_text(drw, a->x, a->y, a->w, a->h, lrpad / 2, buttonbar5, 0, False);
+	return drw_text(drw, a->x, a->y, a->w, a->h, lrpad / 20, buttonbar5, 0, False);
 }
 
 int

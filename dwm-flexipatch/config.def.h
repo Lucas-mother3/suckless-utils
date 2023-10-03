@@ -128,7 +128,7 @@ static const int ulineall = 0;                  /* 1 to show underline on all ta
 #define NAMETAG_FORMAT "%s"
 #endif // NAMETAG_PREPEND_PATCH
 /* The maximum amount of bytes reserved for each tag text. */
-#define MAX_TAGLEN 16
+#define MAX_TAGLEN 32
 /* The command to run (via popen). This can be tailored by adding a prompt, passing other command
  * line arguments or providing name options. Optionally you can use other dmenu like alternatives
  * like rofi -dmenu. */
