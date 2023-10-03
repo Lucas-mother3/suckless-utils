@@ -96,9 +96,12 @@ static const int vertpadbar              = 0;   /* vertical padding for statusba
 #if BAR_STATUSBUTTON_PATCH
 static const char buttonbar[]            = "󰕰 Start";
 static const char buttonbar2[]           = " st";
-static const char buttonbar3[]           = " Firefox";
+static const char buttonbar3[]           = "󰈹 Firefox";
 static const char buttonbar4[]           = "󰝚 mpd";
-static const char buttonbar5[]           = "󰍃 󰐥 Power";
+static const char buttonbar5[]           = "󰗼 󰐥";
+static const char buttonbar6[]           = "󰅖";
+static const char buttonbar7[]           = "󰖯";
+static const char buttonbar8[]           = "󰖰";
 #endif // BAR_STATUSBUTTON_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
@@ -563,7 +566,6 @@ static const BarRule barrules[] = {
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton2,          draw_stbutton2,         click_stbutton2,         NULL,                    "statusbutton2" },
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton3,          draw_stbutton3,         click_stbutton3,         NULL,                    "statusbutton3" },
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton4,          draw_stbutton4,         click_stbutton4,         NULL,                    "statusbutton4" },
-	{ -1,        1,     BAR_ALIGN_RIGHT,  width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
 	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_TAGGRID_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taggrid,            draw_taggrid,           click_taggrid,           NULL,                    "taggrid" },
@@ -577,6 +579,12 @@ static const BarRule barrules[] = {
 	#if BAR_TAGLABELS_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taglabels,          draw_taglabels,         click_taglabels,         hover_taglabels,         "taglabels" },
 	#endif // BAR_TAGLABELS_PATCH
+	#if BAR_STATUSBUTTON_PATCH
+	{ -1,        0,     BAR_ALIGN_RIGHT,  width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton6,          draw_stbutton6,         click_stbutton6,         NULL,                    "statusbutton6" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton7,          draw_stbutton7,         click_stbutton7,         NULL,                    "statusbutton7" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton8,          draw_stbutton8,         click_stbutton8,         NULL,                    "statusbutton8" },
+	#endif // BAR_STATUSBUTTON_PATCH
 	#if BAR_SYSTRAY_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH
@@ -1388,6 +1396,9 @@ static const Button buttons[] = {
 	{ ClkButton4,           0,                   Button1,        spawn,          SHCMD("st -T ncmpcpp ncmpcpp") },
 	{ ClkButton4,           0,                   Button3,        spawn,          SHCMD("printf '󰒮 Previous Song, mpc prev\n󰐊 Play, mpc play\n󰏤 Pause, mpc pause\n󰓛 Stop, mpc stop\n󰒭 Next Song, mpc next\n󰕾 Vol +5%%,mpc vol +5\n󰖀 Vol -5%%, mpc vol -5\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton5,           0,                   Button1,        spawn,          SHCMD("shutdown") },
+	{ ClkButton6,           0,                   Button1,        killclient,             {0} },
+	{ ClkButton7,           0,                   Button1,        togglemax,              {0} },
+	{ ClkButton8,           0,                   Button1,        showhideclient,         {0} },
 	#endif // BAR_STATUSBUTTON_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
 	#if BAR_LAYOUTMENU_PATCH
