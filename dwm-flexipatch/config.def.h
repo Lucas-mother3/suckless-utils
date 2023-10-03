@@ -942,6 +942,7 @@ static const Key keys[] = {
         { Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
         { Mod4Mask,                     XK_a,          spawn,                  SHCMD("st -T ncmpcpp ncmpcpp") },
 	{ Mod4Mask|ShiftMask,           XK_t,          spawn,                  SHCMD("st -T dvtm abduco -c dvtm dvtm-status") },
+	{ Mod4Mask,                     XK_w,          spawn,                  SHCMD("eww open --toggle main") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
