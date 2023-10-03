@@ -13,7 +13,14 @@ width_systray(Bar *bar, BarArg *a)
 		if (!w)
 			XMoveWindow(dpy, systray->win, -systray->h, bar->by);
 	}
-	return w ? w + lrpad - systrayspacing : 0;
+
+	if (w) {
+		w += lrpad / 2 - systrayspacing;
+		#if !BAR_STATUS_PATCH
+		w += lrpad / 2;
+		#endif // BAR_STATUS_PATCH
+	}
+	return w;
 }
 
 int
@@ -94,7 +101,11 @@ draw_systray(Bar *bar, BarArg *a)
 			i->mon = bar->mon;
 	}
 
-	XMoveResizeWindow(dpy, systray->win, bar->bx + a->x + lrpad / 2, (w ? bar->by + a->y + (a->h - systray->h) / 2: -systray->h), MAX(w, 1), systray->h);
+	unsigned int xpos = bar->bx + a->x + lrpad / 2;
+	#if BAR_STATUS_PATCH
+	xpos -= lrpad / 2;
+	#endif // BAR_STATUS_PATCH
+	XMoveResizeWindow(dpy, systray->win, xpos, (w ? bar->by + a->y + (a->h - systray->h) / 2: -bar->by - a->y), MAX(w, 1), systray->h);
 	return w;
 }
 
