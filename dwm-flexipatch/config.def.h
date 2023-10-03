@@ -132,7 +132,7 @@ static const int ulineall = 0;                  /* 1 to show underline on all ta
 /* The command to run (via popen). This can be tailored by adding a prompt, passing other command
  * line arguments or providing name options. Optionally you can use other dmenu like alternatives
  * like rofi -dmenu. */
-#define NAMETAG_COMMAND "dmenu < /dev/null"
+#define NAMETAG_COMMAND "spmenu < /dev/null"
 #endif // NAMETAG_PATCH
 
 #if ALT_TAB_PATCH
