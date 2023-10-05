@@ -44,9 +44,10 @@ deck(Monitor *m)
 	#endif // VANITYGAPS_PATCH
 
 	getfacts(m, mh, sh, &mfacts, &sfacts, &mrest, &srest);
-
+	#if !MONOCLESYMBOL_PATCH
 	if (n - m->nmaster > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "D %d", n - m->nmaster);
+	#endif // MONOCLESMYBOL_PATCH
 
 	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
