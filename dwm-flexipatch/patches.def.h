@@ -717,13 +717,13 @@
 /* Adds rule option for clients to avoid accidental termination by killclient for sticky windows.
  * https://dwm.suckless.org/patches/ispermanent/
  */
-#define ISPERMANENT_PATCH 0
+#define ISPERMANENT_PATCH 1
 
 /* This patch adds key modes (like in vim or emacs) where chains of keyboard shortcuts
  * can be performed.
  * https://dwm.suckless.org/patches/keymodes/
  */
-#define KEYMODES_PATCH 0
+#define KEYMODES_PATCH 1
 
 /* This patch adds a keybinding to kills all visible clients that are not selected.
  * https://dwm.suckless.org/patches/killunsel/
@@ -1228,7 +1228,7 @@
  * while remaining in fullscreen.
  * https://github.com/bakkeby/patches/blob/master/dwm/dwm-tagmonfixfs-6.2.diff
  */
-#define TAGMONFIXFS_PATCH 0
+#define TAGMONFIXFS_PATCH 1
 
 /* Add functions and keybindings to tag a window to a desired tag on the next (right)
  * or previous (left) monitor from the currently selected monitor.
@@ -1247,7 +1247,7 @@
  * Also refer to the desktop patch:
  * https://github.com/bakkeby/patches/blob/master/dwm/dwm-desktop-6.3.diff
  */
-#define TAGSYNC_PATCH 0
+#define TAGSYNC_PATCH 1 
 
 /* This patch can be useful to the touchpad users because it allows to
  * resize windows using Mod + two-finger scroll. It is useful when
@@ -1276,7 +1276,7 @@
  * https://github.com/bakkeby/patches/wiki/togglelayout
  */
 
-#define TOGGLELAYOUT_PATCH 0
+#define TOGGLELAYOUT_PATCH 1 
 
 /* Minor patch that lets you use the same keyboard shortcut to toggle to the previous tag if the
  * designated tag is already active.
