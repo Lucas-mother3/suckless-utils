@@ -6,16 +6,16 @@
 #define FLEXWINTITLE_SHOWFLOATING 0  // whether to show titles for floating windows, hidden clients are always shown
 #endif
 #ifndef FLEXWINTITLE_MASTERWEIGHT
-#define FLEXWINTITLE_MASTERWEIGHT 9  // master weight compared to stack, hidden and floating window titles
+#define FLEXWINTITLE_MASTERWEIGHT 6  // master weight compared to stack, hidden and floating window titles
 #endif
 #ifndef FLEXWINTITLE_STACKWEIGHT
 #define FLEXWINTITLE_STACKWEIGHT 3   // stack weight compared to master, hidden and floating window titles
 #endif
 #ifndef FLEXWINTITLE_HIDDENWEIGHT
-#define FLEXWINTITLE_HIDDENWEIGHT 1  // hidden window title weight
+#define FLEXWINTITLE_HIDDENWEIGHT 2  // hidden window title weight
 #endif
 #ifndef FLEXWINTITLE_FLOATWEIGHT
-#define FLEXWINTITLE_FLOATWEIGHT 1   // floating window title weight, set to 0 to not show floating windows
+#define FLEXWINTITLE_FLOATWEIGHT 2   // floating window title weight, set to 0 to not show floating windows
 #endif
 
 #define SCHEMEFOR(c) getschemefor(m, c, groupactive == c)
