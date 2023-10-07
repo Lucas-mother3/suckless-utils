@@ -639,10 +639,10 @@ static const BarRule barrules[] = {
 	#endif // BAR_EXTRASTATUS_PATCH
 	#if BAR_FLEXWINTITLE_PATCH
 	#if BAR_WINTITLE_HIDDEN_PATCH
-	{ -1,        1,  BAR_ALIGN_RIGHT_RIGHT, width_wintitle_hidden,  draw_wintitle_hidden,   click_wintitle_hidden,   NULL,                    "wintitle_hidden" },
+	{ -1,        1,     BAR_ALIGN_RIGHT, width_wintitle_hidden,  draw_wintitle_hidden,   click_wintitle_hidden,   NULL,                    "wintitle_hidden" },
 	#endif
 	#if BAR_WINTITLE_FLOATING_PATCH
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_wintitle_floating,  draw_wintitle_floating, click_wintitle_floating, NULL,                    "wintitle_floating" },
+	{ -1,        0,     BAR_ALIGN_LEFT,   width_wintitle_floating,  draw_wintitle_floating, click_wintitle_floating, NULL,                    "wintitle_floating" },
 	#endif // BAR_WINTITLE_FLOATING_PATCH
 	#endif // BAR_FLEXWINTITLE_PATCH
 };

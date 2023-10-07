@@ -201,7 +201,7 @@
 #define BAR_WINICON_PATCH 1
 
 /* Show window title in bar */
-#define BAR_WINTITLE_PATCH 1
+#define BAR_WINTITLE_PATCH 1 
 
 /* Shows window titles in the bar, but only for floating clients.
  * This depends on code from the flexwintitle patch.
@@ -209,7 +209,7 @@
  * with the corresponding hidden patch then these two will overlap unless the width of the
  * modules are controlled.
  */
-#define BAR_WINTITLE_FLOATING_PATCH 0
+#define BAR_WINTITLE_FLOATING_PATCH 0 
 
 /* Shows window titles in the bar, but only for floating clients.
  * This depends on code from the flexwintitle patch.
@@ -217,7 +217,7 @@
  * with the corresponding floating patch then these two will overlap unless the width of the
  * modules are controlled.
  */
-#define BAR_WINTITLE_HIDDEN_PATCH 0
+#define BAR_WINTITLE_HIDDEN_PATCH 0 
 
 /* Title bar modules such as wintitle (default), fancybar and awesomebar
  * do not by default add left and/or right padding as they take up the
