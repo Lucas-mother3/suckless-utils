@@ -54,9 +54,9 @@ loadxrdb()
 				XRDB_LOAD_COLOR("dwm.color1", scratchselbordercolor);
 				XRDB_LOAD_COLOR("dwm.color1", scratchselfloatcolor);
 				XRDB_LOAD_COLOR("dwm.color0", scratchnormfgcolor);
-				XRDB_LOAD_COLOR("dwm.color4", scratchnormbgcolor);
-				XRDB_LOAD_COLOR("dwm.color4", scratchnormbordercolor);
-				XRDB_LOAD_COLOR("dwm.color4", scratchnormfloatcolor);
+				XRDB_LOAD_COLOR("dwm.color2", scratchnormbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", scratchnormbordercolor);
+				XRDB_LOAD_COLOR("dwm.color2", scratchnormfloatcolor);
 				#endif // RENAMED_SCRATCHPADS_PATCH
 				#if BAR_FLEXWINTITLE_PATCH
 				XRDB_LOAD_COLOR("dwm.color0", normTTBbgcolor);
