@@ -7,27 +7,28 @@ cat <<EOF | jgmenu  --simple --at-pointer
 󰕭 (Flextile) Columns, 	dwmc setlayoutex 3
 󰕬 (Flextile) Floating Master,	dwmc setlayoutex 4
 󱒇 (Flextile) Deck,	dwmc setlayoutex 5
-󱢈 (Flextile) Bottom Stack,	dwmc setlayoutex 6
-󰯋 (Flextile) Bottom Stack Horizontal,	dwmc setlayoutex 7
-󰕫 (Flextile) Centered Naster,	dwmc setlayoutex 8
-󰕯 (Flextile) Centered Master Horizontal,	dwmc setlayoutex 9
-󰕰 (Flextile) Gapless Grid,	dwmc setlayoutex 10
-󰕴 (Flextile) Fibonacci Dwindle,	dwmc setlayoutex 11
-󱒎 (Flextile) Fibonacci Spiral,	dwmc setlayoutex 12
-󰡃 (Flextile) Tatami Tats,	dwmc setlayoutex 13
-󰯌 Tiled,	dwmc setlayoutex 14
-󱟱 Monocle,	dwmc setlayoutex 15
-󱢈 Bottom Stack,	dwmc setlayoutex 16
-󰯋 Bottom Stack Horizontal,	dwmc setlayoutex 17
-󰕫 Centered Master,	dwmc setlayoutex 18
-󰕬 Centered Floating Master,	dwmc setlayoutex 19
-󰕭 Columns,	dwmc setlayoutex 20
-󱒇 Deck,	dwmc setlayoutex 21
-󰕴 Fibonacci Spiral,	dwmc setlayoutex 22
-󱒎 Fibonacci Dwindle,	dwmc setlayoutex 23
-󰾍 Grid,	dwmc setlayoutex 24
-󱇙 Horizontal Grid,	dwmc setlayoutex 25
-󰕰 Gapless Grid,	dwmc setlayoutex 26
-󰕳 N-row Grid,	dwmc setlayoutex 27
+󱇘 (Flextile) Deck Horizontal,	dwmc setlayoutex 6
+󱢈 (Flextile) Bottom Stack,	dwmc setlayoutex 7
+󰯋 (Flextile) Bottom Stack Horizontal,	dwmc setlayoutex 8
+󰕫 (Flextile) Centered Naster,	dwmc setlayoutex 9
+󰕯 (Flextile) Centered Master Horizontal,	dwmc setlayoutex 10
+󰕰 (Flextile) Gapless Grid,	dwmc setlayoutex 11
+󰕴 (Flextile) Fibonacci Dwindle,	dwmc setlayoutex 12
+󱒎 (Flextile) Fibonacci Spiral,	dwmc setlayoutex 13
+󰡃 (Flextile) Tatami Tats,	dwmc setlayoutex 14
+󰯌 Tiled,	dwmc setlayoutex 15
+󱟱 Monocle,	dwmc setlayoutex 16
+󱢈 Bottom Stack,	dwmc setlayoutex 17
+󰯋 Bottom Stack Horizontal,	dwmc setlayoutex 18
+󰕫 Centered Master,	dwmc setlayoutex 19
+󰕬 Centered Floating Master,	dwmc setlayoutex 20
+󰕭 Columns,	dwmc setlayoutex 21
+󱒇 Deck,	dwmc setlayoutex 22
+󰕴 Fibonacci Spiral,	dwmc setlayoutex 23
+󱒎 Fibonacci Dwindle,	dwmc setlayoutex 24
+󰾍 Grid,	dwmc setlayoutex 25
+󱇙 Horizontal Grid,	dwmc setlayoutex 26
+󰕰 Gapless Grid,	dwmc setlayoutex 27
+󰕳 N-row Grid,	dwmc setlayoutex 28
 EOF
 

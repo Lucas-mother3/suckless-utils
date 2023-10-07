@@ -7,27 +7,28 @@ cat <<EOF | xmenu
 󰕭 (Flextile) Columns 	3
 󰕬 (Flextile) Floating Master	4
 󱒇 (Flextile) Deck	5
-󱢈 (Flextile) Bottom Stack	6
-󰯋 (Flextile) Bottom Stack Horizontal	7
-󰕫 (Flextile) Centered Naster	8
-󰕯 (Flextile) Centered Master Horizontal	9
-󰕰 (Flextile) Gapless Grid	10
-󰕴 (Flextile) Fibonacci Dwindle	11
-󱒎 (Flextile) Fibonacci Spiral	12
-󰡃 (Flextile) Tatami Tats	13
-󰯌 Tiled	14
-󱟱 Monocle	15
-󱢈 Bottom Stack	16
-󰯋 Bottom Stack Horizontal	17
-󰕫 Centered Master	18
-󰕬 Centered Floating Master	19
-󰕭 Columns	20
-󱒇 Deck	21
-󰕴 Fibonacci Spiral	22
-󱒎 Fibonacci Dwindle	23
-󰾍 Grid	24
-󱇙 Horizontal Grid	25
-󰕰 Gapless Grid	26
-󰕳 N-row Grid	27
+󱇘 (Flextile) Deck Horizontal	6
+󱢈 (Flextile) Bottom Stack	7
+󰯋 (Flextile) Bottom Stack Horizontal	8
+󰕫 (Flextile) Centered Naster	9
+󰕯 (Flextile) Centered Master Horizontal	10
+󰕰 (Flextile) Gapless Grid	11
+󰕴 (Flextile) Fibonacci Dwindle	12
+󱒎 (Flextile) Fibonacci Spiral	13
+󰡃 (Flextile) Tatami Tats	14
+󰯌 Tiled	15
+󱟱 Monocle	16
+󱢈 Bottom Stack	17
+󰯋 Bottom Stack Horizontal	18
+󰕫 Centered Master	19
+󰕬 Centered Floating Master	20
+󰕭 Columns	21
+󱒇 Deck	22
+󰕴 Fibonacci Spiral	23
+󱒎 Fibonacci Dwindle	24
+󰾍 Grid	25
+󱇙 Horizontal Grid	26
+󰕰 Gapless Grid	27
+󰕳 N-row Grid	28
 EOF
 
