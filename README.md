@@ -179,6 +179,7 @@ All programs are licensed under the MIT License, except for some submodules, whi
 ![Screenshot of the desktop](/pics/desktop.png)
 ![Screenshot of random screenshots](/pics/random.png)
 ![Screenshot of SM64 port](/pics/gaming.png)
+![A demo of it's pywal abilities](/pics/wal.gif)
 
 ## Special thanks 
 * [Speedie](https://speedie.site) for helping me out with this and providing me with patches 
