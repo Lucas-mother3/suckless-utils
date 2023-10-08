@@ -54,9 +54,9 @@ loadxrdb()
 				XRDB_LOAD_COLOR("dwm.color1", scratchselbordercolor);
 				XRDB_LOAD_COLOR("dwm.color1", scratchselfloatcolor);
 				XRDB_LOAD_COLOR("dwm.color0", scratchnormfgcolor);
-				XRDB_LOAD_COLOR("dwm.color2", scratchnormbgcolor);
-				XRDB_LOAD_COLOR("dwm.color2", scratchnormbordercolor);
-				XRDB_LOAD_COLOR("dwm.color2", scratchnormfloatcolor);
+				XRDB_LOAD_COLOR("dwm.color4", scratchnormbgcolor);
+				XRDB_LOAD_COLOR("dwm.color4", scratchnormbordercolor);
+				XRDB_LOAD_COLOR("dwm.color4", scratchnormfloatcolor);
 				#endif // RENAMED_SCRATCHPADS_PATCH
 				#if BAR_FLEXWINTITLE_PATCH
 				XRDB_LOAD_COLOR("dwm.color0", normTTBbgcolor);
@@ -70,17 +70,17 @@ loadxrdb()
 				XRDB_LOAD_COLOR("dwm.color0", normDWDLbgcolor);
 				XRDB_LOAD_COLOR("dwm.color0", normSPRLbgcolor);
 				XRDB_LOAD_COLOR("dwm.color0", normfloatbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actTTBbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actLTRbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actMONObgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actGRIDbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actGRD1bgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actGRD2bgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actGRDMbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actHGRDbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actDWDLbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actSPRLbgcolor);
-				XRDB_LOAD_COLOR("dwm.color1", actfloatbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actTTBbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actLTRbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actMONObgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actGRIDbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actGRD1bgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actGRD2bgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actGRDMbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actHGRDbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actDWDLbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actSPRLbgcolor);
+				XRDB_LOAD_COLOR("dwm.color2", actfloatbgcolor);
 				XRDB_LOAD_COLOR("dwm.color6", selTTBbgcolor);
 				XRDB_LOAD_COLOR("dwm.color6", selLTRbgcolor);
 				XRDB_LOAD_COLOR("dwm.color6", selMONObgcolor);
