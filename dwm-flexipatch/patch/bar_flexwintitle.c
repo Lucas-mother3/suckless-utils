@@ -6,7 +6,7 @@
 #define FLEXWINTITLE_SHOWFLOATING 0  // whether to show titles for floating windows, hidden clients are always shown
 #endif
 #ifndef FLEXWINTITLE_MASTERWEIGHT
-#define FLEXWINTITLE_MASTERWEIGHT 6  // master weight compared to stack, hidden and floating window titles
+#define FLEXWINTITLE_MASTERWEIGHT 7  // master weight compared to stack, hidden and floating window titles
 #endif
 #ifndef FLEXWINTITLE_STACKWEIGHT
 #define FLEXWINTITLE_STACKWEIGHT 3   // stack weight compared to master, hidden and floating window titles
