@@ -16,6 +16,7 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - spmenu
 - dwmblocks-async
 - slock
+- nsxiv
 
 ### Terminal
 - dvtm
@@ -98,6 +99,7 @@ Linux/Unix users:
 - yajl for ipc
 - eww (optional)
 - jgmenu
+- libexif (for nsxiv)
 
 Termux users:
 - xorg 
@@ -130,7 +132,7 @@ Refer to patches.def.h and config.mk for additional patch-related requirements.
 2. Clone this repository (`git clone --recurse-submodules`)
 3. Change directory to what suckless software do you want to use
 4. Remove the `config.h`, and `patches.h` files, to make sure all patches are applied correctly
-5. Copy `make clean install` and paste it on your terminal
+5. Copy `make clean install` (or `make install-all` for nsxiv) and paste it on your terminal
 6. Building the spmenu submodule included in this repo (by speedie) would strictly use meson as it's build system.
     1. For that, `cd` to the spmenu folder.
     2. Initialize setup via `meson setup build`. Pass `-Dwayland-=false` for disabling Wayland support.
