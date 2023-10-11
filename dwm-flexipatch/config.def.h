@@ -933,7 +933,7 @@ static const Key keys[] = {
 	{ Mod4Mask,			XK_v,	       spawn,	               SHCMD("clipmenu-spmenu") },
 	{ Mod4Mask,			XK_Print,      spawn,	               SHCMD("screenshot-spmenu -f") },
 	{ Mod4Mask|ShiftMask,		XK_Print,      spawn,	               SHCMD("screenshot-spmenu -s") },
-	{ Mod4Mask,			XK_p,	       spawn,	               SHCMD("pirokit") },
+	{ Mod4Mask,			XK_1,	       spawn,	               SHCMD("pirokit") },
 	{ Mod4Mask|ShiftMask,		XK_w,	       spawn,	               SHCMD("wallpaper-spmenu") },
 	/* end of spmenu keybinds */
 	/* dunst specific keybinds */
