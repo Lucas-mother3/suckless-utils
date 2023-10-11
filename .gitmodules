@@ -22,6 +22,3 @@
 [submodule "abduco"]
 	path = abduco
 	url = https://github.com/martanne/abduco.git
-[submodule "shmenu"]
-	path = shmenu
-	url = https://github.com/Crestwave/shmenu
