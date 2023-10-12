@@ -939,6 +939,7 @@ static const Key keys[] = {
 	/* dunst specific keybinds */
 	{ Mod4Mask,			XK_n,	       spawn,	               SHCMD("dunstctl history-pop") },
 	{ Mod4Mask,			XK_x,	       spawn,	               SHCMD("dunstctl close-all") },
+	{ Mod4Mask|ShiftMask,           XK_x,          spawn,                  SHCMD("dunstctl history-clear") },
 	/* install paplay, dunst, and the scripts on scripts/dunst first */
 	{ Mod4Mask,                     XK_u,          spawn,                  SHCMD("volume-dunst up") },
 	{ Mod4Mask,                     XK_d,          spawn,                  SHCMD("volume-dunst down") },
