@@ -1,0 +1,69 @@
+README file for SLiM
+
+Rob Pearce <slim@flitspace.org.uk>
+
+INTRODUCTION
+    SLiM (Simple Login Manager) is a graphical login manager for X11.
+    It aims to be simple, fast and independent from the various
+    desktop environments.
+    SLiM was originally based on the last stable release of Login.app 
+    by Per Lidén.
+
+    Features:
+    - External themes and configuration
+    - PNG support with alpha transparency for panel
+    - PNG / JPEG support for backgrounds
+    - XFT / freetype support
+    - Double or single (GDM-style) inputbox support
+    - PAM support for authentication
+    - Compatible with ConsoleKit or logind, OpenRC or systemd, etc.
+    - CMake build procedure
+
+INSTALLATION
+    see the INSTALL file
+    
+USAGE
+    SLiM is intended to be run automatically as part of the system 
+    startup. Get your SysVInint, OpenRC or systemd to run the slim 
+    executable, with the -d option if you want it to run as a daemon
+    in the background (recommended for OpenRC, systemd may work 
+    better without)
+
+    As you would expect of a login manager, you enter your username 
+    and password to login. By default, the ~/.xinitrc file is run, 
+    so be sure to have a working .xinitrc file in your home. This 
+    behaviour is configurable, and may be set up differently by the
+    distro package.
+    
+    Special usernames can be entered to run commands that are 
+    configurable in the config file:
+    - console: start a console login
+    - exit: exit SLiM (this may not have desirable results)
+    - halt: shut down the system
+    - reboot: reboot the system
+
+    Pressing the F11 key executes a user-specified command (see the
+    configuration file). The default is to take a screenshot, if the
+    'import' program is available.
+    
+CONFIGURATION
+    /etc/slim.conf is the main configuration file. Alternative files
+    can be specified on the command line.
+    Options are explained in the file itself
+    
+THEMES
+    The appearance (and some parts of the behaviour) of SLiM depends
+    on the "theme" specified by the configuration file. See the file
+    THEMES for details.
+
+COPYRIGHT
+    SLiM is copyright (c) 2004-13 by Simone Rota, Johannes Winkelmann,
+    Nobuhiro Iwamatsu and 2022-23 by Rob Pearce. It is available under the
+    GNU General Public License.
+    See the COPYING file for the complete license.
+
+    Image handling code adapted and extended from xplanet 1.0.1,
+    copyright (c) 2002-04 by Hari Nair
+
+    Login.app is copyright (c) 1997, 1998 by Per Liden and is 
+    licensed through the GNU General Public License. 

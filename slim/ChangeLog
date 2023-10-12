@@ -1,0 +1,196 @@
+1.4.0 - 2023.01.21
+	* - BREAKING CONFIG CHANGE - the position of the passwd_feedback in slim
+	  is now relative to the screen, not the panel. This is now consistent 
+	  with slimlock and with the session and other messages.
+	* The selected session is now preserved over failed logins
+	* When testing themes with the -p option, the size of the window can now
+	  be specified, and the theme is previewed correctly for that size.
+	* On exit from theme test, the "test message" now reports user and session
+	* Failed login feedback is now disabled by default or if position negative
+	* Applied some Devuan patches
+	  - Set the XDG_SESSION_CLASS. This fixes Gentoo bug #727544 - failure to
+	    register sessions with elogind in some instances. The (incorrect) bug
+	    note in the man page has therefore been removed again.
+	  - Use $DISPLAY instead of hardcoding :0.0 in sessionstart/stop commands
+	  - No longer always builds slimlock if using PAM - it must be explicitly
+	    enabled
+	  - Fixed formatting in slimlock man page
+	  - A couple of typos fixed in strings
+	* Updated the README and encoded in UTF-8
+	* Corrected the handling of the -n / -nodaemon option so that it doesn't 
+	  swallow the next option if given as -n
+	* Bug fixes in slimlock
+	  - The active entry is for password, so show the password prompt, not the
+	    username one
+	  - Don't react to F1, as it isn't appropriate and used to blank the 
+	    screen
+	  - Keep it all on one screen even when the WM hasn't set a "primary" for
+	    RandR purposes
+	* Fix ticket #4 - the config parser now works properly. Previously it got
+	  confused by option names that were substrings of other option names
+	* Themes with "background_style color" no longer need a redundant image
+	  file to make them work.
+	  - This needed a bit of a re-write of the image handling, which also
+	    improves efficiency
+	* New default theme - the old one is retained as "original"
+	* Some general documentation improvements (man pages, comments in example
+	  files)
+
+1.3.9 - 2022.11.18
+    * Changed the handling of the "auth failed" message in DM mode so that it 
+      remains on display until a key is pressed.
+    * Added a command line option to specify the configuration file
+    * Allow the logfile to be specified as "stderr" to write to stderr
+      Also now writes all log messages to stderr if they are printed before 
+      the log file is open, including when using the -p option.
+    * Added a configuration option to retain the user name if authentication
+      fails (which is probably more helpful if you just mistype your password)
+    * Applied a modified version of the "wait for the X server" patch from guix
+    * No longer unnecessarily re-opens an already open X display interface. 
+      Similarly removed a redundant "get root window" call
+    * Deleted some unused member variables and methods. Various other internal
+      clean-up
+    * Reverted the install location definition for the configuration file, as 
+      the CMAKE_INSTALL_SYSCONFDIR wasn't right
+    * Added a "bug" note to the man page, for the reliance on sessreg, which 
+      causes occasional misbehaviour for some people.
+
+1.3.8 - 2022.03.01
+	* Fixed some bugs listed on bugs.gentoo.org:
+	    832303 - failed to build with clang, Invalid suffix on string literal
+	    580458 - open fd on /var/log/slim.log passed to session
+	* Fixed handling of log stream so that all the code uses the same instance
+	* Handle return values from calls, to clean up warn-unused-result warnings
+	* Fixed "sessions" config option (the earlier patch was incomplete)
+	* Several QA improvements
+	* Updated cmake config - use standard install paths, don't force options
+
+1.3.7 - 2022.01.30
+	* Imported several bug fixes from the Gentoo package:
+		libslim-cmake-fixes
+		disable-ck-for-systemd
+		reinstate sessions config option as an alternative to sessiondir
+		systemd session compatibility
+		remove zlib dependency
+		envcpy-bad-pointer-arithmetic patch
+		add-missing-libgen_h
+		wrong comparison for XCreateGC error return (GCC11 needs it fixed!)
+	* Fixed a bug in handling expired user accounts with PAM
+	* Show a message on login failure (using the same method as slimlock)
+
+
+ ---   The releases below were the original SLiM project   ---
+
+1.3.6 - 2013.10.01
+	* Merge slimlock.
+	* Add support ^H (like backspace).
+	* And fix some bugs.
+
+1.3.5 - 2012.12.31
+	* Support UTF8 string.
+	* Add systemd service.
+	* And fix some bugs.
+
+1.3.4 - 2012.06.26
+	* Replaced stderr writes function.
+	* Fix numlock control.
+	* Fix build with GLUT.
+	* Fix PAM authentication.
+
+1.3.3 - 2012.02.22
+	* Change build system to CMake.
+	* Add support ConsoleKit.
+	* Fix some bugs....
+
+1.3.2 - 2010.07.08
+    * Add support xauth secret.
+    * Add xnest_debug mode.
+
+1.3.1 - 2008.09.26
+    * Added focus_password config option for focusing password
+      automatically when default_user is enabled
+    * Added auto_login option
+    * Fixed uninitialized daemonmode, see
+      http://www.freebsd.org/cgi/query-pr.cgi?pr=114366
+    * Fixed maximum length for password
+    * Introduced customization options for session text:
+      font, colors, position, shadows.
+
+1.3.0 - 2006.07.14
+    * Added PAM support by Martin Parm
+    * Fixed segfault on exit when testing themes. Thanks
+      to Darren Salt & Mike Massonnet
+    * Fixed vt argument detection, thanks to Henrik Brix Andersen
+    * Corrected reference to input_color in the default theme
+    * Fixed default shell setting
+    * Fix segfault when calling XCloseDisplay(NULL); thanks Uli Schlachter
+
+1.2.6 - 2006.09.15
+    * Bug #008167: Update pid when in daemon mode
+    * Fixed warnings when compiling with -Wall. Thanks to
+      KIMURA Masaru
+    * Fixed major memory leaks with repeated login (bug #007535)
+
+1.2.5 - 2006.07.24
+    * hiding of the cursor is now an option (disabled
+      by default) since some WMs does not re-initialize
+      the root window cursor.
+    * The X server is restarted when the user logs out.
+      This fixes potential security issues with user-launched
+      apps staying attached to the root window after logout.
+    * Bug #7432 : Added proper Xauth authentication: the X server
+      is started with the -auth option and the user who logs
+      in has his .Xauthority file initializated.
+
+1.2.4 - 2006.01.18
+    * Added commands for session start and stop
+      (i.e. for session registering)
+    * Added automatic numlock on/off option
+    * Support for numpad Enter key
+    * Restored support for daemon option in the config
+      file.
+    * Lock file now uses process id, no more false
+      locking (thanks to Tobias Roth)
+
+1.2.3 - 2005.09.11
+    * Added FreeBSD, NetBSD, OpenBSD support
+    * Replaced autotools with plain makefile(s)
+    * Added 'suspend' command (untested, we don't use it)
+    * Added support for %theme variable in login command
+	
+1.2.2 - 2005.05.21
+    * fix panel drawing on screens <= 1024x768
+    * Don't start X server unless valid theme found
+    * revert to 'default' of invalid theme specified
+    * try all themes from a set if one doesn't work
+    
+1.2.1 - 2005.05.17
+    * draw input directly on panel
+
+1.2.0 - 2005.05.16
+    * added theme preview (slim -p /path/to/theme)
+    * added JPEG support for panel image
+    * added 'center' background type and 'background_color' option
+    * added text shadow
+    * added warning when execution of login command fails
+    * Fix login failure when no shell specified in /etc/passwd
+    * Print error when login command execution fails
+    * add XNEST_DEBUG ifdef's to allow for easy debugging
+    * Add support for Ctrl-u and Ctrl-w
+    * Add 'vt07' to server arguments if not already specified
+    * Removes daemon option from the config file. Use slim -d
+    * Allow 'current_theme' to be a set of themes, choose randomly
+    * Change default theme
+
+1.1.0 - 2004.12.09
+    * error messages for X11 apps are no longer redirected
+      to the log file
+    * fixed text position for default theme
+    * added configurable shutdown and reboot messages
+    * separated 'Enter username' and 'Enter password' messages
+      position.
+    * due to the previous two points, the theme format has 
+      slightly changed
+    
+1.0.0 - 2004.12.07
+    * First public SLiM release

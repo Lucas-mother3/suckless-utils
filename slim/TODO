@@ -1,0 +1,17 @@
+Important things
+----------------
+- Make it work better with multi-screen setups
+
+Improvements suggested long ago
+-------------------------------
+- Don't start X server if theme's not found
+- i18n
+- FreeBSD fixes
+- restart X server on ctrl-alt-backspace
+
+Other thoughts for improvement
+------------------------------
+- position text to fit screen, e.g. when at 90% position
+- allow nested config
+- make slimlock handle themes the same as slim
+- option to run X server as non-root

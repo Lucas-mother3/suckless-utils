@@ -1,0 +1,126 @@
+.TH slim 1 "January 14, 2023" "" ""
+.SH NAME
+\fBslim \fP- Simple LogIn Manager
+\fB
+.SH SYNOPSIS
+.nf
+.fam C
+\fBslim\fP [\fIoptions\fP] [<arguments>]
+.fam T
+.fi
+.SH DESCRIPTION
+SLiM is a lightweight login manager for X11, allowing the initialization
+of a graphical session by entering username and password in a login screen.
+It is desktop-agnostic and should work (suitably configured) with any
+session style.
+.SH OPTIONS
+.TP
+.B
+\fB-c\fP /path/to/config
+select a non-standard configuration file instead of /etc/slim.conf
+.TP
+.B
+\fB-d\fP
+run as a daemon
+.TP
+.B
+\fB-n\fP
+do NOT run as a daemon
+.TP
+.B
+\fB-s\fP
+be systemd compatible by disabling consolekit support. This option does
+nothing if consolekit support has not been built in.
+.TP
+.B
+\fB-p\fP /path/to/theme
+display a preview of the theme. An already running X11 session
+is required for theme preview.
+.TP
+.B
+\fB-w\fP <www>x<hhh>
+set the size of the window used for theme preview. This option is only valid
+after a -p option
+.TP
+.B
+\fB-h\fP
+display a brief help message
+.TP
+.B
+\fB-v\fP
+display version information
+.SH EXAMPLES
+.TP
+.B
+\fBslim\fP \fB-d\fP
+run \fBslim\fP in daemon mode
+.TP
+.B
+\fBslim\fP \fB-p\fP /usr/share/slim/themes/default \fB-w\fP 800x600
+preview of the default theme at low resolution
+.SH STARTING SLIM AT BOOT
+Please refer to the documentation of your Operating System to make \fBslim\fP
+automatically startup after the system boots. In particular, the method is
+very different between SysV, OpenRC, runit and systemd init processes.
+.SH CONFIGURATION
+Global configuration is stored in the /etc/slim.conf file. See the comments
+inside the file for a detailed explanation of the \fIoptions\fP.
+.SH USAGE AND SPECIAL USERNAMES
+When started, \fBslim\fP will show a login panel; enter the username and
+password of the user you want to login as.
+.PP
+Special usernames:
+.TP
+.B
+console
+open an xterm login console. No password needed
+.TP
+.B
+exit
+quit \fBslim\fP. No password needed. See the note in \fBBUGS\fI.
+.TP
+.B
+halt
+shutdown the machine
+.TP
+.B
+reboot
+reboot the machine
+.TP
+.B
+suspend
+power-suspend the machine
+.PP
+See the configuration file for customizing the above commands.
+The 'halt' and 'reboot' commands need the root password, and hence may not 
+work on systems where root login is disabled.
+.PP
+Shortcuts:
+.TP
+.B
+F11
+executes a custom command (by default takes a screenshot)  
+.TP
+.B
+F1
+choose session type from session list.
+.SH BUGS
+When run as a daemon from OpenRC (and possibly other init systems), causing
+SLiM to quit can sometimes result in a blank screen and unresponsive computer.
+This includes when using the "exit" special username.
+.PP
+Probably still a few more but I'm working on them.
+.SH AUTHORS 
+Simone Rota <sip@varlock.com>
+.PP
+Johannes Winkelmann <jw@tks6.net>
+.PP
+Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+.PP
+Rob Pearce <slim@flitspace.org.uk>
+.SH SEE ALSO
+.\" .BR slim.conf (5),		... once I've written one!
+.BR slimlock (1)
+.PP
+See the online documentation at the SLiM web site for further information
+on themes, FAQs, etc.

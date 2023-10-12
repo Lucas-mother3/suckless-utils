@@ -17,6 +17,7 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - dwmblocks-async
 - slock
 - nsxiv
+- slim
 
 ### Terminal
 - dvtm
@@ -24,6 +25,12 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - shmenu
 
 ## Notes
+
+### slim notes
+
+To reload the preset theme (located in `/usr/share/themes/slim/suckless`), then run `.cache/wal/slim-reload` **after** running pywal. The script must also be ran as sudo.
+
+This is, if you wanted a display manager added. The scripts also works a workaround unless if slim could handle loading themes from other dirs.
 
 ### eww notes
 

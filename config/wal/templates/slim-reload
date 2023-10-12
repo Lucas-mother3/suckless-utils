@@ -1,0 +1,5 @@
+#!/bin/sh
+# Reloads slim (needs sudo to ask the passswoes)
+
+sudo cp .cache/wal/slim.theme /usr/share/slim/themes/suckless
+sudo cp {wallpaper} /usr/share/slim/themes/suckless/background.png
