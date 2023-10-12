@@ -103,10 +103,12 @@ Linux/Unix users:
 - pywal (for colors/wallpaper)
 - slop (for riodraw)
 - libmpdclient(-devel or -dev) for mpdclient
-- yajl for ipc
+- yajl (for ipc)
 - eww (optional)
 - jgmenu
-- libexif (for nsxiv)
+- libexif(-devel or -dev) (for nsxiv)
+- jq (for handling eww notifications)
+- pamixer
 
 Termux users:
 - xorg 
@@ -152,7 +154,13 @@ Refer to patches.def.h and config.mk for additional patch-related requirements.
 8. Install the `dwmblocks` scripts (in `scripts/dwmblocks`) to your `$PATH`.
 9. Install eww, and put the config inside `config/eww` to `$HOME/.config`. Put the scripts inside `scripts/eww` inside `$PATH`.
     - (Recommended) Make a hard link of `.cache/wal/colors.scss` to `.config/eww/colors.scss`.
-10.  Start it and done! 
+10. Set up slim (optional)
+    1. If you wanted to, all you have to do is setup the makefiles by making a `build` folder.
+    2. Generate makefiles via `cmake`. Make sure the `PREFIX` variable is set on `/usr`
+    3. Run `make` and `make install`.
+    4. Set up the systemd service included, tweak if necessary (same applies with other inits but would have to deal with manual config)
+11. Put `$HOME/.local/bin` in `$PATH` to seperate scripts and compiled applications, as well as to reduce clutter.
+12. Start it and done! 
 
 
 ## Future plans
