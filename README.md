@@ -24,6 +24,14 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - abduco
 - shmenu
 
+### Applications by default
+- firefox (browser)
+- sfm/broot (file manager)
+- ncmpcpp (mpd client/music player)
+- dunst (notification daemon)
+- jgmenu (floating stdin/stdout menu utility)
+- spmenu (dmenu alternative)
+
 ## Notes
 
 ### slim notes
