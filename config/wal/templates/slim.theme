@@ -43,7 +43,7 @@ welcome_font           Hack Nerd Font:size=28:bold:dpi=75
 welcome_color          {color1}
 welcome_x              50%
 welcome_y              40
-welcome_msg            Login to %host
+welcome_msg            Welcome to %host!
 welcome_shadow_xoffset 2
 welcome_shadow_yoffset 2
 welcome_shadow_color   {color0}
