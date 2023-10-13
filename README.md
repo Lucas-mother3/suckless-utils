@@ -46,7 +46,7 @@ The weather widget is pretty barebones as of now. Report bugs if found.
 
 ### Configuration notes
 
-The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom`, `ncmpcppp`, `neofetch`, and `wal`.
+The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom`, `ncmpcppp`, `neofetch`, `broot`,  and `wal`.
 
 ### Compatibility notes
 
