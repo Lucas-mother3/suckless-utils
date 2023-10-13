@@ -31,6 +31,7 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - dunst (notification daemon)
 - jgmenu (floating stdin/stdout menu utility)
 - spmenu (dmenu alternative)
+- newsboat (rss/atom feed reader)
 
 ## Notes
 
@@ -46,7 +47,9 @@ The weather widget is pretty barebones as of now. Report bugs if found.
 
 ### Configuration notes
 
-The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom`, `ncmpcppp`, `neofetch`, `broot`,  and `wal`.
+The bare essentials of my dotfiles are located in the `config` directory. This includes `spmenu`, `picom`, `ncmpcppp`, `neofetch`, `broot`, `newsboat`,  and `wal`.
+
+Newsboat config also include preset urls.
 
 ### Compatibility notes
 
