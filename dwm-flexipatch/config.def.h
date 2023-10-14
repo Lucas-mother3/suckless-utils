@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+#include <X11/XF86keysym.h>
 /* appearance */
 #if ROUNDED_CORNERS_PATCH
 static const unsigned int borderpx       = 0;   /* border pixel of windows */
@@ -957,6 +957,16 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_w,          spawn,                  SHCMD("eww open --toggle main") },
 	{ Mod4Mask,                     XK_p,          spawn,                  SHCMD("nsxiv ~/Pictures") },
 	{ MODKEY|ShiftMask,             XK_F5,         spawn,                  SHCMD("eww reload && pkill dunst && dunst") },
+	/* Function media keys */
+	{ 0,                            XF86XK_AudioLowerVolume,          spawn,                  SHCMD("volume-dunst down") },
+	{ 0,                            XF86XK_AudioRaiseVolume,          spawn,                  SHCMD("volume-dunst up") },
+	{ 0,                            XF86XK_AudioMute,                 spawn,                  SHCMD("volume-dunst mute") },
+	/* assumes mpc was used instead of the mpdcontrol patch */
+	{ 0,                            XF86XK_AudioStop,          spawn,                  SHCMD("mpc stop") },
+	{ 0,                            XF86XK_AudioPrev,          spawn,                  SHCMD("mpc prev") },
+	{ 0,                            XF86XK_AudioPlay,          spawn,                  SHCMD("mpc play") },
+	{ ShiftMask,                    XF86XK_AudioPlay,          spawn,                  SHCMD("mpc pause") },
+	{ 0,                            XF86XK_AudioNext,          spawn,                  SHCMD("mpc next") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH

@@ -32,7 +32,7 @@ FREETYPEINC = /usr/include/freetype2
 XRENDER = -lXrender
 
 # Uncomment this for the mdpcontrol patch / MDPCONTROL_PATCH
-MPDCLIENT = -lmpdclient
+#MPDCLIENT = -lmpdclient
 
 # Uncomment for the pango patch / BAR_PANGO_PATCH
 #PANGOINC = `pkg-config --cflags xft pango pangoxft`

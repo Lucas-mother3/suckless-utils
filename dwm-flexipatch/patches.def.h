@@ -758,7 +758,7 @@
  *    - libmpdclient
  * https://dwm.suckless.org/patches/mpdcontrol/
  */
-#define MPDCONTROL_PATCH 1
+#define MPDCONTROL_PATCH 0 
 
 /* Adds rules per monitor, e.g. have default layouts per monitor.
  * The use case for this is if the second monitor is vertical (i.e. rotated) then
