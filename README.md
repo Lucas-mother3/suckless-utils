@@ -207,6 +207,7 @@ All programs are licensed under the MIT License, except for some submodules, whi
 ![Screenshot of random screenshots](/pics/random.png)
 ![Screenshot of SM64 port](/pics/gaming.png)
 ![A demo of it's pywal abilities](/pics/wal.gif)
+![Screenhot of slim on a Debian test VM](/pics/login.png)
 
 ## Special thanks 
 * [Speedie](https://speedie.site) for helping me out with this and providing me with patches 
