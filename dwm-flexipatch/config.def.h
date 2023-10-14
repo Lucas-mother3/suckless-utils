@@ -968,11 +968,11 @@ static const Key keys[] = {
 	{ ShiftMask,                    XF86XK_AudioPlay,          spawn,                  SHCMD("mpc pause") },
 	{ 0,                            XF86XK_AudioNext,          spawn,                  SHCMD("mpc next") },
 	/* Assumes user has plaayerctl */
-	{ MODKEY,                       XF86XK_AudioStop,          spawn,                  SHCMD("mpc stop") },
-	{ MODKEY,                       XF86XK_AudioPrev,          spawn,                  SHCMD("mpc prev") },
-	{ MODKEY,                       XF86XK_AudioPlay,          spawn,                  SHCMD("mpc play") },
-	{ MODKEY|ShiftMask,                    XF86XK_AudioPlay,          spawn,                  SHCMD("mpc pause") },
-	{ MODKEY,                       XF86XK_AudioNext,          spawn,                  SHCMD("mpc next") },
+	{ MODKEY,                       XF86XK_AudioStop,          spawn,                  SHCMD("playerctl stop") },
+	{ MODKEY,                       XF86XK_AudioPrev,          spawn,                  SHCMD("playerctl prev") },
+	{ MODKEY,                       XF86XK_AudioPlay,          spawn,                  SHCMD("playerctl play") },
+	{ MODKEY|ShiftMask,             XF86XK_AudioPlay,          spawn,                  SHCMD("playerctl pause") },
+	{ MODKEY,                       XF86XK_AudioNext,          spawn,                  SHCMD("playerctl next") },
 	#if KEYMODES_PATCH
 	{ MODKEY,                       XK_Escape,     setkeymode,             {.ui = COMMANDMODE} },
 	#endif // KEYMODES_PATCH
