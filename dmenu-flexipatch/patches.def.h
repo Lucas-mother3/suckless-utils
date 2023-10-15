@@ -17,7 +17,7 @@
  * or xyw patches, to make the menu stand out from similarly coloured windows.
  * http://tools.suckless.org/dmenu/patches/border/
  */
-#define BORDER_PATCH 0
+#define BORDER_PATCH 1 
 
 /* By default the caret in dmenu has a width of 2 pixels. This patch makes that configurable
  * as well as overridable via a command line option.
