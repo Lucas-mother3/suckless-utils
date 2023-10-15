@@ -92,7 +92,7 @@ setwall() {
 	if [ -z "$picwal" ]; then
 		setwall
 	else
-			wal -i "$picwaldir/$picwal" -qste
+			wal -i "$picwaldir/$picwal" -ste
 			if [ -z "$theme" ]; then
 				setcolor1
 				unset picwaldir

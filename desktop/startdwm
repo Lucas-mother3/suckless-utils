@@ -1,6 +1,6 @@
 #!/bin/sh
 systemctl --user restart clipmenud.service # restarts clipmenud, if installed
-wal -R # could be changed
+wal -R -ste # could be changed
 picom -b # launches compositor
 /usr/local/bin/dwmblocks & # launches slstatus/dwmblocks
 /usr/bin/dunst & # launches dunst daemon
