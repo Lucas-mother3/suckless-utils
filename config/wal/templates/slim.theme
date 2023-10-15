@@ -17,9 +17,9 @@ background_color        {color0}
 # Input controls
 input_panel_x           50%
 input_panel_y           45%
-input_name_x            394
+input_name_x            344
 input_name_y            166
-input_pass_x            394
+input_pass_x            344
 input_pass_y            203
 input_font          	Hack Nerd Font:size=12:dpi=75
 input_color             {color0}
@@ -27,13 +27,13 @@ input_color             {color0}
 # Username / password request
 username_font          	Hack Nerd Font:size=18:dpi=75
 username_color        	{color15}
-username_x              270
+username_x              230
 username_y              166
-password_x              270
+password_x              230
 password_y              203
 username_shadow_color   {color0}
-username_shadow_xoffset 1
-username_shadow_yoffset 1
+username_shadow_xoffset 2
+username_shadow_yoffset 2
 
 username_msg            Username:
 password_msg            Password:
