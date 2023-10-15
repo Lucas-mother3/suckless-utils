@@ -119,7 +119,7 @@
  * integrate dmenu with other UI elements that require a particular vertical size.
  * http://tools.suckless.org/dmenu/patches/line-height/
  */
-#define LINE_HEIGHT_PATCH 0
+#define LINE_HEIGHT_PATCH 1 
 
 /* This patch adds a -wm flag which sets override_redirect to false; thus letting your window
  * manager manage the dmenu window.
@@ -128,7 +128,7 @@
  * treat dmenu more as a "window" rather than as an overlay.
  * https://tools.suckless.org/dmenu/patches/managed/
  */
-#define MANAGED_PATCH 0
+#define MANAGED_PATCH 1
 
 /* This patch adds an additional color scheme for highlighting entries adjacent to the current
  * selection.
