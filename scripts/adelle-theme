@@ -61,8 +61,9 @@ settheme() {
 setwallq() {
 	read -p "Do you want to set the wallpaper as well? (default is Yes) " wallpaper
 				case $wallpaper in
-					[yY][eE][sS]|[yY]|*) setwall;;
-					[nN][oO]|[nN]) exit;;
+					[yY][eE][sS]|[yY]) setwall;;
+					[nN][oO]|[nN]) command;;
+					*) setwall;;
 				esac
 }
 
