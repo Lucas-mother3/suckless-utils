@@ -15,7 +15,7 @@ settheme() {
 	read -p "Where is the theme directory? "  waldir
 	
 	if [ -z "$waldir" ]; then
-		waldir=".config/wal/colorschemes/dark"
+		waldir="$HOME/.config/wal/colorschemes/dark"
 		if [[ -z $(ls -A "$waldir") ]]; then
 			echo "Oh no! No files here!"
 			settheme
@@ -40,14 +40,18 @@ settheme() {
 			wal --theme "$waldir/$theme.json"
 			if [ -z "$picwaldir" ]; then
 				setwallq
+				unset theme
 			else
+				unset theme
 				command
 			fi
 		else
 			wal --theme "$waldir/$theme"
 			if [ -z "$picwaldir" ]; then
 				setwallq
+				unset theme
 			else
+				unset theme
 				command
 			fi
 		fi
@@ -66,7 +70,7 @@ setwall() {
 	read -p "Where is the wallpaper directory? "  picwaldir
 
 	if [ -z "$picwaldir" ]; then
-		picwaldir="Pictures/Wallpapers"
+		picwaldir="$HOME/Pictures/Wallpapers"
 		if [[ -z $(ls -A "$picwaldir") ]]; then
 			echo "Oh no! No files here!"
 			setwall
@@ -88,14 +92,26 @@ setwall() {
 		setwall
 	else
 			wal -i "$picwaldir/$picwal" -qst
-			read -p "Do you want to set the colors as well? (default is Yes) " colors
-				case $colors in
-					[yY][eE][sS] | [yY]) setcolor2;;
-					[nN][oO] | [nN]) wal -R -st;;
-					*) setcolor2;;
-				esac
-			exit
+			if [ -z "$theme" ]; then
+				setcolor1
+				unset picwaldir
+			else
+				unset picwaldir
+				command
+			fi
 	fi
+}
+
+setcolor1() {
+
+	read -p "Do you want to set the colors as well? (default is Yes) " colors
+		case $colors in
+			[yY][eE][sS] | [yY]) setcolor2;;
+			[nN][oO] | [nN]) wal -R -st && command;;
+			*) setcolor2;;
+		esac
+	exit
+
 }
 
 setcolor2() {
