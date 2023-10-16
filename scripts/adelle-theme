@@ -7,7 +7,7 @@
 
 
 help() {
-	printf "Adelle Theme Manager by lucss21a. Written in bash!\n\nh or help: Prints this text\ns or set: Set the colorscheme\nsw or setwall: Set the wallpaper\nd or download: Download themes to the \$HOME/.config/wal/colorschemes/dark directory\nc or clear: Clear the theme directory\nl or license: View the GNU General Public License Version 3.\nq or quit: Quit the program\n"
+	printf "Adelle Theme Manager by lucss21a. Written in bash!\n\nh or help: Prints this text\ns or set: Set the colorscheme\nsw or setwall: Set the wallpaper\nd or download: Download themes to the theme directory\nc or clear: Clear the theme directory\nl or license: View the GNU General Public License Version 3.\nq or quit: Quit the program\n"
 	command
 }
 
@@ -49,8 +49,10 @@ settheme() {
 			wal --theme "$waldir/$theme"
 			if [ -z "$picwaldir" ]; then
 				setwallq
+				linker
 				unset theme
 			else
+				linker
 				unset theme
 				command
 			fi
@@ -94,8 +96,8 @@ setwall() {
 	else
 			wal -i "$picwaldir/$picwal" -ste
 			if [ -z "$theme" ]; then
-				setcolor1
-				unset picwaldir
+					setcolor1
+					unset picwaldir
 			else
 				unset picwaldir
 				command
@@ -108,7 +110,7 @@ setcolor1() {
 	read -p "Do you want to set the colors as well? (default is Yes) " colors
 		case $colors in
 			[yY][eE][sS] | [yY]) setcolor2;;
-			[nN][oO] | [nN]) wal -R -st && command;;
+			[nN][oO] | [nN]) wal -R -ste && linker && command;;
 			*) setcolor2;;
 		esac
 	exit
@@ -119,12 +121,29 @@ setcolor2() {
 
 	read -p "Do you want to set colors automatically? (default is Yes) " manualcolor
 		case $manualcolor in
-			[yY][eE][sS] | [yY]) wal -R && command;;
+			[yY][eE][sS] | [yY]) wal -R && linker && command;;
 			[nN][oO] | [nN]) settheme;;
-			*) wal -R && command;;
+			*) wal -R && linker && command;;
 		esac
 
 }
+
+linker() {
+
+	cachedir="$HOME/.cache/wal"
+	if [ -d "$cachedir" ]; then
+		ln -f $HOME/.cache/wal/colors.scss .config/eww/colors.scss
+		ln -f $HOME/.cache/wal/cava-config .config/cava/config
+		ln -f $HOME/.cache/wal/jgmenurc .config/jgmenu/jgmenurc
+	else
+		rm -r $HOME/.cache/wal/*
+		ln -f $HOME/.cache/wal/colors.scss .config/eww/colors.scss
+		ln -f $HOME/.cache/wal/cava-config .config/cava/config
+		ln -f $HOME/.cache/wal/jgmenurc .config/jgmenu/jgmenurc
+	fi
+
+}
+
 
 cache() {
 	read -p "Where is the theme directory? "  waldir
@@ -197,8 +216,9 @@ LICENSE=/tmp/gpl-3.0.txt
 
 
 command () {
+	script=$(basename "$0")
 	echo "Enter h or help for a list of commands."
-	read -p "adelle-themer> " command
+	read -p "$script> " command
 
 	case $command in
 		[hH] | help )  help;;
