@@ -115,7 +115,7 @@ backendlist="wal"
 		else
 		backendlist="$backendlist"
 		fi
-		if [ -f $HOME/.local/lib/python*/site-packages/haishoku ]; then
+		if [ -f $HOME/.local/lib/python*/site-packages/haishoku/haishoku.py ]; then
 		backendlist="$backendlist, haishoku"
 		else
 		backendlist="$backendlist"
