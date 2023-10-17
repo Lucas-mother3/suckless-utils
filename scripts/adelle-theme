@@ -6,6 +6,39 @@
 #    under certain conditions; type `l` for details.
 
 
+linker() {
+
+	cachedir="$HOME/.cache/wal"
+	if [ -d "$cachedir" ]; then
+		ln -f $HOME/.cache/wal/colors.scss $HOME/.config/eww/colors.scss
+		ln -f $HOME/.cache/wal/cava-config $HOME/.config/cava/config
+		ln -f $HOME/.cache/wal/jgmenurc $HOME/.config/jgmenu/jgmenurc
+	else
+		rm -r $HOME/.cache/wal/*
+		ln -f $HOME/.cache/wal/colors.scss $HOME/.config/eww/colors.scss
+		ln -f $HOME/.cache/wal/cava-config $HOME/.config/cava/config
+		ln -f $HOME/.cache/wal/jgmenurc $HOME/.config/jgmenu/jgmenurc
+	fi
+
+}
+
+linkremove() {
+	rm -r $HOME/.cache/wal/*
+	rm -f $HOME/.cache/wal/colors.scss
+	rm -f $HOME/.cache/wal/cava-config
+	rm -f $HOME/.cache/wal/jgmenurc
+}
+
+movescript(){
+
+mv /tmp/wallpaper_new /tmp/wal/wal
+mv /tmp/wal $HOME/.cache/
+rm -f $HOME/.cache/wal/colors.json
+jq -r --arg var "$(cat "$HOME/.cache/wal/wal")" '. | .wallpaper = $var' /tmp/colors.json >> $HOME/.cache/wal/colors.json
+rm /tmp/colors.json
+
+}
+
 help() {
 	printf "Adelle Theme Manager by lucss21a. Written in bash!\n\nh or help: Prints this text\ns or set: Set the colorscheme\nsw or setwall: Set the wallpaper\nd or download: Download themes to the theme directory\nc or clear: Clear the theme directory\nl or license: View the GNU General Public License Version 3.\nq or quit: Quit the program\n"
 	command
@@ -38,6 +71,7 @@ settheme() {
 	else
 		if [[ "$theme" != *.json  ]]; then
 			wal --theme "$waldir/$theme.json"
+			linker
 			if [ -z "$picwaldir" ]; then
 				setwallq
 				unset theme
@@ -47,13 +81,11 @@ settheme() {
 			fi
 		else
 			wal --theme "$waldir/$theme"
+			linker
 			if [ -z "$picwaldir" ]; then
 				setwallq
-				linker
 				unset theme
 			else
-				linker
-				unset theme
 				command
 			fi
 		fi
@@ -68,6 +100,48 @@ setwallq() {
 					*) setwall;;
 				esac
 }
+
+
+backendlister() {
+backendlist="wal"
+# TODO: Locate common locations where PIP install packages
+		if [ -f $HOME/.local/lib/python*/site-packages/colorz.py ]; then
+		backendlist="$backendlist, colorz"
+		else
+		backendlist="$backendlist"
+		fi
+		if [ -f $HOME/.local/lib/python*/site-packages/colorthief.py ]; then
+		backendlist="$backendlist, colorthief"
+		else
+		backendlist="$backendlist"
+		fi
+		if [ -f $HOME/.local/lib/python*/site-packages/haishoku ]; then
+		backendlist="$backendlist, haishoku"
+		else
+		backendlist="$backendlist"
+		fi
+		if [ -f $GOPATH/bin/schemer2 ]; then
+		backendlist="$backendlist, schemer2"
+		else
+			if [ -f $HOME/go/bin/schemer2 ]; then
+				backendlist="$backendlist, schemer2"
+			else
+				backendlist="$backendlist"
+			fi
+		fi
+}
+
+backender() {
+
+	backendlister
+	read -p "Which backend? (Available on system: $backendlist): " backend
+	if [ -z "$backend" ]; then
+		backend=wal
+	else
+		backend="$backend"
+	fi
+}
+
 
 setwall() {
 	read -p "Where is the wallpaper directory? "  picwaldir
@@ -94,12 +168,19 @@ setwall() {
 	if [ -z "$picwal" ]; then
 		setwall
 	else
-			wal -i "$picwaldir/$picwal" -ste
+			rm -rf /tmp/wal
+			mv $HOME/.cache/wal/colors.json /tmp/colors.json
+			mv $HOME/.cache/wal /tmp/
+			wal -i "$picwaldir/$picwal" -qste
+			mv $HOME/.cache/wal/wal /tmp/wallpaper_new
+			linkremove
 			if [ -z "$theme" ]; then
 					setcolor1
 					unset picwaldir
 			else
 				unset picwaldir
+				wal --theme "$waldir/$theme"
+				unset theme
 				command
 			fi
 	fi
@@ -110,7 +191,7 @@ setcolor1() {
 	read -p "Do you want to set the colors as well? (default is Yes) " colors
 		case $colors in
 			[yY][eE][sS] | [yY]) setcolor2;;
-			[nN][oO] | [nN]) wal -R -ste && linker && command;;
+			[nN][oO] | [nN]) movescript && command;;
 			*) setcolor2;;
 		esac
 	exit
@@ -121,35 +202,18 @@ setcolor2() {
 
 	read -p "Do you want to set colors automatically? (default is Yes) " manualcolor
 		case $manualcolor in
-			[yY][eE][sS] | [yY]) wal -R && linker && command;;
+			[yY][eE][sS] | [yY]) backender && wal -i "$picwaldir/$picwal" --backend $backend && linker && command;;
 			[nN][oO] | [nN]) settheme;;
-			*) wal -R && linker && command;;
+			*) backender && wal -i "$picwaldir/$picwal" --backend $backend && linker && command;;
 		esac
 
 }
-
-linker() {
-
-	cachedir="$HOME/.cache/wal"
-	if [ -d "$cachedir" ]; then
-		ln -f $HOME/.cache/wal/colors.scss .config/eww/colors.scss
-		ln -f $HOME/.cache/wal/cava-config .config/cava/config
-		ln -f $HOME/.cache/wal/jgmenurc .config/jgmenu/jgmenurc
-	else
-		rm -r $HOME/.cache/wal/*
-		ln -f $HOME/.cache/wal/colors.scss .config/eww/colors.scss
-		ln -f $HOME/.cache/wal/cava-config .config/cava/config
-		ln -f $HOME/.cache/wal/jgmenurc .config/jgmenu/jgmenurc
-	fi
-
-}
-
 
 cache() {
 	read -p "Where is the theme directory? "  waldir
 
 	if [ -z "$waldir" ]; then
-		waldir=".config/wal/colorschemes/dark"
+		waldir="$HOME/.config/wal/colorschemes/dark"
 		if [[ -z $(ls -A "$waldir") ]]; then
 			echo "Already wiped out."
 			command
@@ -180,7 +244,7 @@ download() {
 	read -p "Where is the theme directory? "  waldir
 
 	if [ -z "$waldir" ]; then
-		waldir=".config/wal/colorschemes/dark"
+		waldir="$HOME/.config/wal/colorschemes/dark"
 	else
 		$waldir
 	fi
