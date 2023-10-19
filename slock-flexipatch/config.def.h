@@ -38,7 +38,7 @@ static const char * background_image = "";
 
 #if DWM_LOGO_PATCH
 /* insert grid pattern with scale 1:1, the size can be changed with logosize */
-static const int logosize = 75;
+static const int logosize = 50;
 static const int logow = 12;   /* grid width and height for right center alignment*/
 static const int logoh = 6;
 
@@ -62,23 +62,23 @@ static XRectangle rectangles[] = {
  */
 ResourcePref resources[] = {
 		#if DWM_LOGO_PATCH && !BLUR_PIXELATED_SCREEN_PATCH
-		{ "background",   STRING,  &colorname[BACKGROUND] },
+		{ "color0",       STRING,  &colorname[BACKGROUND] },
 		#endif //DWM_LOGO_PATCH
 		#if BACKGROUND_IMAGE_PATCH
 		{ "bg_image",     STRING,  &background_image },
 		#endif // BACKGROUND_IMAGE_PATCH
-		{ "locked",       STRING,  &colorname[INIT] },
-		{ "input",        STRING,  &colorname[INPUT] },
+		{ "color0",       STRING,  &colorname[INIT] },
+		{ "color2",       STRING,  &colorname[INPUT] },
 		{ "failed",       STRING,  &colorname[FAILED] },
 		#if CAPSCOLOR_PATCH
-		{ "capslock",     STRING,  &colorname[CAPS] },
+		{ "color3",     STRING,  &colorname[CAPS] },
 		#endif // CAPSCOLOR_PATCH
 		#if PAMAUTH_PATCH
-		{ "pamauth",      STRING,  &colorname[PAM] },
+		{ "color1",      STRING,  &colorname[PAM] },
 		#endif // PAMAUTH_PATCH
 		#if MESSAGE_PATCH || COLOR_MESSAGE_PATCH
 		{ "message",      STRING,  &message },
-		{ "text_color",   STRING,  &text_color },
+		{ "color15",      STRING,  &text_color },
 		{ "font_name",    STRING,  &font_name },
 		#endif // MESSAGE_PATCH | COLOR_MESSAGE_PATCH
 };
@@ -86,7 +86,7 @@ ResourcePref resources[] = {
 
 #if ALPHA_PATCH
 /* lock screen opacity */
-static const float alpha = 0.9;
+static const float alpha = 0.75;
 #endif // ALPHA_PATCH
 
 /* treat a cleared input like a wrong password (color) */
@@ -100,7 +100,7 @@ static const int timeoffset = 60;
 static const int runonce = 0;
 
 /* command to be run after [time] has passed */
-static const char *command = "doas poweroff";
+static const char *command = "systemctl suspend";
 #endif // AUTO_TIMEOUT_PATCH
 
 #if FAILURE_COMMAND_PATCH
@@ -109,13 +109,13 @@ static const char *command = "doas poweroff";
 static const int failcount = 0;
 
 /* command to be executed after [failcount] failed password attempts */
-static const char *failcommand = "shutdown";
+static const char *failcommand = "systemctl poweroff";
 #endif // FAILURE_COMMAND_PATCH
 
 #if SECRET_PASSWORD_PATCH
 static const secretpass scom[] = {
 	/* Password             command */
-	{ "shutdown",           "doas poweroff"},
+	{ "shutdown",           "systemctl poweroff"},
 };
 #endif // SECRET_PASSWORD_PATCH
 
@@ -150,7 +150,7 @@ static const int blocks_x = 0;
 static const int blocks_y = 0;
 
 // Number of blocks
-static const int blocks_count = 10;
+static const int blocks_count = 20;
 #endif // KEYPRESS_FEEDBACK_PATCH
 
 #if PAMAUTH_PATCH
