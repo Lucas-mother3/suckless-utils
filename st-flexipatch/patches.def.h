@@ -89,13 +89,13 @@
  * available URLs.
  * https://st.suckless.org/patches/copyurl/
  */
-#define COPYURL_PATCH 0
+#define COPYURL_PATCH 1 
 
 /* Select and copy the last URL displayed with Mod+l. Multiple invocations cycle through the
  * available URLs. This variant also highlights the selected URLs.
  * https://st.suckless.org/patches/copyurl/
  */
-#define COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH 0 
+#define COPYURL_HIGHLIGHT_SELECTED_URLS_PATCH 1 
 
 /* This patch adds support for CSI escape sequences 22 and 23, which save and
  * restores the window title (for instance nvim does this when opening and closing).
@@ -197,7 +197,7 @@
  * cursor).
  * https://www.reddit.com/r/suckless/comments/nvee8h/how_to_hide_cursor_in_st_is_there_a_patch_for_it/
  */
-#define HIDE_TERMINAL_CURSOR_PATCH 0
+#define HIDE_TERMINAL_CURSOR_PATCH 1 
 
 /* This patch adds a keybinding that lets you invert the current colorscheme of st.
  * This provides a simple way to temporarily switch to a light colorscheme if you use a dark
@@ -262,7 +262,7 @@
  *
  * https://www.reddit.com/r/suckless/comments/cc83om/st_open_url/
  */
-#define OPENURLONCLICK_PATCH 0
+#define OPENURLONCLICK_PATCH 1 
 
 /* This patch allows you to specify a border that is relative in size to the width of a cell
  * in the terminal.
@@ -327,7 +327,7 @@
 /* Use inverted defaultbg/fg for selection when bg/fg are the same.
  * https://st.suckless.org/patches/spoiler/
  */
-#define SPOILER_PATCH 0
+#define SPOILER_PATCH 1 
 
 /* This patch changes the mouse shape to the global default when the running program subscribes
  * for mouse events, for instance, in programs like ranger and fzf. It emulates the behaviour

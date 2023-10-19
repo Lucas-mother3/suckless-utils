@@ -722,7 +722,7 @@ static const Layout layouts[] = {
 	{ "󱒎",      spiral,           {0} },
 	#endif
 	#if FIBONACCI_DWINDLE_LAYOUT
-	{ "󰕴",     dwindle,          {0} },
+	{ "󰕴",      dwindle,          {0} },
 	#endif
 	#if GRIDMODE_LAYOUT
 	{ "󰾍",      grid,             {0} },
@@ -741,47 +741,47 @@ static const Layout layouts[] = {
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	#if TILE_LAYOUT
-	{ "[]=",      tile },    /* first entry is default */
+	{ "󰯌",      tile },    /* first entry is default */
 	#endif
-	{ "><>",      NULL },    /* no layout function means floating behavior */
+	{ "󱂬",      NULL },    /* no layout function means floating behavior */
 	#if MONOCLE_LAYOUT
-	{ "[M]",      monocle },
+	{ "󱟱",      monocle },
 	#endif
 	#if BSTACK_LAYOUT
-	{ "TTT",      bstack },
+	{ "󱢈",      bstack },
 	#endif
 	#if BSTACKHORIZ_LAYOUT
-	{ "===",      bstackhoriz },
+	{ "󰯋",      bstackhoriz },
 	#endif
 	#if CENTEREDMASTER_LAYOUT
-	{ "|M|",      centeredmaster },
+	{ "󰕫",      centeredmaster },
 	#endif
 	#if CENTEREDFLOATINGMASTER_LAYOUT
-	{ ">M>",      centeredfloatingmaster },
+	{ "󰕬",      centeredfloatingmaster },
 	#endif
 	#if COLUMNS_LAYOUT
-	{ "|||",      col },
+	{ "󰕭",      col },
 	#endif
 	#if DECK_LAYOUT
-	{ "[D]",      deck },
+	{ "󱒇",      deck },
 	#endif
 	#if FIBONACCI_SPIRAL_LAYOUT
-	{ "(@)",      spiral },
+	{ "󱒎",      spiral },
 	#endif
 	#if FIBONACCI_DWINDLE_LAYOUT
-	{ "[\\]",     dwindle },
+	{ "󰕴",     dwindle },
 	#endif
 	#if GRIDMODE_LAYOUT
-	{ "HHH",      grid },
+	{ "󰾍",      grid },
 	#endif
 	#if HORIZGRID_LAYOUT
-	{ "---",      horizgrid },
+	{ "󱇙",      horizgrid },
 	#endif
 	#if GAPPLESSGRID_LAYOUT
-	{ ":::",      gaplessgrid },
+	{ "󰕰",      gaplessgrid },
 	#endif
 	#if NROWGRID_LAYOUT
-	{ "###",      nrowgrid },
+	{ "󰕳",      nrowgrid },
 	#endif
 };
 #endif // FLEXTILE_DELUXE_LAYOUT
