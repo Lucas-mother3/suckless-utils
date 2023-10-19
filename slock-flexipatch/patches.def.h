@@ -77,7 +77,7 @@
 /* This patch draws the dwm logo which changes color based on the state.
  * https://tools.suckless.org/slock/patches/dwmlogo/
  */
-#define DWM_LOGO_PATCH 1
+#define DWM_LOGO_PATCH 0 
 
 /* This patch allows for a command to be run after a specified number of incorrect attempts.
  * https://tools.suckless.org/slock/patches/failure-command/
@@ -88,7 +88,7 @@
  * https://tools.suckless.org/slock/patches/keypress-feedback/
  * https://patch-diff.githubusercontent.com/raw/phenax/bslock/pull/2.diff
  */
-#define KEYPRESS_FEEDBACK_PATCH 1
+#define KEYPRESS_FEEDBACK_PATCH 0
 
 /* This patch allows media keys to be used while the screen is locked. Allows for volume
  * to be adjusted or to skip to the next song without having to unlock the screen first.
