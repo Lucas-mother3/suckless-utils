@@ -411,7 +411,7 @@
  *
  * https://dwm.suckless.org/patches/statuscolors/
  */
-#define BAR_STATUSCOLORS_PATCH 0
+#define BAR_STATUSCOLORS_PATCH 0 
 
 /* This patch adds configuration options for horizontal and vertical padding in the status bar.
  * https://dwm.suckless.org/patches/statuspadding/
@@ -460,7 +460,7 @@
  * This patch takes precedence over ATTACHASIDE_PATCH.
  * https://dwm.suckless.org/patches/attachabove/
  */
-#define ATTACHABOVE_PATCH 0
+#define ATTACHABOVE_PATCH 1
 
 /* This patch adds new clients on top of the stack.
  * This patch takes precedence over ATTACHBELOW_PATCH.
@@ -526,7 +526,7 @@
 /* As above, except that the transient window is centered within the position of the parent
  * window, rather than at the center of the screen. This takes precedence over the above patch.
  */
-#define CENTER_TRANSIENT_WINDOWS_BY_PARENT_PATCH 1
+#define CENTER_TRANSIENT_WINDOWS_BY_PARENT_PATCH 0
 
 /* This patch provides the ability to assign different weights to clients in their
  * respective stack in tiled layout.
@@ -537,7 +537,7 @@
 /* This patch allows color attributes to be set through the command line.
  * https://dwm.suckless.org/patches/cmdcustomize/
  */
-#define CMDCUSTOMIZE_PATCH 0
+#define CMDCUSTOMIZE_PATCH 1
 
 /* This patch tweaks the tagging interface so that you can select multiple tags for tag
  * or view by pressing all the right keys as a combo. For example to view tags 1 and 3,
@@ -650,7 +650,7 @@
  * client window that remains under the mouse cursor rather than the most recently focused window.
  * https://github.com/bakkeby/patches/wiki/focusfollowmouse
  */
-#define FOCUSFOLLOWMOUSE_PATCH 0 
+#define FOCUSFOLLOWMOUSE_PATCH 1 
 
 /* A simple patch that just puts focus back to the master client.
  * https://dwm.suckless.org/patches/focusmaster/
@@ -698,7 +698,7 @@
  * to arrange space for an external bar.
  * https://dwm.suckless.org/patches/insets/
  */
-#define INSETS_PATCH 0
+#define INSETS_PATCH 0 
 
 /* This patch (v1.5.7) implements inter-process communication through a UNIX socket for dwm. This
  * allows for the window manager to be queried for information, e.g. listen for events such as tag
@@ -743,7 +743,7 @@
  * in such scenarios the previous window loses fullscreen.
  * https://github.com/bakkeby/patches/blob/master/dwm/dwm-losefullscreen-6.2.diff
  */
-#define LOSEFULLSCREEN_PATCH 0
+#define LOSEFULLSCREEN_PATCH 1
 
 /* This patch adds helper functions for maximizing, horizontally and vertically, floating
  * windows using keybindings.
@@ -1030,7 +1030,7 @@
 /* This patch allows border pixels to be changed during runtime.
  * https://dwm.suckless.org/patches/setborderpx/
  */
-#define SETBORDERPX_PATCH 0
+#define SETBORDERPX_PATCH 1 
 
 /* Combines shifttag and shiftview. Basically moves the window to the next/prev tag and follows it.
  * Also see the focusadjacenttag patch.
@@ -1042,7 +1042,7 @@
  * Depends on the swaptags patch.
  * https://dwm.suckless.org/patches/shift-tools/
  */
-#define SHIFTSWAPTAGS_PATCH 0
+#define SHIFTSWAPTAGS_PATCH 1
 
 /* Moves the current selected client to the adjacent tag.
  * Also see the focusadjacenttag patch.
@@ -1295,13 +1295,13 @@
  * while increasing or decreasing the master area (nmaster) accordingly.
  * https://dwm.suckless.org/patches/transfer/
  */
-#define TRANSFER_PATCH 0
+#define TRANSFER_PATCH 1 
 
 /* Lets you transfer all clients between the master and stack area
  * while increasing or decreasing the master area (nmaster) accordingly.
  * https://dwm.suckless.org/patches/transfer/
  */
-#define TRANSFER_ALL_PATCH 0
+#define TRANSFER_ALL_PATCH 1
 
 /* This patch resets isfloating on any visible windows that have it set.
  * Optionally also applies a layout.
