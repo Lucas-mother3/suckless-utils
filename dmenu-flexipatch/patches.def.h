@@ -46,7 +46,7 @@
  * to the output of that command.
  * https://tools.suckless.org/dmenu/patches/dynamicoptions/
  */
-#define DYNAMIC_OPTIONS_PATCH 0
+#define DYNAMIC_OPTIONS_PATCH 1
 
 /* This patch will allow for emojis on the left side with a colored background when selected.
  * To test this try running:
@@ -73,7 +73,7 @@
  * Refer to https://github.com/DAFF0D11/dafmenu/ for documentation and example use cases.
  * https://github.com/DAFF0D11/dafmenu/blob/master/patches/dmenu-fzfexpect-5.1.diff
  */
-#define FZFEXPECT_PATCH 0
+#define FZFEXPECT_PATCH 1
 
 /* Allows dmenu's entries to be rendered in a grid by adding a new -g flag to specify
  * the number of grid columns. The -g and -l options can be used together to create a
@@ -102,12 +102,12 @@
 /* This patch causes dmenu to print out the current text each time a key is pressed.
  * https://tools.suckless.org/dmenu/patches/incremental/
  */
-#define INCREMENTAL_PATCH 0
+#define INCREMENTAL_PATCH 1
 
 /* This patch adds an option to provide preselected text.
  * https://tools.suckless.org/dmenu/patches/initialtext/
  */
-#define INITIALTEXT_PATCH 0
+#define INITIALTEXT_PATCH 1
 
 /* This patch adds a flag which will cause dmenu to select an item immediately if there
  * is only one matching option left.
@@ -250,7 +250,7 @@
  * pre-selected.
  * https://tools.suckless.org/dmenu/patches/preselect/
  */
-#define PRESELECT_PATCH 0
+#define PRESELECT_PATCH 1
 
 /* This patch allows dmenu to print out the 0-based index of matched text instead of the matched
  * text itself. This can be useful in cases where you would like to select entries from one array
@@ -293,7 +293,7 @@
  * patch.
  * https://tools.suckless.org/dmenu/patches/restrict-return/
  */
-#define RESTRICT_RETURN_PATCH 0
+#define RESTRICT_RETURN_PATCH 1
 
 /* This patch adds support for text scrolling and no longer appends '...' for long input as
  * it can handle long text.
@@ -312,7 +312,7 @@
  * is too long or there are too many options to be shown in dmenu in one line, to be defined.
  * https://tools.suckless.org/dmenu/patches/symbols/
  */
-#define SYMBOLS_PATCH 0
+#define SYMBOLS_PATCH 1
 
 /* With this patch dmenu will split input lines at first tab character and only display first
  * part, but it will perform matching on and output full lines as usual.
@@ -322,17 +322,17 @@
  * the underlying script.
  * https://tools.suckless.org/dmenu/patches/tsv/
  */
-#define TSV_PATCH 0
+#define TSV_PATCH 1
 
 /* This patch prevents dmenu from indenting items at the same level as the prompt length.
  * https://tools.suckless.org/dmenu/patches/vertfull/
  */
-#define VERTFULL_PATCH 0
+#define VERTFULL_PATCH 1
 
 /* Adds extended window manager hints such as _NET_WM_WINDOW_TYPE and _NET_WM_WINDOW_TYPE_DOCK.
  * https://github.com/Baitinq/dmenu/blob/master/patches/dmenu-wm_type.diff
  */
-#define WMTYPE_PATCH 0
+#define WMTYPE_PATCH 1
 
 /* This patch adds the ability to configure dmenu via Xresources. At startup, dmenu will read and
  * apply the resources named below:

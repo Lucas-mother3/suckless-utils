@@ -1,0 +1,28 @@
+{
+    "wallpaper": "/home/lucss21a/Pictures/Wallpapers/Adelle/Grids (Blue).png",
+    "alpha": "100",
+
+    "special": {
+        "background": "#00001D",
+        "foreground": "#e6e9f0",
+        "cursor": "#e6e9f0"
+    },
+    "colors": {
+        "color0": "#00001D",
+        "color1": "#0D38AA",
+        "color2": "#1244B6",
+        "color3": "#5171B9",
+        "color4": "#0105C9",
+        "color5": "#154BCF",
+        "color6": "#859CCE",
+        "color7": "#e6e9f0",
+        "color8": "#a1a3a8",
+        "color9": "#0D38AA",
+        "color10": "#1244B6",
+        "color11": "#5171B9",
+        "color12": "#0105C9",
+        "color13": "#154BCF",
+        "color14": "#859CCE",
+        "color15": "#e6e9f0"
+    }
+}

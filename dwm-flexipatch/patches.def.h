@@ -1194,7 +1194,7 @@
  * Note that fancybar, awesomebar, bartabgroups and similar patches make the tab patch redundant.
  * https://dwm.suckless.org/patches/tab/
  */
-#define TAB_PATCH 0
+#define TAB_PATCH 0 
 
 /* Adds keyboard shortcuts to move all (or only floating) windows from one tag to another.
  * https://dwm.suckless.org/patches/tagall/

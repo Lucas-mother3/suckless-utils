@@ -141,7 +141,7 @@
 /* This patch makes the cursor color the inverse of the current cell color.
  * https://st.suckless.org/patches/dynamic-cursor-color/
  */
-#define DYNAMIC_CURSOR_COLOR_PATCH 0
+#define DYNAMIC_CURSOR_COLOR_PATCH 1 
 
 /* Reading and writing st's screen through a pipe, e.g. pass info to dmenu.
  * https://st.suckless.org/patches/externalpipe/
@@ -322,7 +322,7 @@
  * The behavior is similar to Plan 9 where applications can take over windows.
  * URL TBC
  */
-#define ST_EMBEDDER_PATCH 0
+#define ST_EMBEDDER_PATCH 1 
 
 /* Use inverted defaultbg/fg for selection when bg/fg are the same.
  * https://st.suckless.org/patches/spoiler/
@@ -439,7 +439,7 @@
 /* This patch allows user to specify the initial path st should use as the working directory.
  * https://st.suckless.org/patches/workingdir/
  */
-#define WORKINGDIR_PATCH 0
+#define WORKINGDIR_PATCH 1 
 
 /* This patch adds the ability to configure st via Xresources. At startup, st will read and
  * apply the resources named in the resources[] array in config.h.

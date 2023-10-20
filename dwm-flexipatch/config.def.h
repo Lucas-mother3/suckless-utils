@@ -1350,7 +1350,7 @@ static const Key keys[] = {
 	#endif // FLOATPOS_PATCH
 	#if SETBORDERPX_PATCH
 	{ MODKEY|ControlMask,           XK_minus,      setborderpx,            {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_plus,       setborderpx,            {.i = +1 } },
+	{ MODKEY|ControlMask,           XK_equal,       setborderpx,            {.i = +1 } },
 	{ MODKEY|ControlMask,           XK_numbersign, setborderpx,            {.i = 0 } },
 	#endif // SETBORDERPX_PATCH
 	#if CYCLELAYOUTS_PATCH
