@@ -210,6 +210,7 @@ static Bool npisrelative  = False;
         } \
 }
 
+
 #if XRESOURCES_PATCH
 /*
  * Xresources preferences to load at startup
