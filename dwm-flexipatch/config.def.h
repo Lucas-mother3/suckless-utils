@@ -947,7 +947,7 @@ static const Key keys[] = {
 	/* slock must be installed */
 	{ Mod4Mask,                     XK_l,          spawn,                  SHCMD("slock") },
         /* suckless-utils keymaps */
-        { Mod4Mask,                     XK_t,          spawn,                  SHCMD("tabbed -r 2 st -w ''") },
+        { Mod4Mask,                     XK_t,          spawn,                  SHCMD("tabbed -c -r 2 st -w ''") },
         { Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
 	{ Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T broot broot") },
         { Mod4Mask|ShiftMask,           XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
