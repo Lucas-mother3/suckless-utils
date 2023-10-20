@@ -136,7 +136,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
                 "wid=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "dmenu -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
+                "dmenu -i -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
 		"xwininfo -id $wid -stats | grep -q 'IsUnMapped' && xdotool windowmap $wid;" \
 		"xdotool windowreparent \"$wid\" \"$rootid\" &&" \
 		"xdotool windowactivate $1", \
@@ -293,7 +293,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,    XK_f,	  spawn,       ATTACHSELECTWIN("_TABBED_ATTACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_g,      spawn,       ATTACHALL("_TABBED_ATTACH_ALL") },
 	{ MODKEY|ShiftMask,    XK_z,	  spawn,       DETACHWIN("_TABBED_DETACH_WIN") },
-	{ MODKEY|ShiftMask,     XK_x,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
+	{ MODKEY|ShiftMask,    XK_x,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
 	{ MODKEY|ShiftMask,    XK_r,      spawn,       HIDEWINDOW("_TABBED_HIDE_WINDOW") },
 	{ MODKEY|ShiftMask,    XK_t,      spawn,       SHOWHIDDEN("_TABBED_SHOW_HIDDEN") },
 	{ MODKEY|ShiftMask,    XK_y,      spawn,       SHOWHIDDENALL("_TABBED_SHOW_HIDDEN_ALL") },
