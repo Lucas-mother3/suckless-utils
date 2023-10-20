@@ -136,7 +136,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
                 "wid=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "dmenu -i -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
+                "dmenu -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
 		"xwininfo -id $wid -stats | grep -q 'IsUnMapped' && xdotool windowmap $wid;" \
 		"xdotool windowreparent \"$wid\" \"$rootid\" &&" \
 		"xdotool windowactivate $1", \
@@ -287,16 +287,16 @@ static const Key keys[] = {
 
 	{ 0,                    XK_F11,       fullscreen,  { 0 } },
 	/* Unique functionality */
-	{ MODKEY|ShiftMask,    XK_f,      spawn,       OPENTERMSOFT("_TABBED_SELECT_TERMAPP") },
-	{ MODKEY|ShiftMask,    XK_g,      spawn,       OPENTERM("_TABBED_TERM") },
-	{ MODKEY|ShiftMask,    XK_h,	  spawn,       ATTACHWIN("_TABBED_ATTACH_WIN") },
-	{ MODKEY|ShiftMask,    XK_r,	  spawn,       ATTACHSELECTWIN("_TABBED_ATTACH_WIN") },
-	{ MODKEY|ShiftMask,    XK_t,      spawn,       ATTACHALL("_TABBED_ATTACH_ALL") },
-	{ MODKEY|ShiftMask,    XK_y,	  spawn,       DETACHWIN("_TABBED_DETACH_WIN") },
-	{ MODKEY|ShiftMask,    XK_b,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
-	{ MODKEY|ShiftMask,    XK_n,      spawn,       HIDEWINDOW("_TABBED_HIDE_WINDOW") },
-	{ MODKEY|ShiftMask,    XK_m,      spawn,       SHOWHIDDEN("_TABBED_SHOW_HIDDEN") },
-	{ MODKEY|ShiftMask,    XK_i,      spawn,       SHOWHIDDENALL("_TABBED_SHOW_HIDDEN_ALL") },
+	{ MODKEY|ShiftMask,    XK_s,      spawn,       OPENTERMSOFT("_TABBED_SELECT_TERMAPP") },
+	{ MODKEY|ShiftMask,    XK_o,      spawn,       OPENTERM("_TABBED_TERM") },
+	{ MODKEY|ShiftMask,    XK_a,	  spawn,       ATTACHWIN("_TABBED_ATTACH_WIN") },
+	{ MODKEY|ShiftMask,    XK_f,	  spawn,       ATTACHSELECTWIN("_TABBED_ATTACH_WIN") },
+	{ MODKEY|ShiftMask,    XK_g,      spawn,       ATTACHALL("_TABBED_ATTACH_ALL") },
+	{ MODKEY|ShiftMask,    XK_z,	  spawn,       DETACHWIN("_TABBED_DETACH_WIN") },
+	{ MODKEY|ShiftMask,     XK_x,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
+	{ MODKEY|ShiftMask,    XK_r,      spawn,       HIDEWINDOW("_TABBED_HIDE_WINDOW") },
+	{ MODKEY|ShiftMask,    XK_t,      spawn,       SHOWHIDDEN("_TABBED_SHOW_HIDDEN") },
+	{ MODKEY|ShiftMask,    XK_y,      spawn,       SHOWHIDDENALL("_TABBED_SHOW_HIDDEN_ALL") },
 	#if HIDETABS_PATCH
 	{ MODKEY,               XK_Shift_L,   showbar,     { .i = 1 } },
 	{ ShiftMask,            XK_Control_L, showbar,     { .i = 1 } },

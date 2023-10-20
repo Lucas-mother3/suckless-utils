@@ -143,6 +143,17 @@ For spmenu:
 - OpenSSL or libssl(-devel or -dev)
 - meson
 
+To make the tabbed windows functionality to work:
+- cut
+- xargs
+- grep
+- pstree
+- sed
+- wmctrl
+- xdotool
+- xprop
+- xwininfo
+
 Refer to patches.def.h and config.mk for additional patch-related requirements.
 ```
 
