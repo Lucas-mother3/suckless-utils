@@ -1412,7 +1412,7 @@ static const Button buttons[] = {
 	{ ClkButton,            0,                   Button2,        spawn,           {.v = dmenucmd } /* launch dmenu instead if middle-clicked*/ },
 	{ ClkButton,            0,                   Button3,        spawn,          SHCMD("jgmenu_run apps | jgmenu --simple --at-pointer") /* launch jgmenu on right click */ },
 	{ ClkButton2,            0,                  Button1,        spawn,          {.v = termcmd } },
-	{ ClkButton2,            0,                  Button3,        spawn,          SHCMD("printf ' New tabbed session, tabbed -r 2 st -w \"\"\n New dvtm session, st -T dvtm abduco -c dvtm dvtm-status\n' | jgmenu --simple --at-pointer") },
+	{ ClkButton2,            0,                  Button3,        spawn,          SHCMD("printf ' New tabbed session, tabbed -c -r 2 st -w \"\"\n New dvtm session, st -T dvtm abduco -c dvtm dvtm-status\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton3,            0,                  Button1,        spawn,          SHCMD("firefox") },
 	{ ClkButton3,            0,                  Button3,        spawn,          SHCMD("printf ' New Window, firefox\n󱀣 New Private Window, firefox -private-window\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton4,           0,                   Button1,        spawn,          SHCMD("st -T ncmpcpp ncmpcpp") },
