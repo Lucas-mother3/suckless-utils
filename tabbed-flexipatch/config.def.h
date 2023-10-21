@@ -35,7 +35,7 @@ static Bool npisrelative  = False;
         .v = (char *[]){ "/bin/sh", "-c", \
                 "prop=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "tail -n +2 | dmenu -l 10 -p 'Switch to: ')\" &&" \
+                "tail -n +2 | spmenu -l 10 -g 1 -p 'Switch to: ')\" &&" \
                 "xprop -id $1 -f $0 8s -set $0 \"$prop\"", \
                 p, winid, NULL \
         } \
@@ -47,7 +47,7 @@ static Bool npisrelative  = False;
 		"term='st' && titlearg='-t' && embedarg='-w' &&" \
 		"softlist=$(printf '%s\n' \"htop\" \"btm\" \"vim\" \"broot\" \"ncmpcpp\" \"cmatrix\" \"cava\" \"pipes.sh\" \"adelle-theme\" \"xplr\" \"ytfzf\") &&" \
 		"printf '%s' \"$softlist\" |" \
-		"spmenu -p 'Softwares to run: ' |" \
+		"spmenu -l 10 -g 1 -p 'Softwares to run: ' |" \
 		"xargs -I {} $term $titlearg \"{}\" $embedarg $1 -e \"{}\"", \
 		p, winid, NULL \
 	} \
@@ -60,7 +60,7 @@ static Bool npisrelative  = False;
 		"term='st' && embedarg='-w' &&" \
 		"cd \"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-		"spmenu -l 10 -p 'New term path based on: ' |" \
+		"spmenu -l 10 -g 1 -p 'New term path based on: ' |" \
 		"cut -f 1 | xargs -I {} xprop -id \"{}\" | grep _NET_WM_PID |" \
 		"cut -d ' ' -f 3 | xargs -I {} pstree -p \"{}\" |" \
 		"cut -d '(' -f 3 | cut -d ')' -f 1 |" \
@@ -82,7 +82,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
 		"window=\"$(wmctrl -x -l | grep -E \" $deskid \" |" \
 		"grep -v $(printf '0x0%x' \"$1\") |" \
-		"cut -d ' ' -f 1,4 | dmenu -l 5 -p \"Attach: \")\" &&" \
+		"cut -d ' ' -f 1,4 | spmenu -l 5 -g 1 -p \"Attach: \")\" &&" \
 		"wid=$(printf '%s' \"$window\" | cut -d ' ' -f 1) &&" \
 		"wname=$(printf '%s' \"$window\" | cut -d ' ' -f 2) &&" \
 		"[ \"$wname\" = \"(has no name)\" ] &&" \
@@ -136,7 +136,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
                 "wid=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "spmenu -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
+                "spmenu -l 5 -g 1 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
 		"xwininfo -id $wid -stats | grep -q 'IsUnMapped' && xdotool windowmap $wid;" \
 		"xdotool windowreparent \"$wid\" \"$rootid\" &&" \
 		"xdotool windowactivate $1", \
@@ -173,7 +173,7 @@ static Bool npisrelative  = False;
 		    "xwininfo -id $cwid -stats |" \
 		    "grep -q 'IsUnMapped' &&" \
 		    "printf '%s\n' \"$win\"; done |" \
-		"spmenu -l 5 -p \"Show hidden window:\" |" \
+		"spmenu -l 5 -g 1 -p \"Show hidden window:\" |" \
 		"cut -d ' ' -f 1 |" \
 		"xargs -I {} xdotool windowmap \"{}\"", \
                 p, winid, NULL \
@@ -279,7 +279,6 @@ static const Key keys[] = {
 	{ MODKEY,               XK_8,         move,        { .i = 7 } },
 	{ MODKEY,               XK_9,         move,        { .i = 8 } },
 	{ MODKEY,               XK_0,         move,        { .i = 9 } },
-
 	{ MODKEY,               XK_q,         killclient,  { 0 } },
 
 	{ MODKEY,               XK_u,         focusurgent, { 0 } },
