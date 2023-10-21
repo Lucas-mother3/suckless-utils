@@ -120,7 +120,7 @@ static Bool npisrelative  = False;
 		"for win in $(printf '%s' \"$window\" | tr '\n' ':'); do unset IFS &&" \
 		    "wid=$(printf '%s' \"$win\" | cut -d ' ' -f 1) &&" \
 		    "wname=$(printf '%s' \"$win\" | cut -d ' ' -f 2) &&" \
-		    "[ \"$wname\" = \"tabbed.tabbed\" ] &&" \
+		    "[ \"$wname\" = \"(has no name)\" ] &&" \
 		    "{ cwid=$(xwininfo -children -id \"$wid\" | grep '^     0x' |" \
 		    "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1@') &&" \
 		    "for id in $(printf '%s' \"$cwid\"); do xdotool windowreparent \"$id\" \"$rootid\"; done &&" \
@@ -209,7 +209,6 @@ static Bool npisrelative  = False;
                 p, winid, NULL \
         } \
 }
-
 
 #if XRESOURCES_PATCH
 /*
