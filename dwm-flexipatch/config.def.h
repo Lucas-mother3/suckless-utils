@@ -502,6 +502,7 @@ static const Rule rules[] = {
 	 */
 	RULE(.class = "st", .isterminal = 1)
 	RULE(.class = "St", .isterminal = 1)
+	RULE(.class = "tabbed", .isfloating = 0)
 	RULE(.wintype = WTYPE "DESKTOP", .unmanaged = 2)
 	RULE(.wintype = WTYPE "DOCK", .unmanaged = 1)
 	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1, .noswallow = 1)
