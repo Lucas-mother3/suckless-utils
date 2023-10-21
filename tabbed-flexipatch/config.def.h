@@ -35,7 +35,7 @@ static Bool npisrelative  = False;
         .v = (char *[]){ "/bin/sh", "-c", \
                 "prop=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "tail -n +2 | dmenu -i -l 10 -p 'Switch to: ')\" &&" \
+                "tail -n +2 | dmenu -l 10 -p 'Switch to: ')\" &&" \
                 "xprop -id $1 -f $0 8s -set $0 \"$prop\"", \
                 p, winid, NULL \
         } \
@@ -82,7 +82,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
 		"window=\"$(wmctrl -x -l | grep -E \" $deskid \" |" \
 		"grep -v $(printf '0x0%x' \"$1\") |" \
-		"cut -d ' ' -f 1,4 | dmenu -i -l 5 -p \"Attach: \")\" &&" \
+		"cut -d ' ' -f 1,4 | dmenu -l 5 -p \"Attach: \")\" &&" \
 		"wid=$(printf '%s' \"$window\" | cut -d ' ' -f 1) &&" \
 		"wname=$(printf '%s' \"$window\" | cut -d ' ' -f 2) &&" \
 		"[ \"$wname\" = \"tabbed.tabbed\" ] &&" \
@@ -136,7 +136,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
                 "wid=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "dmenu -i -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
+                "dmenu -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
 		"xwininfo -id $wid -stats | grep -q 'IsUnMapped' && xdotool windowmap $wid;" \
 		"xdotool windowreparent \"$wid\" \"$rootid\" &&" \
 		"xdotool windowactivate $1", \
@@ -173,7 +173,7 @@ static Bool npisrelative  = False;
 		    "xwininfo -id $cwid -stats |" \
 		    "grep -q 'IsUnMapped' &&" \
 		    "printf '%s\n' \"$win\"; done |" \
-		"dmenu -i -l 5 -p \"Show hidden window:\" |" \
+		"dmenu -l 5 -p \"Show hidden window:\" |" \
 		"cut -d ' ' -f 1 |" \
 		"xargs -I {} xdotool windowmap \"{}\"", \
                 p, winid, NULL \
