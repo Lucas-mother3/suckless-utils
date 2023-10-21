@@ -47,7 +47,7 @@ static Bool npisrelative  = False;
 		"term='st' && titlearg='-t' && embedarg='-w' &&" \
 		"softlist=$(printf '%s\n' \"htop\" \"btm\" \"vim\" \"broot\" \"ncmpcpp\" \"cmatrix\" \"cava\" \"pipes.sh\" \"adelle-theme\" \"xplr\" \"ytfzf\") &&" \
 		"printf '%s' \"$softlist\" |" \
-		"dmenu -p 'Softwares to run: ' |" \
+		"spmenu -p 'Softwares to run: ' |" \
 		"xargs -I {} $term $titlearg \"{}\" $embedarg $1 -e \"{}\"", \
 		p, winid, NULL \
 	} \
@@ -60,7 +60,7 @@ static Bool npisrelative  = False;
 		"term='st' && embedarg='-w' &&" \
 		"cd \"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-		"dmenu -l 10 -p 'New term path based on: ' |" \
+		"spmenu -l 10 -p 'New term path based on: ' |" \
 		"cut -f 1 | xargs -I {} xprop -id \"{}\" | grep _NET_WM_PID |" \
 		"cut -d ' ' -f 3 | xargs -I {} pstree -p \"{}\" |" \
 		"cut -d '(' -f 3 | cut -d ')' -f 1 |" \
@@ -85,7 +85,7 @@ static Bool npisrelative  = False;
 		"cut -d ' ' -f 1,4 | dmenu -l 5 -p \"Attach: \")\" &&" \
 		"wid=$(printf '%s' \"$window\" | cut -d ' ' -f 1) &&" \
 		"wname=$(printf '%s' \"$window\" | cut -d ' ' -f 2) &&" \
-		"[ \"$wname\" = \"tabbed.tabbed\" ] &&" \
+		"[ \"$wname\" = \"(has no name)\" ] &&" \
 		"cwid=$(xwininfo -children -id \"$wid\" | grep '^     0x' |" \
                 "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1@') &&" \
 		"for id in $(printf '%s' \"$cwid\"); do xdotool windowreparent \"$id\" \"$rootid\"; done &&" \
@@ -136,7 +136,7 @@ static Bool npisrelative  = False;
 		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
                 "wid=\"$(xwininfo -children -id $1 | grep '^     0x' |" \
                 "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1 \\2@' |" \
-                "dmenu -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
+                "spmenu -l 5 -p 'Detach: ' | cut -d ' ' -f 1)\" &&" \
 		"xwininfo -id $wid -stats | grep -q 'IsUnMapped' && xdotool windowmap $wid;" \
 		"xdotool windowreparent \"$wid\" \"$rootid\" &&" \
 		"xdotool windowactivate $1", \
@@ -173,7 +173,7 @@ static Bool npisrelative  = False;
 		    "xwininfo -id $cwid -stats |" \
 		    "grep -q 'IsUnMapped' &&" \
 		    "printf '%s\n' \"$win\"; done |" \
-		"dmenu -l 5 -p \"Show hidden window:\" |" \
+		"spmenu -l 5 -p \"Show hidden window:\" |" \
 		"cut -d ' ' -f 1 |" \
 		"xargs -I {} xdotool windowmap \"{}\"", \
                 p, winid, NULL \
