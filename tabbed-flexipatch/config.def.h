@@ -45,7 +45,7 @@ static Bool npisrelative  = False;
 #define OPENTERMSOFT(p) { \
 	.v = (char *[]){ "/bin/sh", "-c", \
 		"term='st' && titlearg='-t' && embedarg='-w' &&" \
-		"softlist=$(printf '%s\n' \"htop\" \"btm\" \"vim\" \"xplr\" \"ncmpcpp\" \"cmatrix\") &&" \
+		"softlist=$(printf '%s\n' \"htop\" \"btm\" \"vim\" \"broot\" \"ncmpcpp\" \"cmatrix\" \"cava\" \"pipes.sh\" \"adelle-theme\" \"xplr\" \"ytfzf\") &&" \
 		"printf '%s' \"$softlist\" |" \
 		"dmenu -p 'Softwares to run: ' |" \
 		"xargs -I {} $term $titlearg \"{}\" $embedarg $1 -e \"{}\"", \
