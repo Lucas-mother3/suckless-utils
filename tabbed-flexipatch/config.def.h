@@ -287,7 +287,7 @@ static const Key keys[] = {
 	{ 0,                    XK_F11,       fullscreen,  { 0 } },
 	/* Unique functionality */
 	{ MODKEY|ShiftMask,    XK_m,      spawn,       OPENTERMSOFT("_TABBED_SELECT_TERMAPP") },
-	{ MODKEY|ShiftMask,    XK_y,      spawn,       OPENTERM("_TABBED_TERM") },
+	{ MODKEY|ShiftMask,    XK_u,      spawn,       OPENTERM("_TABBED_TERM") },
 	{ MODKEY|ShiftMask,    XK_a,	  spawn,       ATTACHWIN("_TABBED_ATTACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_f,	  spawn,       ATTACHSELECTWIN("_TABBED_ATTACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_g,      spawn,       ATTACHALL("_TABBED_ATTACH_ALL") },

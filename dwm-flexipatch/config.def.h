@@ -502,7 +502,7 @@ static const Rule rules[] = {
 	 */
 	RULE(.class = "st", .isterminal = 1)
 	RULE(.class = "St", .isterminal = 1)
-	RULE(.class = "tabbed", .isfloating = 0)
+	RULE(.class = "tabbed", .isfloating = 0, .noswallow = 1)
 	RULE(.wintype = WTYPE "DESKTOP", .unmanaged = 2)
 	RULE(.wintype = WTYPE "DOCK", .unmanaged = 1)
 	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1, .noswallow = 1)
@@ -949,6 +949,8 @@ static const Key keys[] = {
 	{ Mod4Mask,                     XK_l,          spawn,                  SHCMD("slock") },
         /* suckless-utils keymaps */
         { Mod4Mask,                     XK_t,          spawn,                  SHCMD("tabbed -c -r 2 st -w ''") },
+	{ Mod4Mask,                     XK_y,          spawn,                  SHCMD("tabb") },
+	{ Mod4Mask|ShiftMask,           XK_y,          spawn,                  SHCMD("tabb --disable") },
         { Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
 	{ Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T broot broot") },
         { Mod4Mask|ShiftMask,           XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
