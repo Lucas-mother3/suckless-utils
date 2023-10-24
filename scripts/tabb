@@ -1,0 +1,57 @@
+#!/bin/bash
+# tabb for tabbed by Alexis.
+tabbed_id=$(tabbed -d -c)
+
+main() {
+    while true; do
+        if [[ ! $(pgrep -x "tabbed") ]]; then
+            echo "No Tabbed process found. Exiting..."
+            exit 1
+        fi
+        deskid=$(xdotool get_desktop)
+        window=$(wmctrl -x -l | grep -E " $deskid " | grep -v $(printf '0x0%x' "$tabbed_id") | cut -d ' ' -f 1,4)
+        if [[ $(pgrep -x "tabbed" | wc -l) -gt 1 ]]; then
+            automode=false
+            tabbed_id=$(xdotool search --class "tabbed" | tail -n 1)
+        fi
+
+        IFS=':'
+            for win in $(printf '%s' "$window" | tr '\n' ':'); do
+                unset IFS
+                wid=$(printf '%s' "$win" | cut -d ' ' -f 1)
+                wname=$(printf '%s' "$win" | cut -d ' ' -f 2)
+
+                if [ "$wname" = "(has no name)" ]; then
+                    cwid=$(xwininfo -children -id "$wid" | grep '^     0x' | sed -e 's@^ *\\(0x[0-9a-f]*\\) "\\([^"]*\\)".*@\\1@')
+
+                    for id in $(printf '%s' "$cwid"); do
+                        xdotool windowreparent "$id" "$tabbed_id"
+                    done
+                else
+                    xdotool windowreparent "$wid" "$tabbed_id"
+                fi
+            done
+        if [ "$automode" = false ]; then
+            exit 0
+        fi
+    done
+}
+
+while getopts ":e:d" flag; do
+    case $flag in
+        -e )
+            automode=true
+            main
+            ;;
+        -d )
+            automode=false
+            main
+            ;;
+    esac
+done
+
+if [ $OPTIND -eq 1 ]; then
+    automode=true
+    main
+fi
+shift $((OPTIND-1))
