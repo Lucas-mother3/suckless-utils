@@ -950,7 +950,7 @@ static const Key keys[] = {
         /* suckless-utils keymaps */
         { Mod4Mask,                     XK_t,          spawn,                  SHCMD("tabbed -c -r 2 st -w ''") },
 	{ Mod4Mask,                     XK_y,          spawn,                  SHCMD("tabb") },
-	{ Mod4Mask|ShiftMask,           XK_y,          spawn,                  SHCMD("tabb --disable") },
+	{ Mod4Mask|ShiftMask,           XK_y,          spawn,                  SHCMD("tabb -d") },
         { Mod4Mask,                     XK_i,          spawn,                  SHCMD("firefox") },
 	{ Mod4Mask,                     XK_e,          spawn,                  SHCMD("st -T broot broot") },
         { Mod4Mask|ShiftMask,           XK_e,          spawn,                  SHCMD("st -T sfm sfm") },				
