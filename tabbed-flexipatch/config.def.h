@@ -226,6 +226,7 @@ ResourcePref resources[] = {
 #endif // XRESOURCES_PATCH
 
 #define MODKEY Mod4Mask
+#define MODKEY2 ControlMask
 #if KEYCODE_PATCH
 static const Key keys[] = {
 	/* modifier             key           function     argument */

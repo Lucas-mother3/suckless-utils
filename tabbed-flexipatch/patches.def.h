@@ -53,7 +53,7 @@
  * This patch relies on the keyrelease patch to support show/hide on keypress/keyrelease.
  * https://tools.suckless.org/tabbed/patches/hidetabs/
  */
-#define HIDETABS_PATCH 1
+#define HIDETABS_PATCH 0
 
 /* This patch gives tabbed an icon. This icon is the currently selected tab's icon.
  * If the selected tab has no icon (or no tab is selected), use a (admittedly ugly) default icon.
@@ -75,7 +75,7 @@
  * For example usage see: hidetabs
  * https://tools.suckless.org/tabbed/patches/keyrelease/
  */
-#define KEYRELEASE_PATCH 1
+#define KEYRELEASE_PATCH 0
 
 /* This patch allows tabbed colors to be defined via Xresources.
  * https://tools.suckless.org/tabbed/patches/xresources/
