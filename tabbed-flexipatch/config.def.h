@@ -226,7 +226,6 @@ ResourcePref resources[] = {
 #endif // XRESOURCES_PATCH
 
 #define MODKEY Mod4Mask
-#define MODKEY2 ControlMask
 #if KEYCODE_PATCH
 static const Key keys[] = {
 	/* modifier             key           function     argument */
@@ -293,7 +292,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,    XK_f,	  spawn,       ATTACHSELECTWIN("_TABBED_ATTACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_g,      spawn,       ATTACHALL("_TABBED_ATTACH_ALL") },
 	{ MODKEY|ShiftMask,    XK_d,	  spawn,       DETACHWIN("_TABBED_DETACH_WIN") },
-	{ MODKEY|ShiftMask,    XK_x,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
+	{ MODKEY|ShiftMask,    XK_z,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
 	{ MODKEY|ShiftMask,    XK_w,      spawn,       HIDEWINDOW("_TABBED_HIDE_WINDOW") },
 	{ MODKEY|ShiftMask,    XK_r,      spawn,       SHOWHIDDEN("_TABBED_SHOW_HIDDEN") },
 	{ MODKEY|ShiftMask,    XK_q,      spawn,       SHOWHIDDENALL("_TABBED_SHOW_HIDDEN_ALL") },
