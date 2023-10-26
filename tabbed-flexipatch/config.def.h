@@ -41,6 +41,7 @@ static Bool npisrelative  = False;
         } \
 }
 
+#if REPARENT_PATCH
 /* Modify the following line to match your terminal and software list */
 #define OPENTERMSOFT(p) { \
 	.v = (char *[]){ "/bin/sh", "-c", \
@@ -230,6 +231,8 @@ static Bool npisrelative  = False;
         } \
 }
 
+#endif // REPARENT_PATCH
+
 #if XRESOURCES_PATCH
 /*
  * Xresources preferences to load at startup
@@ -239,7 +242,7 @@ ResourcePref resources[] = {
 	{ "color0",       STRING,  &normbgcolor },
 	{ "color4",       STRING,  &normfgcolor },
 	{ "color4",       STRING,  &selbgcolor },
-	{ "color7",       STRING,  &selfgcolor },
+	{ "color0",       STRING,  &selfgcolor },
 	{ "color2",       STRING,  &urgbgcolor },
 	{ "color3",       STRING,  &urgfgcolor },
 };
@@ -305,7 +308,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,     XK_u,         toggle,      { .v = (void*) &urgentswitch } },
 
 	{ 0,                    XK_F11,       fullscreen,  { 0 } },
-	/* Unique functionality */
+	#if REPARENT_PATCH
 	{ MODKEY|ShiftMask,    XK_m,      spawn,       OPENTERMSOFT("_TABBED_SELECT_TERMAPP") },
 	{ MODKEY|ShiftMask,    XK_u,      spawn,       OPENTERM("_TABBED_TERM") },
 	{ MODKEY|ShiftMask,    XK_a,	  spawn,       ATTACHWIN("_TABBED_ATTACH_WIN") },
@@ -317,6 +320,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,    XK_w,      spawn,       HIDEWINDOW("_TABBED_HIDE_WINDOW") },
 	{ MODKEY|ShiftMask,    XK_r,      spawn,       SHOWHIDDEN("_TABBED_SHOW_HIDDEN") },
 	{ MODKEY|ShiftMask,    XK_q,      spawn,       SHOWHIDDENALL("_TABBED_SHOW_HIDDEN_ALL") },
+	#endif // REPARENT_PATCH
 	#if HIDETABS_PATCH
 	{ MODKEY,               XK_Shift_L,   showbar,     { .i = 1 } },
 	{ ShiftMask,            XK_Control_L, showbar,     { .i = 1 } },

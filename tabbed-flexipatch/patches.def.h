@@ -77,6 +77,14 @@
  */
 #define KEYRELEASE_PATCH 0
 
+/* This patch/plugin enables for reparenting windows in tabbed.
+ * Ported from tabbed-hjc. This is designed only in this build, and is not available
+ * under tabbed-flexipatch from upstream.
+ * https://www.reddit.com/r/suckless/comments/gl5cw6/easiest_way_to_tab_basically_any_program/
+ * https://github.com/huijunchen9260/tabbed-hjc
+ */
+#define REPARENT_PATCH 1
+
 /* This patch allows tabbed colors to be defined via Xresources.
  * https://tools.suckless.org/tabbed/patches/xresources/
  */
