@@ -240,8 +240,8 @@ static Bool npisrelative  = False;
 ResourcePref resources[] = {
 	{ "font",         STRING,  &font },
 	{ "color0",       STRING,  &normbgcolor },
-	{ "color4",       STRING,  &normfgcolor },
-	{ "color4",       STRING,  &selbgcolor },
+	{ "color5",       STRING,  &normfgcolor },
+	{ "color5",       STRING,  &selbgcolor },
 	{ "color0",       STRING,  &selfgcolor },
 	{ "color2",       STRING,  &urgbgcolor },
 	{ "color3",       STRING,  &urgfgcolor },
