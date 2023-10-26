@@ -19,6 +19,8 @@ URxvt*cursorColor:  {cursor}
 XTerm*cursorColor:  {cursor}
 UXTerm*cursorColor: {cursor}
 URxvt*borderColor:  {background.alpha}
+background:         {background}
+foreground:         {foreground}
 
 ! Colors 0-15.
 *.color0: {color0}
@@ -76,3 +78,12 @@ XMenu.activeForeground: {color0}
 XMenu.borderColor: {color6}
 XMenu.faceName: Hack Nerd Font
 XMenu.faceSize: 12
+
+! dmenu stuff
+dmenu.selbackground: {color4}
+dmenu.selforeground: {color0}
+dmenu.outbackground: {color2}
+dmenu.outforeground: {color0}
+dmenu.midbackground: {color2}
+dmenu.midforeground: {color0}
+dmenu.bordercolor: {color5}
