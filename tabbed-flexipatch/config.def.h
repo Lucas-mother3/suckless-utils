@@ -130,6 +130,26 @@ static Bool npisrelative  = False;
 	} \
 }
 
+#define STACKTABBED(p) { \
+	.v = (char *[]){ "/bin/sh", "-c", \
+		"deskid=$(xdotool get_desktop) &&" \
+		"rootid=\"$(xwininfo -root | grep \"Window id\" | cut -d ' ' -f 4)\" &&" \
+		"window=\"$(wmctrl -x -l | grep -E \" $deskid \" |" \
+		"grep -v $(printf '0x0%x' \"$1\") | grep -E tabbed | cut -d ' ' -f 1,4)\" &&" \
+		"IFS=':' &&" \
+		"for win in $(printf '%s' \"$window\" | tr '\n' ':'); do unset IFS &&" \
+		    "wid=$(printf '%s' \"$win\" | cut -d ' ' -f 1) &&" \
+		    "wname=$(printf '%s' \"$win\" | cut -d ' ' -f 2) &&" \
+		    "[ \"$wname\" = \"(has no name)\" ] &&" \
+		    "{ cwid=$(xwininfo -children -id \"$wid\" | grep '^     0x' |" \
+		    "sed -e 's@^ *\\(0x[0-9a-f]*\\) \"\\([^\"]*\\)\".*@\\1@') &&" \
+		    "for id in $(printf '%s' \"$cwid\"); do xdotool windowreparent \"$id\" \"$rootid\"; done &&" \
+		    "for id in $(printf '%s' \"$cwid\"); do xdotool windowreparent \"$id\" \"$1\"; done; } ||" \
+		"xdotool windowreparent \"$wid\" $1; done", \
+		p, winid, NULL \
+	} \
+}
+
 
 #define DETACHWIN(p) { \
         .v = (char *[]){ "/bin/sh", "-c", \
@@ -291,6 +311,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,    XK_a,	  spawn,       ATTACHWIN("_TABBED_ATTACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_f,	  spawn,       ATTACHSELECTWIN("_TABBED_ATTACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_g,      spawn,       ATTACHALL("_TABBED_ATTACH_ALL") },
+	{ MODKEY|ShiftMask,    XK_c,      spawn,       STACKTABBED("_TABBED_STACK_TABBED") },
 	{ MODKEY|ShiftMask,    XK_d,	  spawn,       DETACHWIN("_TABBED_DETACH_WIN") },
 	{ MODKEY|ShiftMask,    XK_z,      spawn,       DETACHALL("_TABBED_DETACH_ALL") },
 	{ MODKEY|ShiftMask,    XK_w,      spawn,       HIDEWINDOW("_TABBED_HIDE_WINDOW") },
