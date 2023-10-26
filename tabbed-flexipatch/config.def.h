@@ -243,8 +243,8 @@ ResourcePref resources[] = {
 	{ "color6",       STRING,  &normfgcolor },
 	{ "color6",       STRING,  &selbgcolor },
 	{ "color0",       STRING,  &selfgcolor },
-	{ "color2",       STRING,  &urgbgcolor },
-	{ "color3",       STRING,  &urgfgcolor },
+	{ "color3",       STRING,  &urgbgcolor },
+	{ "color15",       STRING,  &urgfgcolor },
 };
 #endif // XRESOURCES_PATCH
 
