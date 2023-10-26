@@ -213,12 +213,13 @@ Even if dwm(-flexipatch) 6.5 releases, if the repo still uses dwm(-flexipatch) 6
 All programs are licensed under the MIT License, except for some submodules, which might have different licenses (for example, GPLv2).
 
 ## Screenshots
-![Screenshot of neofetch](/pics/neofetch.png)
 ![Screenshot of the desktop](/pics/desktop.png)
+![Screenshot of neofetch](/pics/neofetch.png)
 ![Screenshot of random screenshots](/pics/random.png)
-![Screenshot of SM64 port](/pics/gaming.png)
+![Screenshot of it's gaming abilities](/pics/gaming.png)
 ![A demo of it's pywal abilities](/pics/wal.gif)
 ![Screenhot of slim on a Debian test VM](/pics/login.png)
+![Screenhot of tabb running](/pics/tabbed.png)
 
 ## Special thanks 
 * [Speedie](https://speedie.site) for helping me out with this and providing me with patches 
