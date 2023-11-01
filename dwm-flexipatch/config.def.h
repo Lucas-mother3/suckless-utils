@@ -564,10 +564,12 @@ static const BarRule barrules[] = {
 	/* monitor   bar    alignment         widthfunc                 drawfunc                clickfunc                hoverfunc                name */
 	#if BAR_STATUSBUTTON_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_stbutton,           draw_stbutton,          click_stbutton,          NULL,                    "statusbutton" },
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton2,          draw_stbutton2,         click_stbutton2,         NULL,                    "statusbutton2" },
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton3,          draw_stbutton3,         click_stbutton3,         NULL,                    "statusbutton3" },
-	{ -1,        1,     BAR_ALIGN_LEFT,   width_stbutton4,          draw_stbutton4,         click_stbutton4,         NULL,                    "statusbutton4" },
 	#endif // BAR_STATUSBUTTON_PATCH
+	#if BAR_DOCKBUTTONS_PATCH
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_dcbutton,           draw_dcbutton,          click_dcbutton,          NULL,                    "dockbutton" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_dcbutton2,          draw_dcbutton2,         click_dcbutton2,         NULL,                    "dockbutton2" },
+	{ -1,        1,     BAR_ALIGN_LEFT,   width_dcbutton3,          draw_dcbutton3,         click_dcbutton3,         NULL,                    "dockbutton3" },
+	#endif // BAR_DOCKBUTTONS_PATCH
 	#if BAR_TAGGRID_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taggrid,            draw_taggrid,           click_taggrid,           NULL,                    "taggrid" },
 	#endif // BAR_TAGGRID_PATCH
@@ -580,12 +582,14 @@ static const BarRule barrules[] = {
 	#if BAR_TAGLABELS_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taglabels,          draw_taglabels,         click_taglabels,         hover_taglabels,         "taglabels" },
 	#endif // BAR_TAGLABELS_PATCH
-	#if BAR_STATUSBUTTON_PATCH
-	{ -1,        0,     BAR_ALIGN_RIGHT,  width_stbutton5,          draw_stbutton5,         click_stbutton5,         NULL,                    "statusbutton5" },
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton6,          draw_stbutton6,         click_stbutton6,         NULL,                    "statusbutton6" },
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton7,          draw_stbutton7,         click_stbutton7,         NULL,                    "statusbutton7" },
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_stbutton8,          draw_stbutton8,         click_stbutton8,         NULL,                    "statusbutton8" },
-	#endif // BAR_STATUSBUTTON_PATCH
+	#if BAR_POWERBUTTON_PATCH
+	{ -1,        0,     BAR_ALIGN_RIGHT,   width_powbutton,          draw_powbutton,         click_powbutton,         NULL,                   "powerbutton" },
+	#endif // BAR_POWERBUTTON_PATCH
+	#if BAR_WINCONTROLBUTTONS_PATCH
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton,          draw_winbutton,         click_winbutton,         NULL,                   "statusbutton6" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton2,         draw_winbutton2,        click_winbutton2,        NULL,                   "statusbutton7" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton3,         draw_winbutton3,        click_winbutton3,        NULL,                   "statusbutton8" },
+	#endif // BAR_WINCONTROLBUTTONS_PATCH
 	#if BAR_SYSTRAY_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH
@@ -1404,7 +1408,7 @@ static const Command commands[] = {
 
 /* button definitions */
 #if STATUSBUTTON_PATCH
-/* click can be ClkButton, ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+/* click can be ClkButton*, ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 #else
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 #endif //
@@ -1414,17 +1418,23 @@ static const Button buttons[] = {
 	{ ClkButton,            0,                   Button1,        spawn,          SHCMD("spmenu_run -d -a '-g 4 -l 10'") /* use spmenu instead of dmenu */ },
 	{ ClkButton,            0,                   Button2,        spawn,           {.v = dmenucmd } /* launch dmenu instead if middle-clicked*/ },
 	{ ClkButton,            0,                   Button3,        spawn,          SHCMD("jgmenu_run apps | jgmenu --simple --at-pointer") /* launch jgmenu on right click */ },
+	#endif // BAR_STATUSBUTTON_PATCH
+	#if BAR_DOCKBUTTONS_PATCH
 	{ ClkButton2,            0,                  Button1,        spawn,          {.v = termcmd } },
 	{ ClkButton2,            0,                  Button3,        spawn,          SHCMD("printf ' New tabbed session, tabbed -c -r 2 st -w \"\"\n New dvtm session, st -T dvtm abduco -c dvtm dvtm-status\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton3,            0,                  Button1,        spawn,          SHCMD("firefox") },
 	{ ClkButton3,            0,                  Button3,        spawn,          SHCMD("printf ' New Window, firefox\n󱀣 New Private Window, firefox -private-window\n' | jgmenu --simple --at-pointer") },
 	{ ClkButton4,           0,                   Button1,        spawn,          SHCMD("st -T ncmpcpp ncmpcpp") },
 	{ ClkButton4,           0,                   Button3,        spawn,          SHCMD("printf '󰒮 Previous Song, mpc prev\n󰐊 Play, mpc play\n󰏤 Pause, mpc pause\n󰓛 Stop, mpc stop\n󰒭 Next Song, mpc next\n󰕾 Vol +5%%,mpc vol +5\n󰖀 Vol -5%%, mpc vol -5\n' | jgmenu --simple --at-pointer") },
+	#endif // BAR_DOCKBUTTONS_PATCH
+	#if BAR_POWERBUTTON_PATCH
 	{ ClkButton5,           0,                   Button1,        spawn,          SHCMD("shutdown") },
+	#endif // BAR_POWERBUTTON_PATCH
+	#if BAR_WINCONTROLBUTTONS_PATCH
 	{ ClkButton6,           0,                   Button1,        killclient,             {0} },
 	{ ClkButton7,           0,                   Button1,        togglemax,              {0} },
 	{ ClkButton8,           0,                   Button1,        showhideclient,         {0} },
-	#endif // BAR_STATUSBUTTON_PATCH
+	#endif // BAR_WINCONTROLBUTTONS_PATCH
 	{ ClkLtSymbol,          0,                   Button1,        setlayout,      {0} },
 	#if BAR_LAYOUTMENU_PATCH
 	{ ClkLtSymbol,          0,                   Button3,        layoutmenu,     {0} },

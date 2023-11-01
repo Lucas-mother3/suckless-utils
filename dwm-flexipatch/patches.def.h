@@ -1469,3 +1469,25 @@
  * This can be optionally disabled in favour of other layouts.
  */
 #define MONOCLE_LAYOUT 1
+
+/**
+ * Specific build patches
+ */
+
+/* Additional status buttons for the taskbar/bottom bar.
+ * This can be an alternative for dockbar programs.
+ */
+
+#define BAR_DOCKBUTTONS_PATCH 1
+
+/* A simple power button for dwm.
+ * Uses jgmenu, and a script handling the commands.
+ */
+
+#define BAR_POWERBUTTON_PATCH 1
+
+/* Decorative window control buttons for dwm.
+ * Depends on the MAXIMIZE patch.
+ */
+
+#define BAR_WINCONTROLBUTTONS_PATCH 1

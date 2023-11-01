@@ -232,14 +232,20 @@ enum {
 enum {
 	#if BAR_STATUSBUTTON_PATCH
 	ClkButton,
+	#endif // BAR_STATUSBUTTON_PATCH
+	#if BAR_DOCKBUTTONS_PATCH
 	ClkButton2,
 	ClkButton3,
 	ClkButton4,
+	#endif // BAR_DOCKBUTTONS_PATCH
+	#if BAR_POWERBUTTON_PATCH
 	ClkButton5,
+	#endif // BAR_POWERBUTTON_PATCH
+	#if BAR_WINCONTROLBUTTONS_PATCH
 	ClkButton6,
 	ClkButton7,
 	ClkButton8,
-	#endif // BAR_STATUSBUTTON_PATCH
+	#endif // BAR_WINCONTROLBUTTONS_PATCH
 	#if TAB_PATCH
 	ClkTabBar,
 	#endif // TAB_PATCH

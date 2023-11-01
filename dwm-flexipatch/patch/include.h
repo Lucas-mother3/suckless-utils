@@ -388,4 +388,12 @@
 #if TILE_LAYOUT
 #include "layout_tile.h"
 #endif
-
+#if BAR_DOCKBUTTONS_PATCH
+#include "bar_dockbutton.h"
+#endif
+#if BAR_POWERBUTTON_PATCH
+#include "bar_powerbutton.h"
+#endif
+#if BAR_WINCONTROLBUTTONS_PATCH
+#include "bar_wincontrolbutton.h"
+#endif
