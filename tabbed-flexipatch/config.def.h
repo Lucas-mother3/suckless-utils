@@ -18,6 +18,9 @@ static const int  tabwidth      = 200;
 #endif // AWESOMEBAR_PATCH
 static const Bool foreground    = True;
 static       Bool urgentswitch  = False;
+#if SEPERATOR_PATCH
+static const int  separator     = 1;
+#endif // SEPERATOR_PATCH
 
 #if BAR_HEIGHT_PATCH
 static const int barheight = 0;  /* 0 means derive by font (default), otherwise absolute height */

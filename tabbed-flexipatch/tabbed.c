@@ -172,6 +172,9 @@ static void (*handler[LASTEvent]) (const XEvent *) = {
 	#endif // KEYRELEASE_PATCH
 	[MapRequest] = maprequest,
 	[PropertyNotify] = propertynotify,
+	#if DRAG_PATCH
+	[MotionNotify] = motionnotify,
+	#endif // DRAG_PATCH
 };
 static int bh, obh, wx, wy, ww, wh;
 #if AUTOHIDE_PATCH || HIDETABS_PATCH
@@ -476,10 +479,20 @@ drawtext(const char *text, XftColor col[ColLast])
 	int i, j, x, y, h, len, olen;
 	char buf[256];
 	XftDraw *d;
+	#if SEPERATOR_PATCH
+	XRectangle tab = { dc.x+separator, dc.y, dc.w-separator, dc.h };
+	XRectangle sep = { dc.x, dc.y, separator, dc.h };
+	#else
 	XRectangle r = { dc.x, dc.y, dc.w, dc.h };
+	#endif // SEPERATOR_PATCH
 
 	XSetForeground(dpy, dc.gc, col[ColBG].pixel);
+	#if SEPERATOR_PATCH
+	XFillRectangles(dpy, dc.drawable, dc.gc, &tab, 1);
+	#else
 	XFillRectangles(dpy, dc.drawable, dc.gc, &r, 1);
+	#endif // SEPERATOR_PATCH
+
 	if (!text)
 		return;
 
@@ -928,8 +941,15 @@ maprequest(const XEvent *e)
 void
 move(const Arg *arg)
 {
-	if (arg->i >= 0 && arg->i < nclients)
-		focus(arg->i);
+	#if CLAMPEDMOVE_PATCH
+		int i;
+		i = arg->i < nclients ? arg->i : nclients - 1;
+		if (i >= 0)
+			focus(i);
+	#else
+		if (arg->i >= 0 && arg->i < nclients)
+			focus(arg->i);
+	#endif // CLAMPEDMOVE_PATCH
 }
 
 void
@@ -1264,7 +1284,12 @@ setup(void)
 	             KeyReleaseMask |
 	             #endif // KEYRELEASE_PATCH
 	             PropertyChangeMask | StructureNotifyMask |
-	             SubstructureRedirectMask);
+				 #if DRAG_PATCH
+				 SubstructureRedirectMask | ButtonMotionMask
+				 #else
+				 SubstructureRedirectMask
+				 #endif // DRAG_PATCH
+				 );
 	xerrorxlib = XSetErrorHandler(xerror);
 
 	class_hint.res_name = wmname;

@@ -42,10 +42,21 @@
  */
 #define CENTER_PATCH 1
 
+/* With this patch, tabbed interprets large position numbers as the largest known position.
+ * This allows Ctrl-9, for example, to always select the rightmost tab, even if there are only 4 tabs.
+ * https://tools.suckless.org/tabbed/patches/move-clamped/
+ */
+#define CLAMPEDMOVE_PATCH 1
+
 /* This patch prints the position number of the client before the window title.
  * https://tools.suckless.org/tabbed/patches/clientnumber/
  */
 #define CLIENTNUMBER_PATCH 1
+
+/* Support dragging tabs left and right with the mouse.
+ * https://tools.suckless.org/tabbed/patches/drag/
+ */
+#define DRAG_PATCH 1
 
 /* This patch hides all the tabs and only shows them when Mod+Shift is pressed. All functions
  * with switching, rotating, and creating tabs involve Mod+Shift. When not doing one of these
@@ -84,6 +95,12 @@
  * https://github.com/huijunchen9260/tabbed-hjc
  */
 #define REPARENT_PATCH 1
+
+/* Add a decorative separator bar to the beginning of each tab.
+ * Configure the width via the separator property in config.h.
+ * https://tools.suckless.org/tabbed/patches/separator/
+ */
+#define SEPERATOR_PATCH 0
 
 /* This patch allows tabbed colors to be defined via Xresources.
  * https://tools.suckless.org/tabbed/patches/xresources/
