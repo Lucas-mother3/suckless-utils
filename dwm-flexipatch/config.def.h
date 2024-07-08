@@ -11,7 +11,7 @@ static const unsigned int borderpx       = 1;   /* border pixel of windows */
 /* This allows the bar border size to be explicitly set separately from borderpx.
  * If left as 0 then it will default to the borderpx value of the monitor and will
  * automatically update with setborderpx. */
-static const unsigned int barborderpx    = 0;  /* border pixel of bar */
+static const unsigned int barborderpx    = 1;  /* border pixel of bar */
 #endif // BAR_BORDER_PATCH
 static const unsigned int snap           = 32;  /* snap pixel */
 #if SWALLOW_PATCH
@@ -95,14 +95,20 @@ static const int vertpadbar              = 0;   /* vertical padding for statusba
 #endif // BAR_STATUSPADDING_PATCH
 #if BAR_STATUSBUTTON_PATCH
 static const char buttonbar[]            = "󰕰 Start";
+#endif // BAR_STATUSBUTTON_PATCH
+#if BAR_DOCKBUTTONS_PATCH
 static const char buttonbar2[]           = " st";
 static const char buttonbar3[]           = "󰈹 Firefox";
 static const char buttonbar4[]           = "󰝚 mpd";
+#endif // BAR_DOCKBUTTONS_PATCH
+#if BAR_POWERBUTTON_PATCH
 static const char buttonbar5[]           = "󰗼 󰐥";
+#endif // BAR_POWERBUTTON_PATCH
+#if BAR_WINCONTROLBUTTONS_PATCH
 static const char buttonbar6[]           = "󰅖";
 static const char buttonbar7[]           = "󰖯";
 static const char buttonbar8[]           = "󰖰";
-#endif // BAR_STATUSBUTTON_PATCH
+#endif // BAR_WINCONTROLBUTTONS_PATCH
 #if BAR_SYSTRAY_PATCH
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int showsystray             = 1;   /* 0 means no systray */
@@ -507,6 +513,17 @@ static const Rule rules[] = {
 	RULE(.wintype = WTYPE "DOCK", .unmanaged = 1)
 	RULE(.wintype = WTYPE "DIALOG", .isfloating = 1, .noswallow = 1)
 	RULE(.class = "Xmessage", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-atarist", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-cpm80", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-dos", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-ibmpc", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-img", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-macplus", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-rc759", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-sim405", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-simarm", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-sims32", .isfloating = 1, .noswallow = 1)
+	RULE(.class = "pce-vic20", .isfloating = 1, .noswallow = 1)
 	RULE(.wintype = WTYPE "UTILITY", .isfloating = 1, .noswallow = 1)
 	RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1, .noswallow = 1)
 	RULE(.wintype = WTYPE "SPLASH", .isfloating = 1, .noswallow = 1)
@@ -570,6 +587,14 @@ static const BarRule barrules[] = {
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_dcbutton2,          draw_dcbutton2,         click_dcbutton2,         NULL,                    "dockbutton2" },
 	{ -1,        1,     BAR_ALIGN_LEFT,   width_dcbutton3,          draw_dcbutton3,         click_dcbutton3,         NULL,                    "dockbutton3" },
 	#endif // BAR_DOCKBUTTONS_PATCH
+	#if BAR_POWERBUTTON_PATCH
+	{ -1,        0,     BAR_ALIGN_RIGHT,   width_powbutton,          draw_powbutton,         click_powbutton,         NULL,                   "powerbutton" },
+	#endif // BAR_POWERBUTTON_PATCH
+	#if BAR_WINCONTROLBUTTONS_PATCH
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton,          draw_winbutton,         click_winbutton,         NULL,                   "statusbutton6" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton2,         draw_winbutton2,        click_winbutton2,        NULL,                   "statusbutton7" },
+	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton3,         draw_winbutton3,        click_winbutton3,        NULL,                   "statusbutton8" },
+	#endif // BAR_WINCONTROLBUTTONS_PATCH
 	#if BAR_TAGGRID_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taggrid,            draw_taggrid,           click_taggrid,           NULL,                    "taggrid" },
 	#endif // BAR_TAGGRID_PATCH
@@ -582,14 +607,6 @@ static const BarRule barrules[] = {
 	#if BAR_TAGLABELS_PATCH
 	{ -1,        0,     BAR_ALIGN_LEFT,   width_taglabels,          draw_taglabels,         click_taglabels,         hover_taglabels,         "taglabels" },
 	#endif // BAR_TAGLABELS_PATCH
-	#if BAR_POWERBUTTON_PATCH
-	{ -1,        0,     BAR_ALIGN_RIGHT,   width_powbutton,          draw_powbutton,         click_powbutton,         NULL,                   "powerbutton" },
-	#endif // BAR_POWERBUTTON_PATCH
-	#if BAR_WINCONTROLBUTTONS_PATCH
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton,          draw_winbutton,         click_winbutton,         NULL,                   "statusbutton6" },
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton2,         draw_winbutton2,        click_winbutton2,        NULL,                   "statusbutton7" },
-	{ -1,        1,     BAR_ALIGN_RIGHT,   width_winbutton3,         draw_winbutton3,        click_winbutton3,        NULL,                   "statusbutton8" },
-	#endif // BAR_WINCONTROLBUTTONS_PATCH
 	#if BAR_SYSTRAY_PATCH
 	{  0,        0,     BAR_ALIGN_RIGHT,  width_systray,            draw_systray,           click_systray,           NULL,                    "systray" },
 	#endif // BAR_SYSTRAY_PATCH
@@ -997,9 +1014,9 @@ static const Key keys[] = {
 	#if TAB_PATCH
 	{ MODKEY|ControlMask,           XK_b,          tabmode,                {-1} },
 	#endif // TAB_PATCH
-	#if FOCUSMASTER_PATCH
+	#if FOCUSMASTER_PATCH || FOCUSMASTER_RETURN_PATCH
 	{ MODKEY|ControlMask,           XK_space,      focusmaster,            {0} },
-	#endif // FOCUSMASTER_PATCH
+	#endif // FOCUSMASTER_PATCH / FOCUSMASTER_RETURN_PATCH
 	#if STACKER_PATCH
 	STACKKEYS(MODKEY,                              focus)
 	STACKKEYS(MODKEY|ShiftMask,                    push)
@@ -1013,6 +1030,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Up,         focusdir,               {.i = 2 } }, // up
 	{ MODKEY,                       XK_Down,       focusdir,               {.i = 3 } }, // down
 	#endif // FOCUSDIR_PATCH
+	#if PLACEDIR_PATCH
+	{ MODKEY|ControlMask,           XK_Left,       placedir,               {.i = 0 } }, // left
+	{ MODKEY|ControlMask,           XK_Right,      placedir,               {.i = 1 } }, // right
+	{ MODKEY|ControlMask,           XK_Up,         placedir,               {.i = 2 } }, // up
+	{ MODKEY|ControlMask,           XK_Down,       placedir,               {.i = 3 } }, // down
+	#endif // PLACEDIR_PATCH
 	#if SWAPFOCUS_PATCH && PERTAG_PATCH
 	{ MODKEY,                       XK_s,          swapfocus,              {.i = -1 } },
 	#endif // SWAPFOCUS_PATCH
@@ -1227,8 +1250,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Right,      viewtoright,            {0} }, // note keybinding conflict with focusdir
 	{ MODKEY|ShiftMask,             XK_Left,       tagtoleft,              {0} }, // note keybinding conflict with shifttag
 	{ MODKEY|ShiftMask,             XK_Right,      tagtoright,             {0} }, // note keybinding conflict with shifttag
-	{ MODKEY|ControlMask,           XK_Left,       tagandviewtoleft,       {0} },
-	{ MODKEY|ControlMask,           XK_Right,      tagandviewtoright,      {0} },
+	{ MODKEY|ControlMask,           XK_Left,       tagandviewtoleft,       {0} }, // note keybinding conflict with placedir
+	{ MODKEY|ControlMask,           XK_Right,      tagandviewtoright,      {0} }, // note keybinding conflict with placedir
 	#endif // FOCUSADJACENTTAG_PATCH
 	#if TAGALL_PATCH
 	{ MODKEY|ShiftMask,             XK_F1,         tagall,                 {.v = "F1"} },
@@ -1267,8 +1290,8 @@ static const Key keys[] = {
 	#if BAR_TAGGRID_PATCH
 	{ MODKEY|ControlMask,           XK_Up,         switchtag,              { .ui = SWITCHTAG_UP    | SWITCHTAG_VIEW } },
 	{ MODKEY|ControlMask,           XK_Down,       switchtag,              { .ui = SWITCHTAG_DOWN  | SWITCHTAG_VIEW } },
-	{ MODKEY|ControlMask,           XK_Right,      switchtag,              { .ui = SWITCHTAG_RIGHT | SWITCHTAG_VIEW } },
-	{ MODKEY|ControlMask,           XK_Left,       switchtag,              { .ui = SWITCHTAG_LEFT  | SWITCHTAG_VIEW } },
+	{ MODKEY|ControlMask,           XK_Right,      switchtag,              { .ui = SWITCHTAG_RIGHT | SWITCHTAG_VIEW } }, // note keybinding conflict with placedir
+	{ MODKEY|ControlMask,           XK_Left,       switchtag,              { .ui = SWITCHTAG_LEFT  | SWITCHTAG_VIEW } }, // note keybinding conflict with placedir
 	{ MODKEY|Mod4Mask,              XK_Up,         switchtag,              { .ui = SWITCHTAG_UP    | SWITCHTAG_TAG | SWITCHTAG_VIEW } },
 	{ MODKEY|Mod4Mask,              XK_Down,       switchtag,              { .ui = SWITCHTAG_DOWN  | SWITCHTAG_TAG | SWITCHTAG_VIEW } },
 	{ MODKEY|Mod4Mask,              XK_Right,      switchtag,              { .ui = SWITCHTAG_RIGHT | SWITCHTAG_TAG | SWITCHTAG_VIEW } },

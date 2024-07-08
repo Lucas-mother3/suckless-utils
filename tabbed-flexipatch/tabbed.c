@@ -11,6 +11,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <X11/Xatom.h>
+#include <X11/keysym.h>
 #include <X11/Xlib.h>
 #include <X11/Xproto.h>
 #include <X11/Xutil.h>
@@ -96,6 +97,9 @@ typedef struct {
 
 typedef struct {
 	char name[256];
+	#if BASENAME_PATCH
+	char *basename;
+	#endif // BASENAME_PATCH
 	Window win;
 	int tabx;
 	Bool urgent;
@@ -141,7 +145,6 @@ static void run(void);
 static void sendxembed(int c, long msg, long detail, long d1, long d2);
 static void setcmd(int argc, char *argv[], int);
 static void setup(void);
-static void sigchld(int unused);
 static void spawn(const Arg *arg);
 static int textnw(const char *text, unsigned int len);
 static void toggle(const Arg *arg);
@@ -384,6 +387,11 @@ drawbar(void)
 	int by = 0;
 	#endif // BOTTOM_TABS_PATCH
 
+	#if XRESOURCES_PATCH && XRESOURCES_RELOAD_PATCH
+	if (colors_changed)
+		writecolors();
+	#endif // XRESOURCES_RELOAD_PATCH
+
 	#if AUTOHIDE_PATCH || HIDETABS_PATCH
 	#if AUTOHIDE_PATCH && HIDETABS_PATCH
 	nbh = barvisibility && nclients > 1 ? vbh : 0;
@@ -459,10 +467,16 @@ drawbar(void)
 		} else {
 			col = clients[c]->urgent ? dc.urg : dc.norm;
 		}
-		#if CLIENTNUMBER_PATCH
+		#if CLIENTNUMBER_PATCH && BASENAME_PATCH
+		snprintf(tabtitle, sizeof(tabtitle), "%d: %s",
+		         c + 1, basenametitles ? clients[c]->basename : clients[c]->name);
+		drawtext(tabtitle, col);
+		#elif CLIENTNUMBER_PATCH
 		snprintf(tabtitle, sizeof(tabtitle), "%d: %s",
 		         c + 1, clients[c]->name);
 		drawtext(tabtitle, col);
+		#elif BASENAME_PATCH
+		drawtext(basenametitles ? clients[c]->basename : clients[c]->name, col);
 		#else
 		drawtext(clients[c]->name, col);
 		#endif // CLIENTNUMBER_PATCH
@@ -479,19 +493,22 @@ drawtext(const char *text, XftColor col[ColLast])
 	int i, j, x, y, h, len, olen;
 	char buf[256];
 	XftDraw *d;
-	#if SEPERATOR_PATCH
+	#if SEPARATOR_PATCH
 	XRectangle tab = { dc.x+separator, dc.y, dc.w-separator, dc.h };
 	XRectangle sep = { dc.x, dc.y, separator, dc.h };
-	#else
-	XRectangle r = { dc.x, dc.y, dc.w, dc.h };
-	#endif // SEPERATOR_PATCH
+
+	if (separator) {
+		XSetForeground(dpy, dc.gc, col[ColFG].pixel);
+		XFillRectangles(dpy, dc.drawable, dc.gc, &sep, 1);
+	}
 
 	XSetForeground(dpy, dc.gc, col[ColBG].pixel);
-	#if SEPERATOR_PATCH
 	XFillRectangles(dpy, dc.drawable, dc.gc, &tab, 1);
 	#else
+	XRectangle r = { dc.x, dc.y, dc.w, dc.h };
+	XSetForeground(dpy, dc.gc, col[ColBG].pixel);
 	XFillRectangles(dpy, dc.drawable, dc.gc, &r, 1);
-	#endif // SEPERATOR_PATCH
+	#endif // SEPARATOR_PATCH
 
 	if (!text)
 		return;
@@ -941,15 +958,8 @@ maprequest(const XEvent *e)
 void
 move(const Arg *arg)
 {
-	#if CLAMPEDMOVE_PATCH
-		int i;
-		i = arg->i < nclients ? arg->i : nclients - 1;
-		if (i >= 0)
-			focus(i);
-	#else
-		if (arg->i >= 0 && arg->i < nclients)
-			focus(arg->i);
-	#endif // CLAMPEDMOVE_PATCH
+	if (arg->i >= 0 && arg->i < nclients)
+		focus(arg->i);
 }
 
 void
@@ -1149,9 +1159,16 @@ setup(void)
 	XWMHints *wmh;
 	XClassHint class_hint;
 	XSizeHints *size_hint;
+	struct sigaction sa;
 
-	/* clean up any zombies immediately */
-	sigchld(0);
+	/* do not transform children into zombies when they terminate */
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_NOCLDSTOP | SA_NOCLDWAIT | SA_RESTART;
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGCHLD, &sa, NULL);
+
+	/* clean up any zombies that might have been inherited */
+	while (waitpid(-1, NULL, WNOHANG) > 0);
 
 	/* init screen */
 	screen = DefaultScreen(dpy);
@@ -1284,12 +1301,10 @@ setup(void)
 	             KeyReleaseMask |
 	             #endif // KEYRELEASE_PATCH
 	             PropertyChangeMask | StructureNotifyMask |
-				 #if DRAG_PATCH
-				 SubstructureRedirectMask | ButtonMotionMask
-				 #else
-				 SubstructureRedirectMask
-				 #endif // DRAG_PATCH
-				 );
+	             #if DRAG_PATCH
+	             ButtonMotionMask |
+	             #endif // DRAG_PATCH
+	             SubstructureRedirectMask);
 	xerrorxlib = XSetErrorHandler(xerror);
 
 	class_hint.res_name = wmname;
@@ -1335,22 +1350,21 @@ setup(void)
 }
 
 void
-sigchld(int unused)
-{
-	if (signal(SIGCHLD, sigchld) == SIG_ERR)
-		die("%s: cannot install SIGCHLD handler", argv0);
-
-	while (0 < waitpid(-1, NULL, WNOHANG));
-}
-
-void
 spawn(const Arg *arg)
 {
+	struct sigaction sa;
+
 	if (fork() == 0) {
 		if(dpy)
 			close(ConnectionNumber(dpy));
 
 		setsid();
+
+		sigemptyset(&sa.sa_mask);
+		sa.sa_flags = 0;
+		sa.sa_handler = SIG_DFL;
+		sigaction(SIGCHLD, &sa, NULL);
+
 		if (arg && arg->v) {
 			execvp(((char **)arg->v)[0], (char **)arg->v);
 			fprintf(stderr, "%s: execvp %s", argv0,
@@ -1473,6 +1487,10 @@ updatetitle(int c)
 	    sizeof(clients[c]->name)))
 		gettextprop(clients[c]->win, XA_WM_NAME, clients[c]->name,
 		            sizeof(clients[c]->name));
+	#if BASENAME_PATCH
+	if (basenametitles)
+		clients[c]->basename = getbasename(clients[c]->name);
+	#endif // BASENAME_PATCH
 	if (sel == c)
 		xsettitle(win, clients[c]->name);
 	drawbar();
@@ -1524,7 +1542,11 @@ xsettitle(Window w, const char *str)
 void
 usage(void)
 {
-	die("usage: %s [-dfksv] [-g geometry] [-n name] [-p [s+/-]pos]\n"
+	die("usage: %s [-"
+		#if BASENAME_PATCH
+		"b"
+		#endif // BASENAME_PATCH
+		"dfksv] [-g geometry] [-n name] [-p [s+/-]pos]\n"
 	    "       [-r narg] [-o color] [-O color] [-t color] [-T color]\n"
 	    "       [-u color] [-U color] command...\n", argv0);
 }
@@ -1589,6 +1611,11 @@ main(int argc, char *argv[])
 	case 'u':
 		urgbgcolor = EARGF(usage());
 		break;
+	#if BASENAME_PATCH
+	case 'b':
+		basenametitles = True;
+		break;
+	#endif // BASENAME_PATCH
 	case 'v':
 		die("tabbed-"VERSION", © 2009-2016 tabbed engineers, "
 		    "see LICENSE for details.\n");
@@ -1612,6 +1639,9 @@ main(int argc, char *argv[])
 
 	#if XRESOURCES_PATCH
 	config_init();
+	#if XRESOURCES_RELOAD_PATCH
+	signal(SIGUSR1, xrdb_reload);
+	#endif // XRESOURCES_RELOAD_PATCH
 	#endif // XRESOURCES_PATCH
 	setup();
 	printf("0x%lx\n", win);

@@ -154,7 +154,7 @@
 #if FOCUSFOLLOWMOUSE_PATCH
 #include "focusfollowmouse.c"
 #endif
-#if FOCUSMASTER_PATCH
+#if FOCUSMASTER_PATCH || FOCUSMASTER_RETURN_PATCH
 #include "focusmaster.c"
 #endif
 #if FOCUSURGENT_PATCH
@@ -207,6 +207,9 @@
 #endif
 #if PERTAG_PATCH
 #include "pertag.c"
+#endif
+#if PLACEDIR_PATCH
+#include "placedir.c"
 #endif
 #if PLACEMOUSE_PATCH
 #include "placemouse.c"
@@ -404,3 +407,4 @@
 #if BAR_WINCONTROLBUTTONS_PATCH
 #include "bar_wincontrolbutton.c"
 #endif
+

@@ -1,26 +1,22 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static       char font[]        = "Hack Nerd Font:size=12";
-static       char* normbgcolor  = "#222222";
-static       char* normfgcolor  = "#cccccc";
-static       char* selbgcolor   = "#555555";
-static       char* selfgcolor   = "#ffffff";
-static       char* urgbgcolor   = "#111111";
-static       char* urgfgcolor   = "#cc0000";
-static const char before[]      = "<";
-static const char after[]       = ">";
-static const char titletrim[]   = "...";
-#if AWESOMEBAR_PATCH
-static       int  tabwidth      = 200;
-#else
-static const int  tabwidth      = 200;
-#endif // AWESOMEBAR_PATCH
-static const Bool foreground    = True;
-static       Bool urgentswitch  = False;
-#if SEPERATOR_PATCH
-static const int  separator     = 1;
-#endif // SEPERATOR_PATCH
+static char font[]        = "Hack Nerd Font:size=12";
+static char* normbgcolor  = "#222222";
+static char* normfgcolor  = "#cccccc";
+static char* selbgcolor   = "#555555";
+static char* selfgcolor   = "#ffffff";
+static char* urgbgcolor   = "#111111";
+static char* urgfgcolor   = "#cc0000";
+static char before[]      = "<";
+static char after[]       = ">";
+static char titletrim[]   = "...";
+static int  tabwidth      = 200;
+static int  foreground    = 1;
+static int  urgentswitch  = 0;
+#if SEPARATOR_PATCH
+static int  separator     = 4;
+#endif // SEPARATOR_PATCH
 
 #if BAR_HEIGHT_PATCH
 static const int barheight = 0;  /* 0 means derive by font (default), otherwise absolute height */

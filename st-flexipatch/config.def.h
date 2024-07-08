@@ -54,7 +54,10 @@ char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
 
 /* identification sequence returned in DA and DECID */
 #if SIXEL_PATCH
-char *vtiden = "\033[?12;4c";
+char *vtiden = "\033[?62;4c"; /* VT200 family (62) with sixel (4) */
+
+/* sixel rgb byte order: LSBFirst or MSBFirst */
+int const sixelbyteorder = LSBFirst;
 #else
 char *vtiden = "\033[?6c";
 #endif
@@ -69,6 +72,12 @@ static float chscale = 1.0;
  * More advanced example: L" `'\"()[]{}"
  */
 wchar_t *worddelimiters = L" ";
+
+#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+/* Word delimiters for short and long jumps in the keyboard select patch */
+wchar_t *kbds_sdelim = L"!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~ ";
+wchar_t *kbds_ldelim = L" ";
+#endif // KEYBOARDSELECT_PATCH
 
 /* selection timeouts (in milliseconds) */
 static unsigned int doubleclicktimeout = 300;
@@ -108,6 +117,11 @@ static unsigned int blinktimeout = 800;
  * thickness of underline and bar cursors
  */
 static unsigned int cursorthickness = 2;
+
+#if HIDECURSOR_PATCH
+/* Hide the X cursor whenever a key is pressed. 0: off, 1: on */
+int hidecursor = 1;
+#endif // HIDECURSOR_PATCH
 
 #if BOXDRAW_PATCH
 /*
@@ -206,24 +220,18 @@ unsigned int defaultbg = 258;
 unsigned int defaultfg = 259;
 unsigned int defaultcs = 256;
 unsigned int defaultrcs = 257;
-
-#if VIM_BROWSE_PATCH
-unsigned int const currentBg = 6, buffSize = 2048;
-/// Enable double / triple click yanking / selection of word / line.
-int const mouseYank = 1, mouseSelect = 0;
-/// [Vim Browse] Colors for search results currently on screen.
-unsigned int const highlightBg = 160, highlightFg = 15;
-char const wDelS[] = "!\"#$%&'()*+,-./:;<=>?@[\\]^`{|}~", wDelL[] = " \t";
-char *nmKeys [] = {              ///< Shortcusts executed in normal mode
-  "R/Building\nN", "r/Building\n", "X/juli@machine\nN", "x/juli@machine\n",
-  "Q?[Leaving vim, starting execution]\n","F/: error:\nN", "f/: error:\n", "DQf"
-};
-unsigned int const amountNmKeys = sizeof(nmKeys) / sizeof(*nmKeys);
-/// Style of the {command, search} string shown in the right corner (y,v,V,/)
-Glyph styleSearch = {' ', ATTR_ITALIC | ATTR_BOLD_FAINT, 7, 16};
-Glyph style[] = {{' ',ATTR_ITALIC|ATTR_FAINT,15,16}, {' ',ATTR_ITALIC,232,11},
-                 {' ', ATTR_ITALIC, 232, 4}, {' ', ATTR_ITALIC, 232, 12}};
-#endif // VIM_BROWSE_PATCH
+#if SELECTION_COLORS_PATCH
+unsigned int selectionfg = 258;
+unsigned int selectionbg = 259;
+/* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
+/* Else if 1 keep original foreground-color of each cell => more colors :) */
+static int ignoreselfg = 1;
+#endif // SELECTION_COLORS_PATCH
+#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+/* Foreground and background color of search results */
+unsigned int highlightfg = 15;
+unsigned int highlightbg = 160;
+#endif // KEYBOARDSELECT_PATCH
 
 #if BLINKING_CURSOR_PATCH
 /*
@@ -258,6 +266,16 @@ static unsigned int cursorshape = 2;
 
 static unsigned int cols = 80;
 static unsigned int rows = 24;
+
+#if ANYGEOMETRY_PATCH
+/*
+ * Whether to use pixel geometry or cell geometry
+ */
+
+static Geometry geometry = CellGeometry; // or PixelGeometry to use the below size
+static unsigned int width = 564;
+static unsigned int height = 364;
+#endif // ANYGEOMETRY_PATCH
 
 #if THEMED_CURSOR_PATCH
 /*
@@ -324,6 +342,10 @@ ResourcePref resources[] = {
 		#if ALPHA_FOCUS_HIGHLIGHT_PATCH
 		{ "alphaUnfocused",FLOAT,  &alphaUnfocused },
 		#endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
+		#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+		{ "highlightfg",  INTEGER, &highlightfg },
+		{ "highlightbg",  INTEGER, &highlightbg },
+		#endif // KEYBOARDSELECT_PATCH
 };
 #endif // XRESOURCES_PATCH
 
@@ -355,7 +377,7 @@ static MouseShortcut mshortcuts[] = {
 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
 	{ ShiftMask,            Button5, ttysend,        {.s = "\033[6;2~"} },
 	#endif // SCROLLBACK_MOUSE_PATCH
-	#if SCROLLBACK_MOUSE_ALTSCREEN_PATCH
+	#if SCROLLBACK_MOUSE_ALTSCREEN_PATCH || REFLOW_PATCH
 	{ XK_NO_MOD,            Button4, kscrollup,      {.i = 1},      0, S_PRI },
 	{ XK_NO_MOD,            Button5, kscrolldown,    {.i = 1},      0, S_PRI },
 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"}, 0, S_ALT },
@@ -435,15 +457,16 @@ static Shortcut shortcuts[] = {
 	#if KEYBOARDSELECT_PATCH
 	{ TERMMOD,              XK_Escape,      keyboard_select, { 0 } },
 	#endif // KEYBOARDSELECT_PATCH
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	{ TERMMOD,              XK_F,           searchforward,   { 0 } },
+	{ TERMMOD,              XK_B,           searchbackward,  { 0 } },
+	#endif // KEYBOARDSELECT_PATCH
 	#if ISO14755_PATCH
 	{ TERMMOD,              XK_I,           iso14755,        {.i =  0} },
 	#endif // ISO14755_PATCH
 	#if INVERT_PATCH
 	{ TERMMOD,              XK_X,           invert,          { 0 } },
 	#endif // INVERT_PATCH
-	#if VIM_BROWSE_PATCH
-	{ MODKEY,               XK_c,           normalMode,      {.i =  0} },
-	#endif // VIM_BROWSE_PATCH
 };
 
 /*

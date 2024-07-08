@@ -25,6 +25,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
 #include <locale.h>
 #include <poll.h>
 #include <signal.h>
@@ -249,10 +250,10 @@ void reset_timeout(timeout_f handler)
 
 static bool check_timeouts(int *t)
 {
-	int i = 0, tdiff, tmin = -1;
+	int i = 0, tdiff, tmin;
 	struct timeval now;
 
-	while (i < (int)ARRLEN(timeouts)) {
+	for (i = 0; i < (int)ARRLEN(timeouts); ++i) {
 		if (timeouts[i].active) {
 			gettimeofday(&now, 0);
 			tdiff = TV_DIFF(&timeouts[i].when, &now);
@@ -260,16 +261,22 @@ static bool check_timeouts(int *t)
 				timeouts[i].active = false;
 				if (timeouts[i].handler != NULL)
 					timeouts[i].handler();
-				i = tmin = -1;
-			} else if (tmin < 0 || tdiff < tmin) {
-				tmin = tdiff;
 			}
 		}
-		i++;
 	}
-	if (tmin > 0 && t != NULL)
-		*t = tmin;
-	return tmin > 0;
+
+	tmin = INT_MAX;
+	gettimeofday(&now, 0);
+	for (i = 0; i < (int)ARRLEN(timeouts); ++i) {
+		if (timeouts[i].active) {
+			tdiff = TV_DIFF(&timeouts[i].when, &now);
+			tmin = MIN(tmin, tdiff);
+		}
+	}
+
+	if (tmin != INT_MAX && t != NULL)
+		*t = MAX(tmin, 0);
+	return tmin != INT_MAX;
 }
 
 static void autoreload(void)
@@ -328,8 +335,7 @@ static void open_title(void)
 	snprintf(fcnt, ARRLEN(fcnt), "%d", filecnt);
 	construct_argv(argv, ARRLEN(argv), wintitle.f.cmd, files[fileidx].path,
 	               fidx, fcnt, w, h, z, NULL);
-	if ((wintitle.pid = spawn(&wintitle.fd, NULL, argv)) > 0)
-		fcntl(wintitle.fd, F_SETFL, O_NONBLOCK);
+	wintitle.pid = spawn(&wintitle.fd, NULL, O_NONBLOCK, argv);
 }
 
 void close_info(void)
@@ -352,8 +358,7 @@ void open_info(void)
 	}
 	construct_argv(argv, ARRLEN(argv), cmd, files[fileidx].name, w, h,
 	               files[fileidx].path, NULL);
-	if ((info.pid = spawn(&info.fd, NULL, argv)) > 0)
-		fcntl(info.fd, F_SETFL, O_NONBLOCK);
+	info.pid = spawn(&info.fd, NULL, O_NONBLOCK, argv);
 }
 
 static void read_info(void)
@@ -455,7 +460,6 @@ static void update_info(void)
 		open_title();
 	}
 
-	/* update bar contents */
 	if (win.bar.h == 0 || extprefix)
 		return;
 
@@ -601,12 +605,10 @@ void handle_key_handler(bool init)
 	if (win.bar.h == 0)
 		return;
 	if (init) {
-		close_info();
-		snprintf(win.bar.l.buf, win.bar.l.size,
+		snprintf(win.bar.r.buf, win.bar.r.size,
 		         "Getting key handler input (%s to abort)...",
 		         XKeysymToString(KEYHANDLER_ABORT));
 	} else { /* abort */
-		open_info();
 		update_info();
 	}
 	win_draw(&win);
@@ -635,8 +637,7 @@ static bool run_key_handler(const char *key, unsigned int mask)
 	if (key == NULL)
 		return false;
 
-	close_info();
-	strncpy(win.bar.l.buf, "Running key handler...", win.bar.l.size);
+	strncpy(win.bar.r.buf, "Running key handler...", win.bar.r.size);
 	win_draw(&win);
 	win_set_cursor(&win, CURSOR_WATCH);
 	setenv("NSXIV_USING_NULL", options->using_null ? "1" : "0", 1);
@@ -646,7 +647,7 @@ static bool run_key_handler(const char *key, unsigned int mask)
 	         mask & Mod1Mask    ? "M-" : "",
 	         mask & ShiftMask   ? "S-" : "", key);
 	construct_argv(argv, ARRLEN(argv), keyhandler.f.cmd, kstr, NULL);
-	if ((pid = spawn(NULL, &writefd, argv)) < 0)
+	if ((pid = spawn(NULL, &writefd, 0x0, argv)) < 0)
 		return false;
 	if ((pfs = fdopen(writefd, "w")) == NULL) {
 		error(0, errno, "open pipe");
@@ -687,6 +688,8 @@ static bool run_key_handler(const char *key, unsigned int mask)
 	if (mode == MODE_IMAGE && changed) {
 		img_close(&img, true);
 		load_image(fileidx);
+	} else {
+		update_info();
 	}
 	free(oldst);
 	reset_cursor();
@@ -801,13 +804,15 @@ static void run(void)
 				pfd[FD_INFO].fd = info.fd;
 				pfd[FD_TITLE].fd = wintitle.fd;
 				pfd[FD_ARL].fd = arl.fd;
-				pfd[FD_X].events = pfd[FD_INFO].events = pfd[FD_TITLE].events = pfd[FD_ARL].events = POLLIN;
+
+				pfd[FD_X].events = pfd[FD_ARL].events = POLLIN;
+				pfd[FD_INFO].events = pfd[FD_TITLE].events = 0;
 
 				if (poll(pfd, ARRLEN(pfd), to_set ? timeout : -1) < 0)
 					continue;
-				if (pfd[FD_INFO].revents & POLLIN)
+				if (pfd[FD_INFO].revents & POLLHUP)
 					read_info();
-				if (pfd[FD_TITLE].revents & POLLIN)
+				if (pfd[FD_TITLE].revents & POLLHUP)
 					read_title();
 				if ((pfd[FD_ARL].revents & POLLIN) && arl_handle(&arl)) {
 					img.autoreload_pending = true;
@@ -835,7 +840,7 @@ static void run(void)
 			}
 		} while (discard);
 
-		switch (ev.type) { /* handle events */
+		switch (ev.type) {
 		case ButtonPress:
 			on_buttonpress(&ev.xbutton);
 			break;

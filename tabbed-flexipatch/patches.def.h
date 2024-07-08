@@ -31,6 +31,11 @@
  */
 #define BAR_HEIGHT_PATCH 1
 
+/* Only show the basename of the tabbed title; useful with zathura. Toggle with -b.
+ * https://tools.suckless.org/tabbed/patches/basenames/
+ */
+#define BASENAME_PATCH 1
+
 /* This patch moves the tabs / bar to the bottom of the tabbed window.
  * https://github.com/bakkeby/patches/blob/master/tabbed/tabbed-bottomtabs-0.6-20200512-dabf6a2.diff
  */
@@ -42,18 +47,12 @@
  */
 #define CENTER_PATCH 1
 
-/* With this patch, tabbed interprets large position numbers as the largest known position.
- * This allows Ctrl-9, for example, to always select the rightmost tab, even if there are only 4 tabs.
- * https://tools.suckless.org/tabbed/patches/move-clamped/
- */
-#define CLAMPEDMOVE_PATCH 1
-
 /* This patch prints the position number of the client before the window title.
  * https://tools.suckless.org/tabbed/patches/clientnumber/
  */
 #define CLIENTNUMBER_PATCH 1
 
-/* Support dragging tabs left and right with the mouse.
+/* Adds support for dragging tabs left and right using the mouse.
  * https://tools.suckless.org/tabbed/patches/drag/
  */
 #define DRAG_PATCH 1
@@ -105,4 +104,14 @@
 /* This patch allows tabbed colors to be defined via Xresources.
  * https://tools.suckless.org/tabbed/patches/xresources/
  */
-#define XRESOURCES_PATCH 1
+#define XRESOURCES_PATCH 0
+
+/* Expansion of the resources patch above, allows resources to be reloaded during
+ * runtime by using a USR1 kill signal.
+ *
+ * Example use:
+ *    pidof tabbed | xargs kill -s USR1
+ *
+ * https://tools.suckless.org/tabbed/patches/xresources-with-reload-signal/
+ */
+#define XRESOURCES_RELOAD_PATCH 0

@@ -1,6 +1,7 @@
 /* See LICENSE for license details. */
 
 #include <stdint.h>
+#include <time.h>
 #include <sys/types.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
@@ -15,9 +16,6 @@
 #define MAX(a, b)		((a) < (b) ? (b) : (a))
 #define LEN(a)			(sizeof(a) / sizeof(a)[0])
 #define BETWEEN(x, a, b)	((a) <= (x) && (x) <= (b))
-#if VIM_BROWSE_PATCH
-#define OUT(x, a, b)		((a) <= (x) || (x) <= (b))
-#endif // VIM_BROWSE_PATCH
 #define DIVCEIL(n, d)		(((n) + ((d) - 1)) / (d))
 #define DEFAULT(a, b)		(a) = (a) ? (a) : (b)
 #define LIMIT(x, a, b)		(x) = (x) < (a) ? (a) : (x) > (b) ? (b) : (x)
@@ -35,36 +33,43 @@
 
 #define TRUECOLOR(r,g,b)	(1 << 24 | (r) << 16 | (g) << 8 | (b))
 #define IS_TRUECOL(x)		(1 << 24 & (x))
-#if SCROLLBACK_PATCH
+#if SCROLLBACK_PATCH || REFLOW_PATCH
 #define HISTSIZE      2000
-#endif // SCROLLBACK_PATCH
+#endif // SCROLLBACK_PATCH | REFLOW_PATCH
 
 enum glyph_attribute {
-	ATTR_NULL       = 0,
-	ATTR_BOLD       = 1 << 0,
-	ATTR_FAINT      = 1 << 1,
-	ATTR_ITALIC     = 1 << 2,
-	ATTR_UNDERLINE  = 1 << 3,
-	ATTR_BLINK      = 1 << 4,
-	ATTR_REVERSE    = 1 << 5,
-	ATTR_INVISIBLE  = 1 << 6,
-	ATTR_STRUCK     = 1 << 7,
-	ATTR_WRAP       = 1 << 8,
-	ATTR_WIDE       = 1 << 9,
-	ATTR_WDUMMY     = 1 << 10,
+	ATTR_NULL           = 0,
+	ATTR_SET            = 1 << 0,
+	ATTR_BOLD           = 1 << 1,
+	ATTR_FAINT          = 1 << 2,
+	ATTR_ITALIC         = 1 << 3,
+	ATTR_UNDERLINE      = 1 << 4,
+	ATTR_BLINK          = 1 << 5,
+	ATTR_REVERSE        = 1 << 6,
+	ATTR_INVISIBLE      = 1 << 7,
+	ATTR_STRUCK         = 1 << 8,
+	ATTR_WRAP           = 1 << 9,
+	ATTR_WIDE           = 1 << 10,
+	ATTR_WDUMMY         = 1 << 11,
+	#if SELECTION_COLORS_PATCH
+	ATTR_SELECTED       = 1 << 12,
+	#endif // SELECTION_COLORS_PATCH | REFLOW_PATCH
 	#if BOXDRAW_PATCH
-	ATTR_BOXDRAW    = 1 << 11,
+	ATTR_BOXDRAW        = 1 << 13,
 	#endif // BOXDRAW_PATCH
+	#if UNDERCURL_PATCH
+	ATTR_DIRTYUNDERLINE = 1 << 14,
+	#endif // UNDERCURL_PATCH
 	#if LIGATURES_PATCH
-	ATTR_LIGA       = 1 << 12,
+	ATTR_LIGA           = 1 << 15,
 	#endif // LIGATURES_PATCH
 	#if SIXEL_PATCH
-	ATTR_SIXEL      = 1 << 13,
+	ATTR_SIXEL          = 1 << 16,
 	#endif // SIXEL_PATCH
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	ATTR_HIGHLIGHT      = 1 << 17,
+	#endif // KEYBOARDSELECT_PATCH
 	ATTR_BOLD_FAINT = ATTR_BOLD | ATTR_FAINT,
-	#if UNDERCURL_PATCH
-	ATTR_DIRTYUNDERLINE = 1 << 15,
-	#endif // UNDERCURL_PATCH
 };
 
 #if SIXEL_PATCH
@@ -72,11 +77,18 @@ typedef struct _ImageList {
 	struct _ImageList *next, *prev;
 	unsigned char *pixels;
 	void *pixmap;
+	void *clipmask;
 	int width;
 	int height;
 	int x;
 	int y;
-	int should_delete;
+	#if REFLOW_PATCH
+	int reflow_y;
+	#endif // REFLOW_PATCH
+	int cols;
+	int cw;
+	int ch;
+	int transparent;
 } ImageList;
 #endif // SIXEL_PATCH
 
@@ -125,7 +137,7 @@ typedef XftGlyphFontSpec GlyphFontSpec;
 #define Glyph Glyph_
 typedef struct {
 	Rune u;           /* character code */
-	ushort mode;      /* attribute flags */
+	uint32_t mode;    /* attribute flags */
 	uint32_t fg;      /* foreground  */
 	uint32_t bg;      /* background  */
 	#if UNDERCURL_PATCH
@@ -135,6 +147,15 @@ typedef struct {
 } Glyph;
 
 typedef Glyph *Line;
+
+#if LIGATURES_PATCH
+typedef struct {
+	int ox;
+	int charlen;
+	int numspecs;
+	Glyph base;
+} GlyphFontSeq;
+#endif // LIGATURES_PATCH
 
 typedef struct {
 	Glyph attr; /* current char attributes */
@@ -147,17 +168,23 @@ typedef struct {
 typedef struct {
 	int row;      /* nb row */
 	int col;      /* nb col */
-	#if COLUMNS_PATCH && !VIM_BROWSE_PATCH
+	#if COLUMNS_PATCH
 	int maxcol;
 	#endif // COLUMNS_PATCH
 	Line *line;   /* screen */
 	Line *alt;    /* alternate screen */
-	#if SCROLLBACK_PATCH
+	#if REFLOW_PATCH
+	Line hist[HISTSIZE]; /* history buffer */
+	int histi;           /* history index */
+	int histf;           /* nb history available */
+	int scr;             /* scroll back */
+	int wrapcwidth[2];   /* used in updating WRAPNEXT when resizing */
+	#elif SCROLLBACK_PATCH
 	Line hist[HISTSIZE]; /* history buffer */
 	int histi;    /* history index */
 	int histn;    /* number of history entries */
 	int scr;      /* scroll back */
-	#endif // SCROLLBACK_PATCH
+	#endif // SCROLLBACK_PATCH | REFLOW_PATCH
 	int *dirty;   /* dirtyness of lines */
 	TCursor c;    /* cursor */
 	int ocx;      /* old cursor col */
@@ -210,11 +237,14 @@ typedef struct {
 	Window win;
 	Drawable buf;
 	GlyphFontSpec *specbuf; /* font spec buffer used for rendering */
+	#if LIGATURES_PATCH
+	GlyphFontSeq *specseq;
+	#endif // LIGATURES_PATCH
 	Atom xembed, wmdeletewin, netwmname, netwmiconname, netwmpid;
 	#if FULLSCREEN_PATCH
 	Atom netwmstate, netwmfullscreen;
 	#endif // FULLSCREEN_PATCH
-	#if NETWMICON_PATCH
+	#if NETWMICON_PATCH || NETWMICON_LEGACY_PATCH || NETWMICON_FF_PATCH
 	Atom netwmicon;
 	#endif // NETWMICON_PATCH
 	struct {
@@ -321,9 +351,6 @@ int tattrset(int);
 int tisaltscr(void);
 void tnew(int, int);
 void tresize(int, int);
-#if VIM_BROWSE_PATCH
-void tmoveto(int x, int y);
-#endif // VIM_BROWSE_PATCH
 void tsetdirtattr(int);
 void ttyhangup(void);
 int ttynew(const char *, char *, const char *, char **);
@@ -335,6 +362,7 @@ void resettitle(void);
 
 void selclear(void);
 void selinit(void);
+void selremove(void);
 void selstart(int, int, int);
 void selextend(int, int, int, int);
 int selected(int, int);
@@ -364,6 +392,10 @@ extern char *scroll;
 extern char *stty_args;
 extern char *vtiden;
 extern wchar_t *worddelimiters;
+#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+extern wchar_t *kbds_sdelim;
+extern wchar_t *kbds_ldelim;
+#endif // KEYBOARDSELECT_PATCH
 extern int allowaltscreen;
 extern int allowwindowops;
 extern char *termname;

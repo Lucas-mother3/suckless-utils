@@ -20,10 +20,16 @@
 #if INVERT_PATCH
 #include "invert.h"
 #endif
-#if KEYBOARDSELECT_PATCH
+#if REFLOW_PATCH && KEYBOARDSELECT_PATCH
+#include "keyboardselect_reflow_st.h"
+#include "keyboardselect_reflow_x.h"
+#elif KEYBOARDSELECT_PATCH
 #include "keyboardselect_x.h"
 #endif
-#if NETWMICON_PATCH
+#if NETWMICON_LEGACY_PATCH
+#include "netwmicon_icon.h"
+#endif
+#if NETWMICON_PATCH || NETWMICON_FF_PATCH || NETWMICON_LEGACY_PATCH
 #include "netwmicon.h"
 #endif
 #if RIGHTCLICKTOPLUMB_PATCH
@@ -34,7 +40,4 @@
 #endif
 #if XRESOURCES_PATCH
 #include "xresources.h"
-#endif
-#if VIM_BROWSE_PATCH
-#include "normalMode.h"
 #endif

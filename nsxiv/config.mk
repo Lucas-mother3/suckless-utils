@@ -25,7 +25,6 @@ CFLAGS = -Wall -pedantic -O2 -DNDEBUG
 # icons that will be installed via `make icon`
 ICONS = 16x16.png 32x32.png 48x48.png 64x64.png 128x128.png
 
-CC = gcc
 # Uncomment on OpenBSD
 # HAVE_INOTIFY = 0
 # lib_fonts_bsd_0 =
@@ -34,3 +33,5 @@ CC = gcc
 # inc_fonts_bsd_1 = -I/usr/X11R6/include/freetype2
 # CPPFLAGS = -I/usr/X11R6/include -I/usr/local/include $(inc_fonts_bsd_$(HAVE_LIBFONTS))
 # LDLIBS = -L/usr/X11R6/lib -L/usr/local/lib $(lib_fonts_bsd_$(HAVE_LIBFONTS))
+
+CC = gcc

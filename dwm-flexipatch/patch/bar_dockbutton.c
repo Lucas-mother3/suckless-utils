@@ -15,8 +15,7 @@ click_dcbutton(Bar *bar, Arg *arg, BarArg *a)
 {
 	return ClkButton2;
 }
-int
-width_dcbutton2(Bar *bar, BarArg *a)
+int width_dcbutton2(Bar *bar, BarArg *a)
 {
 	return TEXTW(buttonbar3);
 }

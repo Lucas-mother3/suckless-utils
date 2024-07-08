@@ -1,4 +1,4 @@
-This dwm 6.4 (9f88553, 2023-09-22) side project has a different take on dwm patching. It uses preprocessor directives to decide whether or not to include a patch during build time. Essentially this means that this build, for better or worse, contains both the patched _and_ the original code. The aim being that you can select which patches to include and the build will contain that code and nothing more. Due to the complexity of some of the patches dwm-flexipatch has diverged from mainstream dwm by making some core patches non-optional for maintenance reasons. For the classic dwm-flexipatch build refer to branch [dwm-flexipatch-1.0](https://github.com/bakkeby/dwm-flexipatch/tree/dwm-flexipatch-1.0).
+This dwm 6.5 (5687f46, 2024-06-08) side project has a different take on dwm patching. It uses preprocessor directives to decide whether or not to include a patch during build time. Essentially this means that this build, for better or worse, contains both the patched _and_ the original code. The aim being that you can select which patches to include and the build will contain that code and nothing more. Due to the complexity of some of the patches dwm-flexipatch has diverged from mainstream dwm by making some core patches non-optional for maintenance reasons. For the classic dwm-flexipatch build refer to branch [dwm-flexipatch-1.0](https://github.com/bakkeby/dwm-flexipatch/tree/dwm-flexipatch-1.0).
 
 For example to include the `alpha` patch then you would only need to flip this setting from 0 to 1 in [patches.h](https://github.com/bakkeby/dwm-flexipatch/blob/master/patches.def.h):
 ```c
@@ -18,6 +18,14 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
 ---
 
 ### Changelog:
+
+2024-01-31 - Added the placedir patch
+
+2023-12-22 - Added the do-not-die-on-color-allocation-failure patch
+
+2023-12-01 - Added the sendmoncenter patch
+
+2023-11-12 - Added the focusmaster-return patch variant
 
 2023-06-27 - Added the focusfollowmouse and unmanaged patches
 
@@ -355,6 +363,10 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
       - i.e. if topbar is 0 then dmenu will appear at the bottom and if 1 then dmenu will appear at
         the top
 
+   - do-not-die-on-color-allocation-failure
+      - avoids dwm terminating (dying) on color allocation failures
+      - useful for the xrdb (xresources) and status2d patches
+
    - [dragcfact](https://github.com/bakkeby/patches/wiki/dragcfact/)
       - lets you resize clients' size (i.e. modify cfact) by holding modkey + shift + right-click
         and dragging the mouse
@@ -441,6 +453,10 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
 
    - [focusmaster](https://dwm.suckless.org/patches/focusmaster/)
       - a simple patch that just puts focus back to the master client
+
+   - [focusmaster-return](https://dwm.suckless.org/patches/focusmaster/)
+      - a simple patch that just puts focus back to the master client
+      - additionally allows focus to be switched back to the previous client
 
    - [focusonclick](https://dwm.suckless.org/patches/focusonclick/)
       - this patch makes you switch focus only by mouse click and not sloppy (focus follows mouse
@@ -587,6 +603,9 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
    - [pertag](https://dwm.suckless.org/patches/pertag/)
       - adds nmaster, mfact, layouts and more per tag rather than per monitor
 
+   - [placedir](https://github.com/bakkeby/patches/wiki/placedir)
+      - allows tiled windows to be moved in any direction (up, down, left, right)
+
    - [placemouse](https://github.com/bakkeby/patches/wiki/placemouse)
       - lets the user change the position of a client in the stack using the mouse.
 
@@ -643,6 +662,9 @@ Browsing patches? There is a [map of patches](https://coggle.it/diagram/X9IiSSM6
 
    - [selfrestart](https://dwm.suckless.org/patches/selfrestart/)
       - restart dwm without the unnecessary dependency of an external script
+
+   - [sendmoncenter](https://dwm.suckless.org/patches/sendmoncenter/)
+      - floating windows being sent to another monitor will be centered
 
    - [sendmon\_keepfocus](https://github.com/bakkeby/patches/wiki/sendmon_keepfocus/)
       - minor patch that allow clients to keep focus when being sent to another monitor

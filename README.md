@@ -1,4 +1,4 @@
-# Suckless Utilities version 6.4
+# Suckless Utilities version 6.5
 ## About 
 These are my builds of suckless software such as dwm and st, based on the work for flexipatch by bakkeby. This aims for much more streamlined configuration and patching than 6.3 (which becomes more complicated over time and whenever more patches are integrated). 
 
@@ -119,6 +119,7 @@ Linux/Unix users:
 - libexif(-devel or -dev) (for nsxiv)
 - jq (for handling eww notifications)
 - pamixer
+- xcb-util(-devel or -dev)
 
 Termux users:
 - xorg 

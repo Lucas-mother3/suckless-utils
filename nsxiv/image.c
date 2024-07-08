@@ -234,7 +234,8 @@ static bool img_load_multiframe(img_t *img, const fileinfo_t *file)
 		imlib_context_set_blend(!!(finfo.frame_flags & IMLIB_FRAME_BLEND));
 		imlib_blend_image_onto_image(frame, has_alpha, 0, 0, sw, sh, sx, sy, sw, sh);
 		m->frames[m->cnt].im = canvas;
-		m->frames[m->cnt].delay = finfo.frame_delay ? finfo.frame_delay : DEF_ANIM_DELAY;
+		m->frames[m->cnt].delay = m->framedelay ? m->framedelay :
+		                          (finfo.frame_delay ? finfo.frame_delay : DEF_ANIM_DELAY);
 		m->length += m->frames[m->cnt].delay;
 		m->cnt++;
 		img_free(frame, false);
@@ -676,8 +677,8 @@ void img_rotate(img_t *img, degree_t d)
 		ox = d == DEGREE_90  ? img->x : img->win->w - img->x - img->w * img->zoom;
 		oy = d == DEGREE_270 ? img->y : img->win->h - img->y - img->h * img->zoom;
 
-		img->x = oy + (img->win->w - img->win->h) / 2;
-		img->y = ox + (img->win->h - img->win->w) / 2;
+		img->x = oy + (int)(img->win->w - img->win->h) / 2;
+		img->y = ox + (int)(img->win->h - img->win->w) / 2;
 
 		tmp = img->w;
 		img->w = img->h;

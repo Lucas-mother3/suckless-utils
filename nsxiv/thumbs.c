@@ -43,7 +43,7 @@ static char *tns_cache_filepath(const char *filepath)
 	size_t len;
 	char *cfile = NULL;
 
-	assert(*filepath == '/' && "filepath should be result of realpath(3)");
+	assert(*filepath == '/' && "filepath must be result of realpath(3)");
 
 	if (strncmp(filepath, cache_dir, strlen(cache_dir)) != 0) {
 		/* don't cache images inside the cache directory! */
@@ -181,7 +181,7 @@ void tns_init(tns_t *tns, fileinfo_t *tns_files, const int *cnt, int *sel, win_t
 		memcpy(cache_tmpfile, cache_dir, len - 1);
 		cache_tmpfile_base = cache_tmpfile + len - 1;
 	} else {
-		error(0, 0, "Cache directory not found");
+		error(EXIT_FAILURE, 0, "Cache directory not found");
 	}
 }
 
@@ -198,6 +198,8 @@ CLEANUP void tns_free(tns_t *tns)
 
 	free(cache_dir);
 	cache_dir = NULL;
+	free(cache_tmpfile);
+	cache_tmpfile = cache_tmpfile_base = NULL;
 }
 
 static Imlib_Image tns_scale_down(Imlib_Image im, int dim)

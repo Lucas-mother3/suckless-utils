@@ -149,3 +149,4 @@ togglescratch(const Arg *arg)
 		spawnscratch(arg);
 	}
 }
+

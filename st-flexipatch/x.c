@@ -27,6 +27,11 @@ char *argv0;
 #include <X11/Xcursor/Xcursor.h>
 #endif // THEMED_CURSOR_PATCH
 
+#if SIXEL_PATCH
+#include <Imlib2.h>
+#include "sixel.h"
+#endif // SIXEL_PATCH
+
 #if UNDERCURL_PATCH
 /* Undercurl slope types */
 enum undercurl_slope_type {
@@ -36,6 +41,13 @@ enum undercurl_slope_type {
 	UNDERCURL_SLOPE_BOTTOM_CAP = 3
 };
 #endif // UNDERCURL_PATCH
+
+#if ANYGEOMETRY_PATCH
+typedef enum {
+	PixelGeometry,
+	CellGeometry
+} Geometry;
+#endif // ANYGEOMETRY_PATCH
 
 /* X modifiers */
 #define XK_ANY_MOD    UINT_MAX
@@ -75,15 +87,17 @@ static void zoomreset(const Arg *);
 
 static inline ushort sixd_to_16bit(int);
 static int xmakeglyphfontspecs(XftGlyphFontSpec *, const Glyph *, int, int, int);
-#if WIDE_GLYPHS_PATCH
+#if LIGATURES_PATCH && WIDE_GLYPHS_PATCH
+static void xdrawglyphfontspecs(const XftGlyphFontSpec *, Glyph, int, int, int, int, int);
+#elif LIGATURES_PATCH || WIDE_GLYPHS_PATCH
 static void xdrawglyphfontspecs(const XftGlyphFontSpec *, Glyph, int, int, int, int);
 #else
 static void xdrawglyphfontspecs(const XftGlyphFontSpec *, Glyph, int, int, int);
-#endif // WIDE_GLYPHS_PATCH
+#endif // WIDE_GLYPHS_PATCH | LIGATURES_PATCH
 #if LIGATURES_PATCH
-static void xresetfontsettings(ushort mode, Font **font, int *frcflags);
+static inline void xresetfontsettings(uint32_t mode, Font **font, int *frcflags);
 #endif // LIGATURES_PATCH
-static void xdrawglyph(Glyph, int, int);
+void xdrawglyph(Glyph, int, int);
 static void xclear(int, int, int, int);
 static int xgeommasktogravity(int);
 static int ximopen(Display *);
@@ -252,6 +266,11 @@ clippaste(const Arg *dummy)
 {
 	Atom clipboard;
 
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	if (IS_SET(MODE_KBDSELECT) && !kbds_issearchmode())
+		return;
+	#endif // KEYBOARDSELECT_PATCH
+
 	clipboard = XInternAtom(xw.dpy, "CLIPBOARD", 0);
 	XConvertSelection(xw.dpy, clipboard, xsel.xtarget, clipboard,
 			xw.win, CurrentTime);
@@ -266,6 +285,11 @@ numlock(const Arg *dummy)
 void
 selpaste(const Arg *dummy)
 {
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	if (IS_SET(MODE_KBDSELECT) && !kbds_issearchmode())
+		return;
+	#endif // KEYBOARDSELECT_PATCH
+
 	XConvertSelection(xw.dpy, XA_PRIMARY, xsel.xtarget, XA_PRIMARY,
 			xw.win, CurrentTime);
 }
@@ -282,17 +306,42 @@ zoom(const Arg *arg)
 	Arg larg;
 
 	larg.f = usedfontsize + arg->f;
+	#if SIXEL_PATCH
+	if (larg.f >= 1.0)
+		zoomabs(&larg);
+	#else
 	zoomabs(&larg);
+	#endif // SIXEL_PATCH
 }
 
 void
 zoomabs(const Arg *arg)
 {
+	#if SIXEL_PATCH
+	int i;
+	ImageList *im;
+	#endif // SIXEL_PATCH
+
 	xunloadfonts();
 	xloadfonts(usedfont, arg->f);
 	#if FONT2_PATCH
 	xloadsparefonts();
 	#endif // FONT2_PATCH
+
+	#if SIXEL_PATCH
+	/* delete old pixmaps so that xfinishdraw() can create new scaled ones */
+	for (im = term.images, i = 0; i < 2; i++, im = term.images_alt) {
+		for (; im; im = im->next) {
+			if (im->pixmap)
+				XFreePixmap(xw.dpy, (Drawable)im->pixmap);
+			if (im->clipmask)
+				XFreePixmap(xw.dpy, (Drawable)im->clipmask);
+			im->pixmap = NULL;
+			im->clipmask = NULL;
+		}
+	}
+	#endif // SIXEL_PATCH
+
 	cresize(0, 0);
 	redraw();
 	xhints();
@@ -372,6 +421,11 @@ mousesel(XEvent *e, int done)
 {
 	int type, seltype = SEL_REGULAR;
 	uint state = e->xbutton.state & ~(Button1Mask | forcemousemod);
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	if (kbds_isselectmode())
+		return;
+	#endif // KEYBOARDSELECT_PATCH
 
 	for (type = 1; type < LEN(selmasks); ++type) {
 		if (match(selmasks[type], state)) {
@@ -462,9 +516,7 @@ bpress(XEvent *e)
 {
 	int btn = e->xbutton.button;
 	struct timespec now;
-	#if !VIM_BROWSE_PATCH
 	int snap;
-	#endif // VIM_BROWSE_PATCH
 
 	if (1 <= btn && btn <= 11)
 		buttons |= 1 << (btn-1);
@@ -483,34 +535,6 @@ bpress(XEvent *e)
 		 * snapping behaviour is exposed.
 		 */
 		clock_gettime(CLOCK_MONOTONIC, &now);
-		#if VIM_BROWSE_PATCH
-		int const tripleClick = TIMEDIFF(now, xsel.tclick2) <= tripleclicktimeout,
-		doubleClick = TIMEDIFF(now, xsel.tclick1) <= doubleclicktimeout;
-		if ((mouseYank || mouseSelect) && (tripleClick || doubleClick)) {
-			if (!IS_SET(MODE_NORMAL)) normalMode();
-			historyOpToggle(1, 1);
-			tmoveto(evcol(e), evrow(e));
-			if (tripleClick) {
-				if (mouseYank) pressKeys("dVy", 3);
-				if (mouseSelect) pressKeys("dV", 2);
-			} else if (doubleClick) {
-				if (mouseYank) pressKeys("dyiW", 4);
-				if (mouseSelect) {
-					tmoveto(evcol(e), evrow(e));
-					pressKeys("viW", 3);
-				}
-			}
-			historyOpToggle(-1, 1);
-		} else {
-			if (!IS_SET(MODE_NORMAL)) selstart(evcol(e), evrow(e), 0);
-			else {
-				historyOpToggle(1, 1);
-				tmoveto(evcol(e), evrow(e));
-				pressKeys("v", 1);
-				historyOpToggle(-1, 1);
-			}
-		}
-		#else
 		if (TIMEDIFF(now, xsel.tclick2) <= tripleclicktimeout) {
 			snap = SNAP_LINE;
 		} else if (TIMEDIFF(now, xsel.tclick1) <= doubleclicktimeout) {
@@ -518,13 +542,15 @@ bpress(XEvent *e)
 		} else {
 			snap = 0;
 		}
-		#endif // VIM_BROWSE_PATCH
 		xsel.tclick2 = xsel.tclick1;
 		xsel.tclick1 = now;
 
-		#if !VIM_BROWSE_PATCH
+		#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+		if (kbds_isselectmode())
+			return;
+		#endif // KEYBOARDSELECT_PATCH
+
 		selstart(evcol(e), evrow(e), snap);
-		#endif // VIM_BROWSE_PATCH
 
 		#if OPENURLONCLICK_PATCH
 		clearurl();
@@ -562,6 +588,9 @@ selnotify(XEvent *e)
 	int format;
 	uchar *data, *last, *repl;
 	Atom type, incratom, property = None;
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	int append = 0;
+	#endif // KEYBOARDSELECT_PATCH
 
 	incratom = XInternAtom(xw.dpy, "INCR", 0);
 
@@ -623,6 +652,30 @@ selnotify(XEvent *e)
 			continue;
 		}
 
+		#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+		if (IS_SET(MODE_KBDSELECT) && kbds_issearchmode()) {
+			kbds_pasteintosearch(data, nitems * format / 8, append++);
+		} else {
+			/*
+			 * As seen in getsel:
+			 * Line endings are inconsistent in the terminal and GUI world
+			 * copy and pasting. When receiving some selection data,
+			 * replace all '\n' with '\r'.
+			 * FIXME: Fix the computer world.
+			 */
+			repl = data;
+			last = data + nitems * format / 8;
+			while ((repl = memchr(repl, '\n', last - repl))) {
+				*repl++ = '\r';
+			}
+
+			if (IS_SET(MODE_BRCKTPASTE) && ofs == 0)
+				ttywrite("\033[200~", 6, 0);
+			ttywrite((char *)data, nitems * format / 8, 1);
+			if (IS_SET(MODE_BRCKTPASTE) && rem == 0)
+				ttywrite("\033[201~", 6, 0);
+		}
+		#else
 		/*
 		 * As seen in getsel:
 		 * Line endings are inconsistent in the terminal and GUI world
@@ -641,6 +694,7 @@ selnotify(XEvent *e)
 		ttywrite((char *)data, nitems * format / 8, 1);
 		if (IS_SET(MODE_BRCKTPASTE) && rem == 0)
 			ttywrite("\033[201~", 6, 0);
+		#endif // KEYBOARDSELECT_PATCH
 		XFree(data);
 		/* number of 32-bit chunks returned */
 		ofs += nitems * format / 32;
@@ -776,15 +830,7 @@ brelease(XEvent *e)
 
 	if (mouseaction(e, 1))
 		return;
-	#if VIM_BROWSE_PATCH
-	if (btn == Button1 && !IS_SET(MODE_NORMAL)) {
-		mousesel(e, 1);
-		#if OPENURLONCLICK_PATCH
-		if (url_click && e->xkey.state & url_opener_modkey)
-			openUrlOnClick(evcol(e), evrow(e), url_opener);
-		#endif // OPENURLONCLICK_PATCH
-	}
-	#else
+
 	if (btn == Button1) {
 		mousesel(e, 1);
 		#if OPENURLONCLICK_PATCH
@@ -792,7 +838,7 @@ brelease(XEvent *e)
 			openUrlOnClick(evcol(e), evrow(e), url_opener);
 		#endif // OPENURLONCLICK_PATCH
 	}
-	#endif // VIM_BROWSE_PATCH
+
 	#if RIGHTCLICKTOPLUMB_PATCH
 	else if (btn == Button3)
 		plumb(xsel.primary);
@@ -818,9 +864,6 @@ bmotion(XEvent *e)
 	}
 	#endif // HIDECURSOR_PATCH
 	#if OPENURLONCLICK_PATCH
-	#if VIM_BROWSE_PATCH
-	if (!IS_SET(MODE_NORMAL))
-	#endif // VIM_BROWSE_PATCH
 	if (!IS_SET(MODE_MOUSE)) {
 		if (!(e->xbutton.state & Button1Mask) && detecturl(evcol(e), evrow(e), 1))
 			XDefineCursor(xw.dpy, xw.win, xw.upointer);
@@ -850,7 +893,7 @@ cresize(int width, int height)
 
 	col = (win.w - 2 * borderpx) / win.cw;
 	row = (win.h - 2 * borderpx) / win.ch;
-	col = MAX(1, col);
+	col = MAX(2, col);
 	row = MAX(1, row);
 
 	#if ANYSIZE_PATCH
@@ -872,18 +915,23 @@ xresize(int col, int row)
 	#if !SINGLE_DRAWABLE_BUFFER_PATCH
 	XFreePixmap(xw.dpy, xw.buf);
 	xw.buf = XCreatePixmap(xw.dpy, xw.win, win.w, win.h,
-			#if ALPHA_PATCH
-			xw.depth
-			#else
-			DefaultDepth(xw.dpy, xw.scr)
-			#endif // ALPHA_PATCH
+		#if ALPHA_PATCH
+		xw.depth
+		#else
+		DefaultDepth(xw.dpy, xw.scr)
+		#endif // ALPHA_PATCH
 	);
 	XftDrawChange(xw.draw, xw.buf);
 	#endif // SINGLE_DRAWABLE_BUFFER_PATCH
 	xclear(0, 0, win.w, win.h);
 
 	/* resize to new width */
+	#if LIGATURES_PATCH
+	xw.specbuf = xrealloc(xw.specbuf, col * sizeof(GlyphFontSpec) * 4);
+	xw.specseq = xrealloc(xw.specseq, col * sizeof(GlyphFontSeq));
+	#else
 	xw.specbuf = xrealloc(xw.specbuf, col * sizeof(GlyphFontSpec));
+	#endif // LIGATURES_PATCH
 }
 
 ushort
@@ -915,17 +963,6 @@ xloadcolor(int i, const char *name, Color *ncolor)
 
 	return XftColorAllocName(xw.dpy, xw.vis, xw.cmap, name, ncolor);
 }
-
-#if VIM_BROWSE_PATCH
-void normalMode()
-{
-	#if OPENURLONCLICK_PATCH
-	clearurl();
-	restoremousecursor();
-	#endif // OPENURLONCLICK_PATCH
-	historyModeToggle((win.mode ^=MODE_NORMAL) & MODE_NORMAL);
-}
-#endif // VIM_BROWSE_PATCH
 
 #if ALPHA_PATCH && ALPHA_FOCUS_HIGHLIGHT_PATCH
 void
@@ -994,6 +1031,9 @@ xloadcols(void)
 	dc.col[defaultbg].color.alpha = (unsigned short)(0xffff * alpha);
 	dc.col[defaultbg].pixel &= 0x00FFFFFF;
 	dc.col[defaultbg].pixel |= (unsigned char)(0xff * alpha) << 24;
+	dc.col[defaultbg].color.red   *= alpha;
+	dc.col[defaultbg].color.green *= alpha;
+	dc.col[defaultbg].color.blue  *= alpha;
 	#endif // ALPHA_PATCH
 	loaded = 1;
 }
@@ -1002,7 +1042,7 @@ xloadcols(void)
 int
 xgetcolor(int x, unsigned char *r, unsigned char *g, unsigned char *b)
 {
-	if (!BETWEEN(x, 0, dc.collen))
+	if (!BETWEEN(x, 0, dc.collen - 1))
 		return 1;
 
 	*r = dc.col[x].color.red >> 8;
@@ -1017,7 +1057,7 @@ xsetcolorname(int x, const char *name)
 {
 	Color ncolor;
 
-	if (!BETWEEN(x, 0, dc.collen))
+	if (!BETWEEN(x, 0, dc.collen - 1))
 		return 1;
 
 	if (!xloadcolor(x, name, &ncolor))
@@ -1034,6 +1074,9 @@ xsetcolorname(int x, const char *name)
 		dc.col[defaultbg].color.alpha = (unsigned short)(0xffff * alpha);
 		dc.col[defaultbg].pixel &= 0x00FFFFFF;
 		dc.col[defaultbg].pixel |= (unsigned char)(0xff * alpha) << 24;
+		dc.col[defaultbg].color.red   *= alpha;
+		dc.col[defaultbg].color.green *= alpha;
+		dc.col[defaultbg].color.blue  *= alpha;
 	}
 	#endif // ALPHA_PATCH
 	return 0;
@@ -1435,13 +1478,31 @@ xinit(int cols, int rows)
 	xloadcols();
 
 	/* adjust fixed window geometry */
-	#if ANYSIZE_PATCH
+	#if ANYGEOMETRY_PATCH
+	switch (geometry) {
+	case CellGeometry:
+		#if ANYSIZE_PATCH
+		win.w = 2 * win.hborderpx + cols * win.cw;
+		win.h = 2 * win.vborderpx + rows * win.ch;
+		#else
+		win.w = 2 * borderpx + cols * win.cw;
+		win.h = 2 * borderpx + rows * win.ch;
+		#endif // ANYGEOMETRY_PATCH | ANYSIZE_PATCH
+		break;
+	case PixelGeometry:
+		win.w = cols;
+		win.h = rows;
+		cols = (win.w - 2 * borderpx) / win.cw;
+		rows = (win.h - 2 * borderpx) / win.ch;
+		break;
+	}
+	#elif ANYSIZE_PATCH
 	win.w = 2 * win.hborderpx + cols * win.cw;
 	win.h = 2 * win.vborderpx + rows * win.ch;
 	#else
 	win.w = 2 * borderpx + cols * win.cw;
 	win.h = 2 * borderpx + rows * win.ch;
-	#endif // ANYSIZE_PATCH
+	#endif // ANYGEOMETRY_PATCH | ANYSIZE_PATCH
 	if (xw.gm & XNegative)
 		xw.l += DisplayWidth(xw.dpy, xw.scr) - win.w - 2;
 	if (xw.gm & YNegative)
@@ -1500,7 +1561,12 @@ xinit(int cols, int rows)
 	XFillRectangle(xw.dpy, xw.buf, dc.gc, 0, 0, win.w, win.h);
 
 	/* font spec buffer */
+	#if LIGATURES_PATCH
+	xw.specbuf = xmalloc(cols * sizeof(GlyphFontSpec) * 4);
+	xw.specseq = xmalloc(cols * sizeof(GlyphFontSeq));
+	#else
 	xw.specbuf = xmalloc(cols * sizeof(GlyphFontSpec));
+	#endif // LIGATURES_PATCH
 
 	/* Xft rendering context */
 	xw.draw = XftDrawCreate(xw.dpy, xw.buf, xw.vis, xw.cmap);
@@ -1567,11 +1633,9 @@ xinit(int cols, int rows)
 	xw.netwmiconname = XInternAtom(xw.dpy, "_NET_WM_ICON_NAME", False);
 	XSetWMProtocols(xw.dpy, xw.win, &xw.wmdeletewin, 1);
 
-	#if NETWMICON_PATCH
-	xw.netwmicon = XInternAtom(xw.dpy, "_NET_WM_ICON", False);
-	XChangeProperty(xw.dpy, xw.win, xw.netwmicon, XA_CARDINAL, 32,
-			PropModeReplace, (uchar *)&icon, LEN(icon));
-	#endif //NETWMICON_PATCH
+	#if NETWMICON_PATCH || NETWMICON_FF_PATCH || NETWMICON_LEGACY_PATCH
+	setnetwmicon();
+	#endif // NETWMICON_PATCH
 
 	#if NO_WINDOW_DECORATIONS_PATCH
 	Atom motifwmhints = XInternAtom(xw.dpy, "_MOTIF_WM_HINTS", False);
@@ -1610,7 +1674,7 @@ xinit(int cols, int rows)
 
 #if LIGATURES_PATCH
 void
-xresetfontsettings(ushort mode, Font **font, int *frcflags)
+xresetfontsettings(uint32_t mode, Font **font, int *frcflags)
 {
 	*font = &dc.font;
 	if ((mode & ATTR_ITALIC) && (mode & ATTR_BOLD)) {
@@ -1637,7 +1701,7 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 	ushort mode, prevmode = USHRT_MAX;
 	Font *font = &dc.font;
 	int frcflags = FRC_NORMAL;
-	float runewidth = win.cw;
+	float runewidth = win.cw * ((glyphs[0].mode & ATTR_WIDE) ? 2.0f : 1.0f);
 	Rune rune;
 	FT_UInt glyphidx;
 	FcResult fcres;
@@ -1646,160 +1710,136 @@ xmakeglyphfontspecs(XftGlyphFontSpec *specs, const Glyph *glyphs, int len, int x
 	FcCharSet *fccharset;
 	int i, f, numspecs = 0;
 	#if LIGATURES_PATCH
-	int length = 0, start = 0;
-	HbTransformData shaped = { 0 };
+	float cluster_xp, cluster_yp;
+	HbTransformData shaped;
 
 	/* Initial values. */
-	mode = prevmode = glyphs[0].mode;
-	xresetfontsettings(mode, &font, &frcflags);
+	xresetfontsettings(glyphs[0].mode, &font, &frcflags);
+	#if VERTCENTER_PATCH
+	xp = winx, yp = winy + font->ascent + win.cyo;
+	#else
+	xp = winx, yp = winy + font->ascent;
+	#endif // VERTCENTER_PATCH
+	cluster_xp = xp; cluster_yp = yp;
+	/* Shape the segment. */
+	hbtransform(&shaped, font->match, glyphs, 0, len);
 	#endif // LIGATURES_PATCH
 
-	#if VERTCENTER_PATCH
+	#if LIGATURES_PATCH
+	for (int code_idx = 0; code_idx < shaped.count; code_idx++)
+	#elif VERTCENTER_PATCH
 	for (i = 0, xp = winx, yp = winy + font->ascent + win.cyo; i < len; ++i)
 	#else
 	for (i = 0, xp = winx, yp = winy + font->ascent; i < len; ++i)
-	#endif // VERTCENTER_PATCH
+	#endif // LIGATURES_PATCH | VERTCENTER_PATCH
 	{
 		/* Fetch rune and mode for current glyph. */
-		#if VIM_BROWSE_PATCH
-		Glyph g = glyphs[i];
-		historyOverlay(x+i, y, &g);
-		rune = g.u;
-		mode = g.mode;
-		#elif LIGATURES_PATCH
-		mode = glyphs[i].mode;
+		#if LIGATURES_PATCH
+		int idx = shaped.glyphs[code_idx].cluster;
 		#else
 		rune = glyphs[i].u;
 		mode = glyphs[i].mode;
-		#endif // VIM_BROWSE_PATCH | LIGATURES_PATCH
+		#endif // LIGATURES_PATCH
 
 		/* Skip dummy wide-character spacing. */
 		#if LIGATURES_PATCH
-		if (mode & ATTR_WDUMMY)
+		if (glyphs[idx].mode & ATTR_WDUMMY)
 			continue;
 
-		if (
-			prevmode != mode
-			|| ATTRCMP(glyphs[start], glyphs[i])
-			|| selected(x + i, y) != selected(x + start, y)
-			|| i == (len - 1)
-		) {
-			/* Handle 1-character wide segments and end of line */
-			length = i - start;
-			if (i == start) {
-				length = 1;
-			} else if (i == (len - 1)) {
-				length = (i - start + 1);
-			}
+		/* Advance the drawing cursor if we've moved to a new cluster */
+		if (code_idx > 0 && idx != shaped.glyphs[code_idx - 1].cluster) {
+			xp += runewidth;
+			cluster_xp = xp;
+			cluster_yp = yp;
+		}
 
-			/* Shape the segment. */
-			hbtransform(&shaped, font->match, glyphs, start, length);
-			for (int code_idx = 0; code_idx < shaped.count; code_idx++) {
-				rune = glyphs[start + code_idx].u;
-				runewidth = win.cw * ((glyphs[start + code_idx].mode & ATTR_WIDE) ? 2.0f : 1.0f);
-
-				if (glyphs[start + code_idx].mode & ATTR_WDUMMY)
-					continue;
-
-				#if BOXDRAW_PATCH
-				if (glyphs[start + code_idx].mode & ATTR_BOXDRAW) {
-					/* minor shoehorning: boxdraw uses only this ushort */
-					specs[numspecs].font = font->match;
-					specs[numspecs].glyph = boxdrawindex(&glyphs[start + code_idx]);
-					specs[numspecs].x = xp;
-					specs[numspecs].y = yp;
-					xp += runewidth;
-					numspecs++;
-				} else
-				#endif // BOXDRAW_PATCH
-				if (shaped.glyphs[code_idx].codepoint != 0) {
-					/* If symbol is found, put it into the specs. */
-					specs[numspecs].font = font->match;
-					specs[numspecs].glyph = shaped.glyphs[code_idx].codepoint;
-					specs[numspecs].x = xp + (short)shaped.positions[code_idx].x_offset;
-					specs[numspecs].y = yp + (short)shaped.positions[code_idx].y_offset;
-					xp += runewidth;
-					numspecs++;
-				} else {
-					/* If it's not found, try to fetch it through the font cache. */
-					for (f = 0; f < frclen; f++) {
-						glyphidx = XftCharIndex(xw.dpy, frc[f].font, rune);
-						/* Everything correct. */
-						if (glyphidx && frc[f].flags == frcflags)
-							break;
-						/* We got a default font for a not found glyph. */
-						if (!glyphidx && frc[f].flags == frcflags
-								&& frc[f].unicodep == rune) {
-							break;
-						}
-					}
-
-					/* Nothing was found. Use fontconfig to find matching font. */
-					if (f >= frclen) {
-						if (!font->set)
-							font->set = FcFontSort(0, font->pattern, 1, 0, &fcres);
-						fcsets[0] = font->set;
-
-						/*
-						 * Nothing was found in the cache. Now use
-						 * some dozen of Fontconfig calls to get the
-						 * font for one single character.
-						 *
-						 * Xft and fontconfig are design failures.
-						 */
-						fcpattern = FcPatternDuplicate(font->pattern);
-						fccharset = FcCharSetCreate();
-
-						FcCharSetAddChar(fccharset, rune);
-						FcPatternAddCharSet(fcpattern, FC_CHARSET, fccharset);
-						FcPatternAddBool(fcpattern, FC_SCALABLE, 1);
-
-						FcConfigSubstitute(0, fcpattern, FcMatchPattern);
-						FcDefaultSubstitute(fcpattern);
-
-						fontpattern = FcFontSetMatch(0, fcsets, 1, fcpattern, &fcres);
-
-						/* Allocate memory for the new cache entry. */
-						if (frclen >= frccap) {
-							frccap += 16;
-							frc = xrealloc(frc, frccap * sizeof(Fontcache));
-						}
-
-						frc[frclen].font = XftFontOpenPattern(xw.dpy, fontpattern);
-						if (!frc[frclen].font)
-							die("XftFontOpenPattern failed seeking fallback font: %s\n",
-								strerror(errno));
-						frc[frclen].flags = frcflags;
-						frc[frclen].unicodep = rune;
-
-						glyphidx = XftCharIndex(xw.dpy, frc[frclen].font, rune);
-
-						f = frclen;
-						frclen++;
-
-						FcPatternDestroy(fcpattern);
-						FcCharSetDestroy(fccharset);
-					}
-
-					specs[numspecs].font = frc[f].font;
-					specs[numspecs].glyph = glyphidx;
-					specs[numspecs].x = (short)xp;
-					specs[numspecs].y = (short)yp;
-					xp += runewidth;
-					numspecs++;
+		#if BOXDRAW_PATCH
+		if (glyphs[idx].mode & ATTR_BOXDRAW) {
+			/* minor shoehorning: boxdraw uses only this ushort */
+			specs[numspecs].font = font->match;
+			specs[numspecs].glyph = boxdrawindex(&glyphs[idx]);
+			specs[numspecs].x = xp;
+			specs[numspecs].y = yp;
+			numspecs++;
+		} else if (shaped.glyphs[code_idx].codepoint != 0) {
+		#else
+		if (shaped.glyphs[code_idx].codepoint != 0) {
+		#endif // BOXDRAW_PATCH
+			/* If symbol is found, put it into the specs. */
+			specs[numspecs].font = font->match;
+			specs[numspecs].glyph = shaped.glyphs[code_idx].codepoint;
+			specs[numspecs].x = cluster_xp + (short)(shaped.positions[code_idx].x_offset / 64.);
+			specs[numspecs].y = cluster_yp - (short)(shaped.positions[code_idx].y_offset / 64.);
+			cluster_xp += shaped.positions[code_idx].x_advance / 64.;
+			cluster_yp += shaped.positions[code_idx].y_advance / 64.;
+			numspecs++;
+		} else {
+			/* If it's not found, try to fetch it through the font cache. */
+			rune = glyphs[idx].u;
+			for (f = 0; f < frclen; f++) {
+				glyphidx = XftCharIndex(xw.dpy, frc[f].font, rune);
+				/* Everything correct. */
+				if (glyphidx && frc[f].flags == frcflags)
+					break;
+				/* We got a default font for a not found glyph. */
+				if (!glyphidx && frc[f].flags == frcflags
+						&& frc[f].unicodep == rune) {
+					break;
 				}
 			}
 
-			/* Cleanup and get ready for next segment. */
-			hbcleanup(&shaped);
-			start = i;
+			/* Nothing was found. Use fontconfig to find matching font. */
+			if (f >= frclen) {
+				if (!font->set)
+					font->set = FcFontSort(0, font->pattern, 1, 0, &fcres);
+				fcsets[0] = font->set;
 
-			/* Determine font for glyph if different from previous glyph. */
-			if (prevmode != mode) {
-				prevmode = mode;
-				xresetfontsettings(mode, &font, &frcflags);
-				yp = winy + font->ascent;
+				/*
+				 * Nothing was found in the cache. Now use
+				 * some dozen of Fontconfig calls to get the
+				 * font for one single character.
+				 *
+				 * Xft and fontconfig are design failures.
+				 */
+				fcpattern = FcPatternDuplicate(font->pattern);
+				fccharset = FcCharSetCreate();
+
+				FcCharSetAddChar(fccharset, rune);
+				FcPatternAddCharSet(fcpattern, FC_CHARSET, fccharset);
+				FcPatternAddBool(fcpattern, FC_SCALABLE, 1);
+
+				FcConfigSubstitute(0, fcpattern, FcMatchPattern);
+				FcDefaultSubstitute(fcpattern);
+
+				fontpattern = FcFontSetMatch(0, fcsets, 1, fcpattern, &fcres);
+
+				/* Allocate memory for the new cache entry. */
+				if (frclen >= frccap) {
+					frccap += 16;
+					frc = xrealloc(frc, frccap * sizeof(Fontcache));
+				}
+
+				frc[frclen].font = XftFontOpenPattern(xw.dpy, fontpattern);
+				if (!frc[frclen].font)
+					die("XftFontOpenPattern failed seeking fallback font: %s\n",
+						strerror(errno));
+				frc[frclen].flags = frcflags;
+				frc[frclen].unicodep = rune;
+
+				glyphidx = XftCharIndex(xw.dpy, frc[frclen].font, rune);
+
+				f = frclen;
+				frclen++;
+
+				FcPatternDestroy(fcpattern);
+				FcCharSetDestroy(fccharset);
 			}
+
+			specs[numspecs].font = frc[f].font;
+			specs[numspecs].glyph = glyphidx;
+			specs[numspecs].x = (short)xp;
+			specs[numspecs].y = (short)yp;
+			numspecs++;
 		}
 		#else // !LIGATURES_PATCH
 		if (mode == ATTR_WDUMMY)
@@ -1972,19 +2012,25 @@ static int getSlope (int x, int iPoint, int waveWidth)
 #endif // UNDERCURL_PATCH
 
 void
-#if WIDE_GLYPHS_PATCH
-xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, int y, int dmode)
-#else
-xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, int y)
-#endif // WIDE_GLYPHS_PATCH
-{
+xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, int y
+	#if WIDE_GLYPHS_PATCH
+	,int dmode
+	#endif // WIDE_GLYPHS_PATCH
+	#if LIGATURES_PATCH
+	, int charlen
+	#endif // LIGATURES_PATCH
+) {
+	#if LIGATURES_PATCH
+	int width = charlen * win.cw;
+	#else
 	int charlen = len * ((base.mode & ATTR_WIDE) ? 2 : 1);
+	int width = charlen * win.cw;
+	#endif // WIDE_GLYPHS_PATCH
 	#if ANYSIZE_PATCH
 	int winx = win.hborderpx + x * win.cw, winy = win.vborderpx + y * win.ch;
 	#else
 	int winx = borderpx + x * win.cw, winy = borderpx + y * win.ch;
 	#endif // ANYSIZE_PATCH
-	int width = charlen * win.cw;
 	Color *fg, *bg, *temp, revfg, revbg, truefg, truebg;
 	XRenderColor colfg, colbg;
 	XRectangle r;
@@ -2078,6 +2124,14 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 		#endif // SPOILER_PATCH
 	}
 
+	#if SELECTION_COLORS_PATCH
+	if (base.mode & ATTR_SELECTED) {
+		bg = &dc.col[selectionbg];
+		if (!ignoreselfg)
+			fg = &dc.col[selectionfg];
+	}
+	#endif // SELECTION_COLORS_PATCH
+
 	if (base.mode & ATTR_BLINK && win.mode & MODE_BLINK)
 		fg = bg;
 
@@ -2092,6 +2146,13 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 		bg = &revbg;
 	}
 	#endif // INVERT_PATCH
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	if (base.mode & ATTR_HIGHLIGHT) {
+		fg = &dc.col[(base.mode & ATTR_REVERSE) ? highlightbg : highlightfg];
+		bg = &dc.col[(base.mode & ATTR_REVERSE) ? highlightfg : highlightbg];
+	}
+	#endif // KEYBOARDSELECT_PATCH
 
 	#if ALPHA_PATCH && ALPHA_GRADIENT_PATCH
 	// gradient
@@ -2153,8 +2214,8 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 	XftDrawSetClipRectangles(xw.draw, winx, winy, &r, 1);
 
 	#if WIDE_GLYPHS_PATCH
-		/* Fill the background */
-		XftDrawRect(xw.draw, bg, winx, winy, width, win.ch);
+	/* Fill the background */
+	XftDrawRect(xw.draw, bg, winx, winy, width, win.ch);
 	}
 	#endif // WIDE_GLYPHS_PATCH
 
@@ -2552,6 +2613,7 @@ xdrawglyphfontspecs(const XftGlyphFontSpec *specs, Glyph base, int len, int x, i
 	#endif // WIDE_GLYPHS_PATCH
 
 	#if OPENURLONCLICK_PATCH
+	/* underline url (openurlonclick patch) */
 	if (url_draw && y >= url_y1 && y <= url_y2) {
 		int x1 = (y == url_y1) ? url_x1 : 0;
 		int x2 = (y == url_y2) ? MIN(url_x2, term.col-1) : url_maxcol;
@@ -2581,14 +2643,17 @@ void
 xdrawglyph(Glyph g, int x, int y)
 {
 	int numspecs;
-	XftGlyphFontSpec spec;
+	XftGlyphFontSpec *specs = xw.specbuf;
 
-	numspecs = xmakeglyphfontspecs(&spec, &g, 1, x, y);
-	#if WIDE_GLYPHS_PATCH
-	xdrawglyphfontspecs(&spec, g, numspecs, x, y, DRAW_BG | DRAW_FG);
-	#else
-	xdrawglyphfontspecs(&spec, g, numspecs, x, y);
-	#endif // WIDE_GLYPHS_PATCH
+	numspecs = xmakeglyphfontspecs(specs, &g, 1, x, y);
+	xdrawglyphfontspecs(specs, g, numspecs, x, y
+		#if WIDE_GLYPHS_PATCH
+		,DRAW_BG | DRAW_FG
+		#endif // WIDE_GLYPHS_PATCH
+		#if LIGATURES_PATCH
+		,(g.mode & ATTR_WIDE) ? 2 : 1
+		#endif // LIGATURES_PATCH
+	);
 }
 
 void
@@ -2603,9 +2668,16 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
 	XRenderColor colbg;
 	#endif // DYNAMIC_CURSOR_COLOR_PATCH
 
+	#if !DYNAMIC_CURSOR_COLOR_PATCH
 	/* remove the old cursor */
 	if (selected(ox, oy))
+		#if SELECTION_COLORS_PATCH
+		og.mode |= ATTR_SELECTED;
+		#else
 		og.mode ^= ATTR_REVERSE;
+		#endif // SELECTION_COLORS_PATCH
+	#endif // DYNAMIC_CURSOR_COLOR_PATCH
+
 	#if LIGATURES_PATCH
 	/* Redraw the line where cursor was previously.
 	 * It will restore the ligatures broken by the cursor. */
@@ -2625,15 +2697,25 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
 	/*
 	 * Select the right color for the right mode.
 	 */
+	g.mode &= ATTR_BOLD|ATTR_ITALIC|ATTR_UNDERLINE|ATTR_STRUCK|ATTR_WIDE
 	#if BOXDRAW_PATCH
-	g.mode &= ATTR_BOLD|ATTR_ITALIC|ATTR_UNDERLINE|ATTR_STRUCK|ATTR_WIDE|ATTR_BOXDRAW;
-	#else
-	g.mode &= ATTR_BOLD|ATTR_ITALIC|ATTR_UNDERLINE|ATTR_STRUCK|ATTR_WIDE;
+	|ATTR_BOXDRAW
 	#endif // BOXDRAW_PATCH
+	#if DYNAMIC_CURSOR_COLOR_PATCH
+	|ATTR_REVERSE
+	#endif // DYNAMIC_CURSOR_COLOR_PATCH
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	|ATTR_HIGHLIGHT
+	#endif // KEYBOARDSELECT_PATCH
+	;
 
 	if (IS_SET(MODE_REVERSE)) {
 		g.mode |= ATTR_REVERSE;
 		g.bg = defaultfg;
+		#if SELECTION_COLORS_PATCH
+		g.fg = defaultcs;
+		drawcol = dc.col[defaultrcs];
+		#else
 		if (selected(cx, cy)) {
 			drawcol = dc.col[defaultcs];
 			g.fg = defaultrcs;
@@ -2641,25 +2723,33 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
 			drawcol = dc.col[defaultrcs];
 			g.fg = defaultcs;
 		}
+		#endif // SELECTION_COLORS_PATCH
 	} else {
+		#if SELECTION_COLORS_PATCH
+		g.fg = defaultbg;
+		g.bg = defaultcs;
+		drawcol = dc.col[defaultcs];
+		#else
 		if (selected(cx, cy)) {
+			#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+			g.mode &= ~(ATTR_REVERSE | ATTR_HIGHLIGHT);
+			#elif DYNAMIC_CURSOR_COLOR_PATCH
+			g.mode &= ~ATTR_REVERSE;
+			#endif // DYNAMIC_CURSOR_COLOR_PATCH
 			g.fg = defaultfg;
 			g.bg = defaultrcs;
-		}
-		#if !DYNAMIC_CURSOR_COLOR_PATCH
-		else {
-			g.fg = defaultbg;
-			g.bg = defaultcs;
-		}
-
-		drawcol = dc.col[g.bg];
-		#else
-		else if (!(og.mode & ATTR_REVERSE)) {
+		} else {
+			#if DYNAMIC_CURSOR_COLOR_PATCH
 			unsigned int tmpcol = g.bg;
 			g.bg = g.fg;
 			g.fg = tmpcol;
+			#else
+			g.fg = defaultbg;
+			g.bg = defaultcs;
+			#endif // DYNAMIC_CURSOR_COLOR_PATCH
 		}
 
+		#if DYNAMIC_CURSOR_COLOR_PATCH
 		if (IS_TRUECOL(g.bg)) {
 			colbg.alpha = 0xffff;
 			colbg.red = TRUERED(g.bg);
@@ -2668,8 +2758,16 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
 			XftColorAllocValue(xw.dpy, xw.vis, xw.cmap, &colbg, &drawcol);
 		} else
 			drawcol = dc.col[g.bg];
+		#else
+		drawcol = dc.col[g.bg];
 		#endif // DYNAMIC_CURSOR_COLOR_PATCH
+		#endif // SELECTION_COLORS_PATCH
 	}
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	if (g.mode & ATTR_HIGHLIGHT)
+		g.mode ^= ATTR_REVERSE;
+	#endif // KEYBOARDSELECT_PATCH
 
 	/* draw the new one */
 	if (IS_SET(MODE_FOCUSED)) {
@@ -2793,6 +2891,9 @@ xseticontitle(char *p)
 	XTextProperty prop;
 	DEFAULT(p, opt_title);
 
+	if (p[0] == '\0')
+		p = opt_title;
+
 	if (Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
 			&prop) != Success)
 		return;
@@ -2812,7 +2913,7 @@ xsettitle(char *p, int pop)
 		titlestack[tstki] = NULL;
 		tstki = (tstki - 1 + TITLESTACKSIZE) % TITLESTACKSIZE;
 		p = titlestack[tstki] ? titlestack[tstki] : opt_title;
-	} else if (p) {
+	} else if (p && p[0] != '\0') {
 		titlestack[tstki] = xstrdup(p);
 	} else {
 		titlestack[tstki] = NULL;
@@ -2852,6 +2953,9 @@ xsettitle(char *p)
 	XTextProperty prop;
 	DEFAULT(p, opt_title);
 
+	if (p[0] == '\0')
+		p = opt_title;
+
 	if (Xutf8TextListToTextProperty(xw.dpy, &p, 1, XUTF8StringStyle,
 			&prop) != Success)
 		return;
@@ -2871,15 +2975,109 @@ xstartdraw(void)
 	return IS_SET(MODE_VISIBLE);
 }
 
+#if LIGATURES_PATCH && WIDE_GLYPHS_PATCH
+void
+xdrawline(Line line, int x1, int y1, int x2)
+{
+	int i, j, x, ox, numspecs;
+	Glyph new;
+	GlyphFontSeq *seq = xw.specseq;
+	XftGlyphFontSpec *specs = xw.specbuf;
+
+	/* Draw line in 2 passes: background and foreground. This way wide glyphs
+	   won't get truncated (#223) */
+
+	/* background */
+	i = j = ox = 0;
+	for (x = x1; x < x2; x++) {
+		new = line[x];
+		if (new.mode == ATTR_WDUMMY)
+			continue;
+		if (selected(x, y1))
+			#if SELECTION_COLORS_PATCH
+			new.mode |= ATTR_SELECTED;
+			#else
+			new.mode ^= ATTR_REVERSE;
+			#endif // SELECTION_COLORS_PATCH
+		if ((i > 0) && ATTRCMP(seq[j].base, new)) {
+			numspecs = xmakeglyphfontspecs(specs, &line[ox], x - ox, ox, y1);
+			xdrawglyphfontspecs(specs, seq[j].base, numspecs, ox, y1, DRAW_BG, x - ox);
+			seq[j].charlen = x - ox;
+			seq[j++].numspecs = numspecs;
+			specs += numspecs;
+			i = 0;
+		}
+		if (i == 0) {
+			ox = x;
+			seq[j].ox= ox;
+			seq[j].base = new;
+		}
+		i++;
+	}
+	if (i > 0) {
+		numspecs = xmakeglyphfontspecs(specs, &line[ox], x2 - ox, ox, y1);
+		xdrawglyphfontspecs(specs, seq[j].base, numspecs, ox, y1, DRAW_BG, x2 - ox);
+		seq[j].charlen = x2 - ox;
+		seq[j++].numspecs = numspecs;
+	}
+
+	/* foreground */
+	specs = xw.specbuf;
+	for (i = 0; i < j; i++) {
+		xdrawglyphfontspecs(specs, seq[i].base, seq[i].numspecs, seq[i].ox, y1, DRAW_FG, seq[i].charlen);
+		specs += seq[i].numspecs;
+	}
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	kbds_drawstatusbar(y1);
+	#endif // KEYBOARDSELECT_PATCH
+}
+#elif LIGATURES_PATCH
 void
 xdrawline(Line line, int x1, int y1, int x2)
 {
 	int i, x, ox, numspecs;
-	#if WIDE_GLYPHS_PATCH
-	int numspecs_cached;
-	#endif // WIDE_GLYPHS_PATCH
 	Glyph base, new;
-	#if WIDE_GLYPHS_PATCH
+
+	XftGlyphFontSpec *specs = xw.specbuf;
+
+	i = ox = 0;
+	for (x = x1; x < x2; x++) {
+		new = line[x];
+		if (new.mode == ATTR_WDUMMY)
+			continue;
+		if (selected(x, y1))
+			#if SELECTION_COLORS_PATCH
+			new.mode |= ATTR_SELECTED;
+			#else
+			new.mode ^= ATTR_REVERSE;
+			#endif // SELECTION_COLORS_PATCH
+		if ((i > 0) && ATTRCMP(base, new)) {
+			numspecs = xmakeglyphfontspecs(specs, &line[ox], x - ox, ox, y1);
+			xdrawglyphfontspecs(specs, base, numspecs, ox, y1, x - ox);
+			i = 0;
+		}
+		if (i == 0) {
+			ox = x;
+			base = new;
+		}
+		i++;
+	}
+	if (i > 0) {
+		numspecs = xmakeglyphfontspecs(specs, &line[ox], x2 - ox, ox, y1);
+		xdrawglyphfontspecs(specs, base, numspecs, ox, y1, x2 - ox);
+	}
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	kbds_drawstatusbar(y1);
+	#endif // KEYBOARDSELECT_PATCH
+}
+#elif WIDE_GLYPHS_PATCH
+void
+xdrawline(Line line, int x1, int y1, int x2)
+{
+	int i, x, ox, numspecs, numspecs_cached;
+	Glyph base, new;
 	XftGlyphFontSpec *specs;
 
 	numspecs_cached = xmakeglyphfontspecs(xw.specbuf, &line[x1], x2 - x1, x1, y1);
@@ -2892,13 +3090,14 @@ xdrawline(Line line, int x1, int y1, int x2)
 		i = ox = 0;
 		for (x = x1; x < x2 && i < numspecs; x++) {
 			new = line[x];
-			#if VIM_BROWSE_PATCH
-			historyOverlay(x, y1, &new);
-			#endif // VIM_BROWSE_PATCH
 			if (new.mode == ATTR_WDUMMY)
 				continue;
 			if (selected(x, y1))
+				#if SELECTION_COLORS_PATCH
+				new.mode |= ATTR_SELECTED;
+				#else
 				new.mode ^= ATTR_REVERSE;
+				#endif // SELECTION_COLORS_PATCH
 			if (i > 0 && ATTRCMP(base, new)) {
 				xdrawglyphfontspecs(specs, base, i, ox, y1, dmode);
 				specs += i;
@@ -2914,20 +3113,32 @@ xdrawline(Line line, int x1, int y1, int x2)
 		if (i > 0)
 			xdrawglyphfontspecs(specs, base, i, ox, y1, dmode);
 	}
-	#else
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	kbds_drawstatusbar(y1);
+	#endif // KEYBOARDSELECT_PATCH
+}
+#else // !WIDE_GLYPHS_PATCH and !LIGATURES_PATCH
+void
+xdrawline(Line line, int x1, int y1, int x2)
+{
+	int i, x, ox, numspecs;
+	Glyph base, new;
+
 	XftGlyphFontSpec *specs = xw.specbuf;
 
 	numspecs = xmakeglyphfontspecs(specs, &line[x1], x2 - x1, x1, y1);
 	i = ox = 0;
 	for (x = x1; x < x2 && i < numspecs; x++) {
 		new = line[x];
-		#if VIM_BROWSE_PATCH
-		historyOverlay(x, y1, &new);
-		#endif // VIM_BROWSE_PATCH
 		if (new.mode == ATTR_WDUMMY)
 			continue;
 		if (selected(x, y1))
+			#if SELECTION_COLORS_PATCH
+			new.mode |= ATTR_SELECTED;
+			#else
 			new.mode ^= ATTR_REVERSE;
+			#endif // SELECTION_COLORS_PATCH
 		if (i > 0 && ATTRCMP(base, new)) {
 			xdrawglyphfontspecs(specs, base, i, ox, y1);
 			specs += i;
@@ -2942,79 +3153,156 @@ xdrawline(Line line, int x1, int y1, int x2)
 	}
 	if (i > 0)
 		xdrawglyphfontspecs(specs, base, i, ox, y1);
-	#endif // WIDE_GLYPHS_PATCH
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	kbds_drawstatusbar(y1);
+	#endif // KEYBOARDSELECT_PATCH
 }
+#endif // WIDE_GLYPHS_PATCH | LIGATURES_PATCH
 
 void
 xfinishdraw(void)
 {
 	#if SIXEL_PATCH
 	ImageList *im, *next;
+	Imlib_Image origin, scaled;
 	XGCValues gcvalues;
 	GC gc;
+	int width, height;
+	int x, x2, del, destx, desty;
+	Line line;
 	#endif // SIXEL_PATCH
 
 	#if SIXEL_PATCH
 	for (im = term.images; im; im = next) {
-		/* get the next image here, because delete_image() will delete the current image */
 		next = im->next;
 
-		if (im->should_delete) {
-			delete_image(im);
+		/* do not draw or process the image, if it is not visible */
+		if (im->x >= term.col || im->y >= term.row || im->y < 0)
 			continue;
-		}
 
+		#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+		/* do not draw the image on the search bar */
+		if (im->y == term.row-1 && IS_SET(MODE_KBDSELECT) && kbds_issearchmode())
+			continue;
+		#endif // KEYBOARDSELECT_PATCH
+
+		/* scale the image */
+		width = MAX(im->width * win.cw / im->cw, 1);
+		height = MAX(im->height * win.ch / im->ch, 1);
 		if (!im->pixmap) {
-			im->pixmap = (void *)XCreatePixmap(xw.dpy, xw.win, im->width, im->height,
+			im->pixmap = (void *)XCreatePixmap(xw.dpy, xw.win, width, height,
 				#if ALPHA_PATCH
 				xw.depth
 				#else
 				DefaultDepth(xw.dpy, xw.scr)
 				#endif // ALPHA_PATCH
 			);
-			XImage ximage = {
-				.format = ZPixmap,
-				.data = (char *)im->pixels,
-				.width = im->width,
-				.height = im->height,
-				.xoffset = 0,
-				.byte_order = LSBFirst,
-				.bitmap_bit_order = MSBFirst,
-				.bits_per_pixel = 32,
-				.bytes_per_line = im->width * 4,
-				.bitmap_unit = 32,
-				.bitmap_pad = 32,
-				#if ALPHA_PATCH
-				.depth = xw.depth
-				#else
-				.depth = 24
-				#endif // ALPHA_PATCH
-			};
-			XPutImage(xw.dpy, (Drawable)im->pixmap, dc.gc, &ximage, 0, 0, 0, 0, im->width, im->height);
-			free(im->pixels);
-			im->pixels = NULL;
+			if (!im->pixmap)
+				continue;
+			if (win.cw == im->cw && win.ch == im->ch) {
+				XImage ximage = {
+					.format = ZPixmap,
+					.data = (char *)im->pixels,
+					.width = im->width,
+					.height = im->height,
+					.xoffset = 0,
+					.byte_order = sixelbyteorder,
+					.bitmap_bit_order = MSBFirst,
+					.bits_per_pixel = 32,
+					.bytes_per_line = im->width * 4,
+					.bitmap_unit = 32,
+					.bitmap_pad = 32,
+					#if ALPHA_PATCH
+					.depth = xw.depth
+					#else
+					.depth = 24
+					#endif // ALPHA_PATCH
+				};
+				XPutImage(xw.dpy, (Drawable)im->pixmap, dc.gc, &ximage, 0, 0, 0, 0, width, height);
+				if (im->transparent)
+					im->clipmask = (void *)sixel_create_clipmask((char *)im->pixels, width, height);
+			} else {
+				origin = imlib_create_image_using_data(im->width, im->height, (DATA32 *)im->pixels);
+				if (!origin)
+					continue;
+				imlib_context_set_image(origin);
+				imlib_image_set_has_alpha(1);
+				imlib_context_set_anti_alias(im->transparent ? 0 : 1); /* anti-aliasing messes up the clip mask */
+				scaled = imlib_create_cropped_scaled_image(0, 0, im->width, im->height, width, height);
+				imlib_free_image_and_decache();
+				if (!scaled)
+					continue;
+				imlib_context_set_image(scaled);
+				imlib_image_set_has_alpha(1);
+				XImage ximage = {
+					.format = ZPixmap,
+					.data = (char *)imlib_image_get_data_for_reading_only(),
+					.width = width,
+					.height = height,
+					.xoffset = 0,
+					.byte_order = sixelbyteorder,
+					.bitmap_bit_order = MSBFirst,
+					.bits_per_pixel = 32,
+					.bytes_per_line = width * 4,
+					.bitmap_unit = 32,
+					.bitmap_pad = 32,
+					#if ALPHA_PATCH
+					.depth = xw.depth
+					#else
+					.depth = 24
+					#endif // ALPHA_PATCH
+				};
+				XPutImage(xw.dpy, (Drawable)im->pixmap, dc.gc, &ximage, 0, 0, 0, 0, width, height);
+				if (im->transparent)
+					im->clipmask = (void *)sixel_create_clipmask((char *)imlib_image_get_data_for_reading_only(), width, height);
+				imlib_free_image_and_decache();
+			}
 		}
 
+		/* clip the image so it does not go over to borders */
+		x2 = MIN(im->x + im->cols, term.col);
+		width = MIN(width, (x2 - im->x) * win.cw);
+
+		/* delete the image if the text cells behind it have been changed */
+		#if SCROLLBACK_PATCH || REFLOW_PATCH
+		line = TLINE(im->y);
+		#else
+		line = term.line[im->y];
+		#endif // SCROLLBACK_PATCH | REFLOW_PATCH
+		for (del = 0, x = im->x; x < x2; x++) {
+			if ((del = !(line[x].mode & ATTR_SIXEL)))
+				break;
+		}
+		if (del) {
+			delete_image(im);
+			continue;
+		}
+
+		/* draw the image */
 		memset(&gcvalues, 0, sizeof(gcvalues));
 		gcvalues.graphics_exposures = False;
 		gc = XCreateGC(xw.dpy, xw.win, GCGraphicsExposures, &gcvalues);
-
 		#if ANYSIZE_PATCH
-		XCopyArea(xw.dpy, (Drawable)im->pixmap, xw.buf, gc, 0, 0, im->width, im->height, win.hborderpx + im->x * win.cw, win.vborderpx + im->y * win.ch);
+		destx = win.hborderpx + im->x * win.cw;
+		desty = win.vborderpx + im->y * win.ch;
 		#else
-		XCopyArea(xw.dpy, (Drawable)im->pixmap, xw.buf, gc, 0, 0, im->width, im->height, borderpx + im->x * win.cw, borderpx + im->y * win.ch);
+		destx = borderpx + im->x * win.cw;
+		desty = borderpx + im->y * win.ch;
 		#endif // ANYSIZE_PATCH
+		if (im->clipmask) {
+			XSetClipMask(xw.dpy, gc, (Drawable)im->clipmask);
+			XSetClipOrigin(xw.dpy, gc, destx, desty);
+		}
+		XCopyArea(xw.dpy, (Drawable)im->pixmap, xw.buf, gc, 0, 0, width, height, destx, desty);
 		XFreeGC(xw.dpy, gc);
-
 	}
 	#endif // SIXEL_PATCH
 
 	#if !SINGLE_DRAWABLE_BUFFER_PATCH
 	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, 0, 0, win.w, win.h, 0, 0);
 	#endif // SINGLE_DRAWABLE_BUFFER_PATCH
-	XSetForeground(xw.dpy, dc.gc,
-			dc.col[IS_SET(MODE_REVERSE)?
-				defaultfg : defaultbg].pixel);
+	XSetForeground(xw.dpy, dc.gc, dc.col[IS_SET(MODE_REVERSE) ? defaultfg : defaultbg].pixel);
 }
 
 void
@@ -3249,7 +3537,7 @@ kpress(XEvent *ev)
 	Shortcut *bp;
 
 	#if HIDECURSOR_PATCH
-	if (xw.pointerisvisible) {
+	if (xw.pointerisvisible && hidecursor) {
 		#if OPENURLONCLICK_PATCH
 		#if ANYSIZE_PATCH
 		int x = e->x - win.hborderpx;
@@ -3283,7 +3571,25 @@ kpress(XEvent *ev)
 	} else {
 		len = XLookupString(e, buf, sizeof buf, &ksym, NULL);
 	}
-	#if KEYBOARDSELECT_PATCH
+
+	#if KEYBOARDSELECT_PATCH && REFLOW_PATCH
+	if (IS_SET(MODE_KBDSELECT) ) {
+		if (kbds_issearchmode()) {
+			for (bp = shortcuts; bp < shortcuts + LEN(shortcuts); bp++) {
+				if (ksym == bp->keysym && match(bp->mod, e->state) &&
+						(!bp->screen || bp->screen == screen) &&
+						(bp->func == clippaste || bp->func == selpaste)) {
+					bp->func(&(bp->arg));
+					return;
+				}
+			}
+		}
+		if (match(XK_NO_MOD, e->state) ||
+			(XK_Shift_L | XK_Shift_R) & e->state )
+			win.mode ^= kbds_keyboardhandler(ksym, buf, len, 0);
+		return;
+	}
+	#elif KEYBOARDSELECT_PATCH
 	if ( IS_SET(MODE_KBDSELECT) ) {
 		if ( match(XK_NO_MOD, e->state) ||
 			(XK_Shift_L | XK_Shift_R) & e->state )
@@ -3291,13 +3597,6 @@ kpress(XEvent *ev)
 		return;
 	}
 	#endif // KEYBOARDSELECT_PATCH
-	#if VIM_BROWSE_PATCH
-	if (IS_SET(MODE_NORMAL)) {
-		if (kPressHist(buf, len, match(ControlMask, e->state), &ksym)
-		                                      == finish) normalMode();
-		return;
-	}
-	#endif // VIM_BROWSE_PATCH
 
 	screen = tisaltscr() ? S_ALT : S_PRI;
 
@@ -3547,17 +3846,17 @@ usage(void)
 		" [-d path]"
 		#endif // WORKINGDIR_PATCH
 		" [-f font] [-g geometry]"
-	    " [-n name] [-o file]\n"
-	    "          [-T title] [-t title] [-w windowid]"
-	    " [[-e] command [args ...]]\n"
-	    "       %s [-aiv] [-c class]"
+		" [-n name] [-o file]\n"
+		"          [-T title] [-t title] [-w windowid]"
+		" [[-e] command [args ...]]\n"
+		"       %s [-aiv] [-c class]"
 		#if WORKINGDIR_PATCH
 		" [-d path]"
 		#endif // WORKINGDIR_PATCH
 		" [-f font] [-g geometry]"
-	    " [-n name] [-o file]\n"
-	    "          [-T title] [-t title] [-w windowid] -l line"
-	    " [stty_args ...]\n", argv0, argv0);
+		" [-n name] [-o file]\n"
+		"          [-T title] [-t title] [-w windowid] -l line"
+		" [stty_args ...]\n", argv0, argv0);
 }
 
 int
@@ -3598,7 +3897,17 @@ main(int argc, char *argv[])
 	case 'g':
 		xw.gm = XParseGeometry(EARGF(usage()),
 				&xw.l, &xw.t, &cols, &rows);
+		#if ANYGEOMETRY_PATCH
+		geometry = CellGeometry;
+		#endif // ANYGEOMETRY_PATCH
 		break;
+	#if ANYGEOMETRY_PATCH
+	case 'G':
+		xw.gm = XParseGeometry(EARGF(usage()),
+		        &xw.l, &xw.t, &width, &height);
+		geometry = PixelGeometry;
+		break;
+	#endif // ANYGEOMETRY_PATCH
 	case 'i':
 		xw.isfixed = 1;
 		break;
@@ -3643,13 +3952,32 @@ run:
 
 	config_init(xw.dpy);
 	#endif // XRESOURCES_PATCH
+	#if LIGATURES_PATCH
+	hbcreatebuffer();
+	#endif // LIGATURES_PATCH
+
+	#if ANYGEOMETRY_PATCH
+	switch (geometry) {
+	case CellGeometry:
+		xinit(cols, rows);
+		break;
+	case PixelGeometry:
+		xinit(width, height);
+		cols = (win.w - 2 * borderpx) / win.cw;
+		rows = (win.h - 2 * borderpx) / win.ch;
+		break;
+	}
+	#endif // ANYGEOMETRY_PATCH
+
 	cols = MAX(cols, 1);
 	rows = MAX(rows, 1);
 	#if ALPHA_PATCH && ALPHA_FOCUS_HIGHLIGHT_PATCH
 	defaultbg = MAX(LEN(colorname), 256);
 	#endif // ALPHA_FOCUS_HIGHLIGHT_PATCH
 	tnew(cols, rows);
+	#if !ANYGEOMETRY_PATCH
 	xinit(cols, rows);
+	#endif // ANYGEOMETRY_PATCH
 	#if BACKGROUND_IMAGE_PATCH
 	bginit();
 	#endif // BACKGROUND_IMAGE_PATCH
@@ -3660,6 +3988,9 @@ run:
 		die("Can't change to working directory %s\n", opt_dir);
 	#endif // WORKINGDIR_PATCH
 	run();
+	#if LIGATURES_PATCH
+	hbdestroybuffer();
+	#endif // LIGATURES_PATCH
 
 	return 0;
 }

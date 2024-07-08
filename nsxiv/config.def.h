@@ -13,7 +13,7 @@ static const char *MARK_FG[]  = { "Nsxiv.mark.foreground",      NULL };
 #if HAVE_LIBFONTS
 static const char *BAR_BG[]   = { "Nsxiv.bar.background",       NULL };
 static const char *BAR_FG[]   = { "Nsxiv.bar.foreground",       NULL };
-static const char *BAR_FONT[] = { "Nsxiv.bar.font",            "Hack Nerd Font-11" };
+static const char *BAR_FONT[] = { "Nsxiv.bar.font",            "monospace-8" };
 
 /* if true, statusbar appears on top of the window */
 static const bool TOP_STATUSBAR = false;
