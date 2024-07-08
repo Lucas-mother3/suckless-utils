@@ -37,7 +37,6 @@ main() {
     done
 }
 
-while getopts ":e:d" flag; do
     case $flag in
         -e )
             automode=true
@@ -48,10 +47,9 @@ while getopts ":e:d" flag; do
             main
             ;;
     esac
-done
 
 if [ $OPTIND -eq 1 ]; then
-    automode=true
+    automode=false
     main
 fi
 shift $((OPTIND-1))
