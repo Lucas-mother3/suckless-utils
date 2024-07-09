@@ -49,7 +49,7 @@ main() {
     esac
 
 if [ $OPTIND -eq 1 ]; then
-    automode=false
+    automode=true
     main
 fi
 shift $((OPTIND-1))
