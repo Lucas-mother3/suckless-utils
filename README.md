@@ -33,6 +33,16 @@ This was designed to save me some sanity in maintaining it as well as easily int
 - spmenu (dmenu alternative)
 - newsboat (rss/atom feed reader)
 
+## Unique feaatures/patches
+### dwm
+- Power menu functionality
+- Up to 3 dock buttons
+- Primitive window controls
+
+### tabbed
+- Ability to tab windows (from `tabbed-hjc`)
+- Ability to co-operate with `tabb` (on the `scripts` folder)
+
 ## Notes
 
 ### slim notes
@@ -189,13 +199,14 @@ Refer to patches.def.h and config.mk for additional patch-related requirements.
 - [x] Rebase the dwm build to dwm-flexipatch (maybe under a new branch with a VM debug environment?)
 - [x] Integrate barmodules if the dwm-flexipatch rewrite did happen
 - [x] Version jump from 6.3 -> 6.4
+- [x] Codebase update from 6.4 -> 6.5
 - [ ] Potentially making this project into a desktop environment, when I feel it's ready to do so
 - [ ] Use `spmenu-desktop-launcher` if it's mature/usable, retaining `spmenu_run` for backwards compatibility with existing scripts 
 - [ ] Making a wiki for documenting functions in this build, as well as other important information about the project
 
 ## Patching even further 
 
-Patching everything is as easy as editing the `patches.def.h` file included in the repo. Unlike 6.3, which had a complicated codebase, 6.4 aims for a much more streamlined process of patching things, unlike the previous version which would mean using `patch` and manually editing files whenever something isn't patched up properly. 
+Patching everything is as easy as editing the `patches.def.h` file included in the repo. Unlike 6.3, which had a complicated codebase, 6.5 aims for a much more streamlined process of patching things, unlike the previous version which would mean using `patch` and manually editing files whenever something isn't patched up properly. 
 
 A huge thanks for bakkeby on the work for making suckless software easier to patch, meaning more people could modify and configure the code to their liking. 
 
@@ -208,7 +219,7 @@ Documentations are also welcome, in fact, I do need someone who could maintain d
 ## How the versioning system works
 
 Suckless Utilities (the whole package and not the individual components) are versioned under the current version of the repo's dwm.
-Even if dwm(-flexipatch) 6.5 releases, if the repo still uses dwm(-flexipatch) 6.4 for compatibility reasons, the whole package will still be Suckless Utilities 6.4.
+Even if dwm(-flexipatch) 6.6 releases, if the repo still uses dwm(-flexipatch) 6.5 for compatibility reasons, the whole package will still be Suckless Utilities 6.4.
 
 ## Licensing
 All programs are licensed under the MIT License, except for some submodules, which might have different licenses (for example, GPLv2).
