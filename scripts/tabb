@@ -1,9 +1,8 @@
 #!/bin/bash
 # tabb for tabbed by Alexis.
-tabbed_id=$(tabbed -d -c)
-
 main() {
-    while true; do
+        tabbed_id=$(tabbed -d -c)
+	while true; do
         if [[ ! $(pgrep -x "tabbed") ]]; then
             echo "No Tabbed process found. Exiting..."
             exit 1
@@ -31,25 +30,43 @@ main() {
                     xdotool windowreparent "$wid" "$tabbed_id"
                 fi
             done
-        if [ "$automode" = false ]; then
-            exit 0
+        if [[ $automode = "false" ]]; then
+            break
+#	    exit
         fi
     done
 }
 
-    case $flag in
-        -e )
-            automode=true
-            main
-            ;;
-        -d )
-            automode=false
-            main
-            ;;
-    esac
-
+helpfunct(){
+	echo "tabb - Handler script for suckless tabbed"
+	echo ""
+	echo "by Alexis Jhon Gaspar (lucss21a) (c) 2023-2024"
+	echo ""
+        echo "Options:"
+	echo ""
+	echo "-e: Turn on auto-reparenting on all windows (default)"
+	echo "-d: Turn on auto-reprenting only on existing windows"
+	echo "-h: Show this message"
+}
+while getopts "edh" opt; do
+	case $opt in
+		e )
+			automode=true
+			main
+			;;
+		d )
+		
+			automode=false
+			main
+			;;
+		h )
+			helpfunct
+			;;
+	esac
+done
 if [ $OPTIND -eq 1 ]; then
-    automode=true
-    main
+	shift $((OPTIND-1))
+	echo "No arguments passed, turning auto-reparenting on ALL windows..."
+	automode=true
+	main
 fi
-shift $((OPTIND-1))
